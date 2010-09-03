@@ -8,6 +8,7 @@
 <title>Advertiser Login Page, LBA</title>
 </head>
 <body>
+<form name="loginForm" method="get" action="UserRegistrationServlet">
 <center>
 	<table border=1 cellspacing=0 cellpadding=0>
 		<tr>
@@ -32,5 +33,10 @@
 		<tr><td><a href="home.jsp">Temp.HomepageLink</a></td></tr>
 	</table>
 </center>
+<input type="hidden" name="page" value="login" />
+</form>
+<% if(request.getParameter("login") != null) { %>
+Login Failed!!
+<% } %>
 </body>
 </html>

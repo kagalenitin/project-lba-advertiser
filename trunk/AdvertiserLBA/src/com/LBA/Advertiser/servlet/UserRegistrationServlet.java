@@ -2,7 +2,6 @@ package com.LBA.Advertiser.servlet;
 
 import java.io.IOException;
 
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +14,7 @@ import com.LBA.Advertiser.model.*;
 public class UserRegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     RegistrationModel objModel = new RegistrationModel();
+    AdvertiserBean objBean = new AdvertiserBean();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -40,7 +40,23 @@ public class UserRegistrationServlet extends HttpServlet {
 		}else if (action.equals("forgotpassword")){
 			//Redirects to forgot password .jsp.
 		}
+		else if (action.equals("login"))
+		{
+			objBean.setUserName(request.getParameter("username"));
+			objBean.setPassword(request.getParameter("password"));
+			if (objModel.Login(objBean))
+					{request.getSession().setAttribute("username",request.getParameter("username"));
+					 //Session.
+				     getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
+				
+			}
+			else
+			{
+				response.sendRedirect("./index.jsp?login=false");
+			}
+		}
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

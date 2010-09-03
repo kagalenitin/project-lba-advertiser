@@ -8,7 +8,7 @@
 </head>
 <body>
 <table border=1 cellspacing=1 cellpadding=1 width=100%>
-	<tr align=center><td colspan=4><h1>Welcome User,</h1></td></tr>
+	<tr align=center><td colspan=4><h1>Welcome <%= session.getAttribute("username") %></h1></td></tr>
 	<tr>
 		<td><a href="">Edit Details</a></td>
 		<td>Create Contract</td>
