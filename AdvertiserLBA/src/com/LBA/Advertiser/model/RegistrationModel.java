@@ -85,4 +85,38 @@ public class RegistrationModel {
 			}
 			return userID;
 	}
+
+	//Start of addition by Veenit on 9/1/2010
+	public boolean Login(AdvertiserBean adBeanObject){
+		/*This method will validate the user credentials
+		 **/
+		DBConnect.connectDB();
+		boolean isSuccess = false;
+		try {
+			//Logic to insert the value in the table. Inserting value in the 'Advertiser' DB table.
+			stmtInsert = DBConnect.con.createStatement();
+			String qry = "select * from advertiser where username='"+ adBeanObject.getUserName() +"' and password ='"+adBeanObject.getPassword()+"'" ;
+
+			stmtInsert.executeQuery (qry);
+			rsSet = stmtInsert.getResultSet();
+			boolean valid= rsSet.next();
+			if (!valid) 
+			{ System.out.println("Sorry, you are not a registered user! Please sign up first"); 
+			}
+			else if (valid) 
+			{ String firstName = rsSet.getString("username");  
+			System.out.println("Welcome " + firstName);
+			isSuccess = true;
+			}
+		}
+		catch(Exception ex) 
+		{ System.out.println("Log In failed: An Exception has occurred! " + ex); } 
+		{
+
+		}
+		return isSuccess;
+
+
+	}
+	//End of addition by Veenit on 09/21/10
 }
