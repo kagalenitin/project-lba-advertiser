@@ -11,7 +11,7 @@
 	<tr align=center><td colspan=4><h1>Welcome <%= session.getAttribute("username") %></h1></td></tr>
 	<tr>
 		<td><a href="">Edit Details</a></td>
-		<td>Create Contract</td>
+		<td><a href="contract.jsp">Create Contract</a></td>
 		<td>Create Advertisement</td>
 		<td>Create Product</td>
 	</tr>
