@@ -39,5 +39,15 @@
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ContractCreateServlet</display-name>
+    <servlet-name>ContractCreateServlet</servlet-name>
+    <servlet-class>com.LBA.Advertiser.servlet.ContractCreateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ContractCreateServlet</servlet-name>
+    <url-pattern>/ContractCreateServlet</url-pattern>
+  </servlet-mapping>
   
 </web-app>
