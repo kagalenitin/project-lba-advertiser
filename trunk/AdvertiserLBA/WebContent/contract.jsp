@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form name="contractForm" method="post" action="UserRegistrationServlet">
+<form name="contractForm" method="get" action="ContractCreateServlet">
 	<center>
 		<table border=1 cellspacing=0 cellpadding=0>
 				<tr>
@@ -16,7 +16,7 @@
 				</tr>
 				
 				<tr>
-					<td align="left">Company Name:</td>
+					<td align="left">Contract Name:</td>
 					<td><input type="text" name="companyname" id="companyname" /></td>
 				</tr>
 				<tr>
@@ -34,16 +34,15 @@
 				
 				<tr>
 					<td align="left">Startdate:</td>
-					<td><input type="password" name="password" id="password" /></td>
+					<td><input type="text" name="startdate" id="startdate"/></td>
 				</tr>
 				<tr>
 					<td align="left">Enddate:</td>
 					<td><input type="text" name="enddate" id="enddate" /></td>
 				</tr>
-				
-				
-					<td><input type="submit" value="Register" /></td>
-					<td><input type="reset" value="Clear" /></td>
+				    
+					<td><center><input type="submit" value="Register" /> <input type="reset" value="Clear" /></center></td>
+					
 				</tr>
 		
 		</table>
