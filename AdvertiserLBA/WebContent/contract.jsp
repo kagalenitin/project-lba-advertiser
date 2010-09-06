@@ -7,7 +7,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<table border=1 cellspacing=1 cellpadding=1 width=100%>
+	<tr align=center><td colspan=5><h1>Welcome <%= session.getAttribute("user_session") %></h1></td></tr>
+	<tr>
+		<td><a href="UserRegistrationServlet?page=edituser">Edit Details</a></td>
+		<td><a href="UserRegistrationServlet?page=createcontract">Create Contract</a></td>
+		<td>Create Advertisement</td>
+		<td>Create Product</td>
+		<td><a href="UserRegistrationServlet?page=logout">Logout</a></td>
+	</tr>
+	
+</table>
 <form name="contractForm" method="get" action="ContractCreateServlet">
 	<center>
 		<table border=1 cellspacing=0 cellpadding=0>
@@ -40,8 +50,9 @@
 					<td align="left">Enddate:</td>
 					<td><input type="text" name="enddate" id="enddate" /></td>
 				</tr>
-				    
-					<td><center><input type="submit" value="Register" /> <input type="reset" value="Clear" /></center></td>
+				<tr>  
+					<td><input type="submit" value="Register" /></td> 
+					<td><input type="reset" value="Clear" /></td>
 					
 				</tr>
 		

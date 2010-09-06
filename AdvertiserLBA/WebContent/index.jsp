@@ -8,7 +8,7 @@
 <title>Advertiser Login Page, LBA</title>
 </head>
 <body>
-<form name="loginForm" method="get" action="UserRegistrationServlet">
+<form name="loginform" method="post" action="UserRegistrationServlet">
 <center>
 	<table border=1 cellspacing=0 cellpadding=0>
 		<tr>
@@ -28,15 +28,18 @@
 		</tr>
 		<tr>
 			<td><a href="UserRegistrationServlet?page=forgotpassword">Forgot Password?</a></td>
-			<td><a href="UserRegistrationServlet?page=newuser">New User? Please register!</a></td>
+			<td><a href="UserRegistrationServlet?page=unregistereduser">New User? Please register!</a></td>
 		</tr>
-		<tr><td><a href="home.jsp">Temp.HomepageLink</a></td></tr>
+		<tr>
+			<td><% if(request.getParameter("loginfailed")!=null) { %>
+				Login Failed!!
+				<% } %>
+		</td>
+		</tr>
 	</table>
 </center>
-<input type="hidden" name="page" value="login" />
+<input type="hidden" name="page" value="post_login" />
 </form>
-<% if(request.getParameter("login") != null) { %>
-Login Failed!!
-<% } %>
+
 </body>
 </html>
