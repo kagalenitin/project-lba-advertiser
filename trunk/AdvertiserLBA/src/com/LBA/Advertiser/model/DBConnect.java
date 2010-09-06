@@ -12,10 +12,9 @@ public class DBConnect {
 		try {
 				String username = "root";
 				String password = "";
-				String url = "jdbc:mysql://localhost/LocationAD";
+				String url = "jdbc:mysql://localhost/LocateAD";
 				Class.forName("com.mysql.jdbc.Driver").newInstance();
 				con = DriverManager.getConnection(url, username, password);
-				System.out.println("Connected.");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			 try {

@@ -2,7 +2,7 @@ package com.LBA.Advertiser.bean;
 
 public class AdvertiserBean {
 
-	public String advertiserID;
+	
 	public String userName;
 	public String password;
 	public String firstName;
@@ -11,18 +11,6 @@ public class AdvertiserBean {
 	public String address;
 	public String phone;
 	public String email;
-	/**
-	 * @return the advertiserID
-	 */
-	public String getAdvertiserID() {
-		return advertiserID;
-	}
-	/**
-	 * @param advertiserID the advertiserID to set
-	 */
-	public void setAdvertiserID(String advertiserID) {
-		this.advertiserID = advertiserID;
-	}
 	/**
 	 * @return the userName
 	 */
