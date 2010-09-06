@@ -6,7 +6,7 @@ public class ContractBean {
 
 	public String contractID;
 	public String contractname;
-	public String advertiserID;
+	public String email;
 	public String description;
 	public String space;
 	public String startdate;
@@ -23,11 +23,11 @@ public class ContractBean {
 	public void setContractname(String contractname) {
 		this.contractname = contractname;
 	}
-	public String getAdvertiserID() {
-		return advertiserID;
+	public String getEmail() {
+		return email;
 	}
-	public void setAdvertiserID(String advertiserID) {
-		this.advertiserID = advertiserID;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getDescription() {
 		return description;
@@ -44,13 +44,13 @@ public class ContractBean {
 	public String getStartdate() {
 		return startdate;
 	}
-	public void setStartdate(String startdate) {
-		this.startdate = startdate;
+	public void setStartdate(String string) {
+		this.startdate = string;
 	}
 	public String getEnddate() {
 		return enddate;
 	}
-	public void setEnddate(String enddate) {
-		this.enddate = enddate;
+	public void setEnddate(String string) {
+		this.enddate = string;
 	}
 }

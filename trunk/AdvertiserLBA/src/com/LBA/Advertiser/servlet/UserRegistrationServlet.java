@@ -111,6 +111,7 @@ public class UserRegistrationServlet extends HttpServlet {
 			}
 			session = request.getSession(true);
 			globalSession = (String) session.getValue("user_session");
+			System.out.println(globalSession);
 			
 		}else{
 			//Still need to handle the error page. We can create an error page !
