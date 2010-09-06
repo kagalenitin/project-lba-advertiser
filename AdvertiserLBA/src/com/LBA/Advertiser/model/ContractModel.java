@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import com.LBA.Advertiser.bean.AdvertiserBean;
 import com.LBA.Advertiser.bean.ContractBean;
+import com.LBA.Advertiser.servlet.UserRegistrationServlet;
 
 public class ContractModel {
 	static boolean valueInserted;
@@ -19,11 +20,12 @@ public class ContractModel {
 		 **/
 		DBConnect.connectDB();
 		try {
-			//Logic to insert the value in the table. Inserting value in the 'Advertiser' DB table.
+			//Logic to insert the value in the table. Inserting value in the 'Contract' DB table.
+			//Need to figure out how to insert Advertiser Id 
 			stmtInsert = DBConnect.con.createStatement();
 			String qry = "INSERT into contract"+
-						" (contractID, contractname, advertiserID, description, space, startdate, enddate)"+
-						" values ('"+ conBeanObject.getContractID()+"', '"+ conBeanObject.getContractname()+"', '"+conBeanObject.getAdvertiserID() +"','"+ conBeanObject.getDescription()+"', '"+conBeanObject.getSpace()+"', "+conBeanObject.getStartdate()+", '"+conBeanObject.getEnddate() +"');";
+						" (contractID, contractname, email, description, space, startdate, enddate)"+
+						" values ('"+ conBeanObject.getContractID()+"', '"+ conBeanObject.getContractname()+"', '"+ UserRegistrationServlet.globalSession+"','"+ conBeanObject.getDescription()+"', '"+conBeanObject.getSpace()+"', "+conBeanObject.getStartdate()+", '"+conBeanObject.getEnddate() +"');";
 			
 			int res = stmtInsert.executeUpdate(qry);
 			if(res==1){
@@ -41,12 +43,13 @@ public class ContractModel {
 		
 	}
 	
-	/*public boolean getUserRegistration(){
-		 To check whether the user registration was successful. 
+	public boolean getContract(){
+		 /* To check whether the user registration was successful. 
 		 * This value will be retrieved in showResult.jsp form.
-		 * 
+		 */
 		return valueInserted;
-	}*/
+	}
+
 }
 	
 	/*public String getAdvertiserUserID(){

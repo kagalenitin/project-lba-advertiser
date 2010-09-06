@@ -18,7 +18,7 @@
 	</tr>
 	
 </table>
-<form name="contractForm" method="get" action="ContractCreateServlet">
+<form name="contractForm" method="post" action="ContractCreateServlet">
 	<center>
 		<table border=1 cellspacing=0 cellpadding=0>
 				<tr>
@@ -26,16 +26,17 @@
 				</tr>
 				
 				<tr>
-					<td align="left">Contract Name:</td>
-					<td><input type="text" name="companyname" id="companyname" /></td>
+					<td align="left">Contract ID:</td>
+					<td><input type="text" name="contractID" id="contractID" /></td>
 				</tr>
 				<tr>
-					<td align="left">Advertiser Id:</td>
-					<td><input type="text" name="advertiserid" id="advertiserid" /></td>
+					<td align="left">Contract Name:</td>
+					<td><input type="text" name="contractname" id="contractname" /></td>
 				</tr>
+				
 				<tr>
 					<td align="left">Description:</td>
-					<td><input type="text" name="advdescription" id="advdescription" /></td>
+					<td><input type="text" name="description" id="description" /></td>
 				</tr>
 				<tr>
 					<td align="left">Space:</td>
