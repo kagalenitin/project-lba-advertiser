@@ -4,6 +4,7 @@ package com.LBA.Advertiser.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.LBA.Advertiser.bean.AdvertiserBean;
@@ -13,22 +14,26 @@ import com.LBA.Advertiser.servlet.UserRegistrationServlet;
 public class ContractModel {
 	static boolean valueInserted;
 	static Statement stmtInsert=null;
+	static Statement stmtView=null;
 	static ResultSet rsSet = null;
+	ContractBean viewBean = new ContractBean();
 	public void setContract(ContractBean conBeanObject){
 		/*This method will insert the new contract details in the Contract table
 		 *Connects to DB.
 		 **/
 		DBConnect.connectDB();
+		//SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
 		try {
 			//Logic to insert the value in the table. Inserting value in the 'Contract' DB table.
 			//Need to figure out how to insert Advertiser Id 
 			stmtInsert = DBConnect.con.createStatement();
 			String qry = "INSERT into contract"+
-						" (contractID, contractname, email, description, space, startdate, enddate)"+
-						" values ('"+ conBeanObject.getContractID()+"', '"+ conBeanObject.getContractname()+"', '"+ UserRegistrationServlet.globalSession+"','"+ conBeanObject.getDescription()+"', '"+conBeanObject.getSpace()+"', "+conBeanObject.getStartdate()+", '"+conBeanObject.getEnddate() +"');";
-			
+			" (contractID, space, startdate)"+
+			" values (2, '"+conBeanObject.getSpace()+"', '"+conBeanObject.getStartdate()+"');";
+			System.out.println(qry);
 			int res = stmtInsert.executeUpdate(qry);
-			if(res==1){
+			if(res==1)
+			{
 				valueInserted = true;
 			}
 			else{
@@ -50,46 +55,36 @@ public class ContractModel {
 		return valueInserted;
 	}
 
-}
-	
-	/*public String getAdvertiserUserID(){
-		 
-		 * This function will set the Advertiser ID in the registration form from the DB.
-		 * 
-		
-		DBConnect.connectDB();
-		String userID=null;
-			try {
-				System.out.println("1");
-				stmtInsert = DBConnect.con.createStatement();
-				rsSet = stmtInsert.executeQuery("SELECT MAX(advertiserID) as advertiserID from Advertiser");
-				rsSet.next();
-				
-				int id = Integer.parseInt(rsSet.getString("advertiserID"));
-				
-				System.out.println(rsSet.getString("advertiserID"));
-				userID = String.valueOf(id+1);
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			finally{
-				
-				try {
-					stmtInsert.close();
-					rsSet.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				DBConnect.disconnectDB();
-			}
-			return userID;
-	}*/
 
+	
+public ContractBean viewContractDetails(){
+	/*
+	 * This function will retrieve contract details
+	*/
+	
+	try {
+		DBConnect.connectDB();
+		stmtView = DBConnect.con.createStatement();
+		//String qry = "SELECT * from contract where space='"+ UserRegistrationServlet.globalSession +"'";
+		String qry = "SELECT * from contract where space='50MB'";
+		rsSet = stmtView.executeQuery(qry);
+		System.out.println(rsSet);
+		rsSet.next();
+		
+		viewBean.setStartdate(rsSet.getString("startdate"));
+		viewBean.setEnddate(rsSet.getString("enddate"));
+		viewBean.setSpace(rsSet.getString("space"));
+		
+		stmtView.close();
+		rsSet.close();
+		DBConnect.disconnectDB();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return viewBean;
+}
+}
 	/*//Start of addition by Veenit on 9/1/2010
 	public boolean Login(AdvertiserBean adBeanObject){
 		This method will validate the user credentials

@@ -15,7 +15,8 @@
 	<tr align=center><td colspan=5><h1>Welcome <%= session.getAttribute("user_session") %></h1></td></tr>
 	<tr>
 		<td><a href="UserRegistrationServlet?page=edituser">Edit Details</a></td>
-		<td><a href="UserRegistrationServlet?page=createcontract">Create Contract</a></td>
+		<td><a href="ContractCreateServlet?page=contract">Create Contract</a></td>
+		<td><a href="ContractCreateServlet?page=viewcontract">View Contract</a></td>
 		<td>Create Advertisement</td>
 		<td>Create Product</td>
 		<td><a href="UserRegistrationServlet?page=logout">Logout</a></td>

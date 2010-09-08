@@ -1,6 +1,11 @@
 package com.LBA.Advertiser.servlet;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +25,7 @@ public class ContractCreateServlet extends HttpServlet
 	 */
 	private static final long serialVersionUID = 1L;
 	ContractModel objModel = new ContractModel();
-    ContractBean objBean = new ContractBean();
+    ContractBean contractBean = new ContractBean();
     
     public ContractCreateServlet() {
         super();
@@ -28,42 +33,36 @@ public class ContractCreateServlet extends HttpServlet
     }
 
 	
-    protected void doGet(HttpServletRequest request,HttpServletResponse response){
-/*String action = request.getParameter("page");
+    protected void doGet(HttpServletRequest request,HttpServletResponse response)throws ServletException, IOException{
+
+			doPost(request, response);
 		
-		if(action.equals("newuser")){
-			//Redirects to new user registration.jsp
-			request.setAttribute("maxid", objModel);
-			try {
-				getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else if (action.equals("forgotpassword")){
-			//Redirects to forgot password .jsp.
-		}
-		*/
+		
     }
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException{
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
     	
-    	ContractBean contractBean = new ContractBean();
-    	contractBean.setEmail(request.getParameter("emailID"));
-    	contractBean.setDescription(request.getParameter("description"));
-    	contractBean.setContractID(request.getParameter("contractID"));
-    	contractBean.setContractname(request.getParameter("contractname"));
-    	contractBean.setSpace(request.getParameter("lastname"));
+    	//SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy");
+    	String postAction = request.getParameter("page"); 
+    	System.out.println(postAction);
+    	
+    	if(postAction.equals("viewcontract")){
+    		request.setAttribute("viewcontract", objModel);
+    		getServletContext().getRequestDispatcher("/viewContract.jsp").forward(request, response);}
+    	
+    	else if(postAction.equals("contract")){
+        	getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);;
+
+    	}else if(postAction.equals("post_contract")){
+    		
+    	contractBean.setSpace(request.getParameter("space"));
     	contractBean.setStartdate(request.getParameter("startdate"));
-    	contractBean.setEnddate(request.getParameter("enddate"));
-		 
-		 
-		
+    	//contractBean.setEnddate(request.getParameter("enddate"));
+
     	objModel.setContract(contractBean);
     	request.setAttribute("registrationDone", objModel);
+    	getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);;
+    	}
     	
-    	getServletContext().getRequestDispatcher("/contractconfirmation.jsp").forward(request, response);
-        }
+    	
+    }	 
 }

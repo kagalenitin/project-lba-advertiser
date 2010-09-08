@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 import com.LBA.Advertiser.bean.AdvertiserBean;
 import com.LBA.Advertiser.servlet.UserRegistrationServlet;
-import com.sun.tools.internal.ws.processor.model.Request;
+//import com.sun.tools.internal.ws.processor.model.Request;
 public class RegistrationModel {
 	static boolean valueInserted;
 	static Statement stmtInsert=null;

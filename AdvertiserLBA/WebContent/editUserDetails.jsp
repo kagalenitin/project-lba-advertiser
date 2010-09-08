@@ -72,7 +72,7 @@
 	</tr>
 	
 </table>
-<input type="hidden" name="page" value="post_editdetails" />
+<input type="hidden" name="page" value="post_viewdetails" />
 </form>
 </body>
 </html>
