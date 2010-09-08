@@ -52,7 +52,7 @@ public class UserRegistrationServlet extends HttpServlet {
 		 *repeating the request.getParameter() everytime.
 		 *For registration of new advertiser.*/  
 		String postAction = request.getParameter("page"); 
-		
+		System.out.println(postAction);
 		if(postAction.equals("post_login")){
 			//Call login fn. in servlet
 			userLoginInServlet(request, response);
@@ -82,8 +82,6 @@ public class UserRegistrationServlet extends HttpServlet {
 		}else if(postAction.equals("post_editdetails")){
 			//Edit user details.
 			editRegistrationInServlet(request, response);
-		}else if(postAction.equals("createcontract")){
-			getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);
 		}
 		 		
 	}
@@ -153,4 +151,5 @@ public class UserRegistrationServlet extends HttpServlet {
 			
 		getServletContext().getRequestDispatcher("/editUserDetails.jsp").forward(request, response);
 	}
+	
 }
