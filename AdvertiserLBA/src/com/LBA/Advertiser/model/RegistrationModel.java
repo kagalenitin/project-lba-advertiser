@@ -1,9 +1,16 @@
 package com.LBA.Advertiser.model;
 
 
+import java.io.IOException;
+import com.LBA.Advertiser.bean.GlobalBean;
+
+import java.io.PrintStream;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import sun.net.smtp.SmtpClient;
 
 
 import com.LBA.Advertiser.bean.AdvertiserBean;
@@ -15,6 +22,7 @@ public class RegistrationModel {
 	static Statement stmtView=null;
 	static ResultSet rsSet = null;
 	AdvertiserBean editBean = new AdvertiserBean();
+	
 	public void setUserRegistration(AdvertiserBean adBeanObject){
 		/*This method will insert the new user in the Advertiser table of the DB.
 		 *Connects to DB.
@@ -62,8 +70,8 @@ public class RegistrationModel {
 			//To check username and password compatibility. 
 			//We will be allowing user to either login using username or email address.
 			stmtView = DBConnect.con.createStatement();
-			String qry = "select firstname, lastname from advertiser where (username='"+ adBeanObject.getUserName() +"' or email='"+ adBeanObject.getEmail() +"') and password ='"+adBeanObject.getPassword()+"'" ;
-
+			String qry = "select firstname, lastname, username from advertiser where (username='"+ adBeanObject.getUserName() +"' or email='"+ adBeanObject.getEmail() +"') and password ='"+adBeanObject.getPassword()+"'" ;
+			
 			stmtView.executeQuery (qry);
 			rsSet = stmtView.getResultSet();
 			boolean valid= rsSet.next();
@@ -72,11 +80,13 @@ public class RegistrationModel {
 			}
 			else if (valid){	
 				isSuccess = true;
+				GlobalBean.setUsersession(rsSet.getString("username"));
 			}
 		}
 		catch(Exception ex) { 
 			System.out.println("Log In failed: An Exception has occurred! " + ex); 
 		} 
+		
 		try {
 			stmtView.close();
 			rsSet.close();
@@ -152,5 +162,30 @@ public class RegistrationModel {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public boolean retrievePassword(AdvertiserBean adBean){
+		boolean isSuccess=false;
+		DBConnect.connectDB();
+		
+		String from="hectomaniaster@gmail.com";
+		String to = adBean.getEmail();
+		
+		try{
+		     SmtpClient client = new SmtpClient("smtp.gmail.com");
+		     client.from(from);
+		     client.to(to);
+		     PrintStream message = client.startMessage();
+		     message.println("To: " + to);
+		     message.println("Subject:  Sending email from JSP!");
+		     message.println("This was sent from a JSP page!");
+		     message.println("Cool beans! :-)");
+		     client.closeServer();
+		     isSuccess=true;
+		  }
+		  catch (IOException e){	
+		     System.out.println("ERROR SENDING EMAIL:"+e);
+		  }
+		  return isSuccess; 
 	}
 }

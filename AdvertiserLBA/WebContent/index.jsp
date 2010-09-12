@@ -27,12 +27,14 @@
 			<td><input type="reset" value="Clear" id="clear" /></td>
 		</tr>
 		<tr>
-			<td><a href="UserRegistrationServlet?page=forgotpassword">Forgot Password?</a></td>
-			<td><a href="UserRegistrationServlet?page=unregistereduser">New User? Please register!</a></td>
+			<td><a href="NavigationServlet?page=forgotpassword">Forgot Password?</a></td>
+			<td><a href="NavigationServlet?page=unregistereduser">New User? Please register!</a></td>
 		</tr>
 		<tr>
-			<td><% if(request.getParameter("loginfailed")!=null) { %>
+			<td><% if(request.getParameter("loginfailed")!=null){ %>
 				Login Failed!!
+				<% }else if(request.getParameter("forgot")!=null){ %>
+				Forgot password reset was successful!!
 				<% } %>
 		</td>
 		</tr>
