@@ -52,36 +52,19 @@ public class UserRegistrationServlet extends HttpServlet {
 		 *repeating the request.getParameter() everytime.
 		 *For registration of new advertiser.*/  
 		String postAction = request.getParameter("page"); 
-		System.out.println(postAction);
+		
 		if(postAction.equals("post_login")){
 			//Call login fn. in servlet
 			userLoginInServlet(request, response);
 		}else if(postAction.equals("post_register")){
 			//Call registration fn. in servlet.
 			userRegistrationInServlet(request, response);
-		}else if(postAction.equals("unregistereduser")){
-			//Redirects to NEW USER registration.jsp
-			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
-		}else if(postAction.equals("forgotpassword")){
-			//Redirects to forgot password .jsp.
-			/*Still need to work on this page. */
-		}else if(postAction.equals("logout")){
-			//unsets user_session variable and logout user. I am not sure how to unset the session var.
-			request.setAttribute("user_session", "");
-			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-		}else if(postAction.equals("newlogin")){
-			//New REGISTERED user login.
-			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-		}else if(postAction.equals("userhome")){
-			//Send user to homepage after login.
-			getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
-		}else if(postAction.equals("edituser")){
-			//Send user to editUserpage.
-			request.setAttribute("editadvertiser", objModel);
-			getServletContext().getRequestDispatcher("/editUserDetails.jsp").forward(request, response);
 		}else if(postAction.equals("post_editdetails")){
 			//Edit user details.
 			editRegistrationInServlet(request, response);
+		}else if(postAction.equals("post_forgot")){
+			// Post forgot password event.
+			forgotPasswordInServlet(request, response);
 		}
 		 		
 	}
@@ -109,7 +92,6 @@ public class UserRegistrationServlet extends HttpServlet {
 			}
 			session = request.getSession(true);
 			globalSession = (String) session.getValue("user_session");
-			System.out.println(globalSession);
 			
 		}else{
 			//Still need to handle the error page. We can create an error page !
@@ -150,6 +132,21 @@ public class UserRegistrationServlet extends HttpServlet {
 		request.setAttribute("saveddetails", "true");
 			
 		getServletContext().getRequestDispatcher("/editUserDetails.jsp").forward(request, response);
+	}
+	
+	public void forgotPasswordInServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		
+		advertiserBean.setUserName(request.getParameter("username"));
+		advertiserBean.setEmail(request.getParameter("email"));
+		
+		if(objModel.retrievePassword(advertiserBean)){
+			//Redirect the user to login page. and print a message the mail is sent to you.
+			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+		}else{
+			response.sendRedirect("./forgotpassword.jsp?success=false");
+		}
+		
+				
 	}
 	
 }

@@ -9,6 +9,7 @@
 <title>Registration, LBA</title>
 </head>
 <body>
+
 <form name="registrationForm" method="post" action="UserRegistrationServlet">
 	<center>
 		<% if(request.getAttribute("success") !=null){ %>
@@ -57,7 +58,7 @@
 					<td><input type="reset" value="Clear" /></td>
 				</tr>
 				<tr>
-					<td colspan="2"><a href="UserRegistrationServlet?page=newlogin">Back to Login Page.</a></td>
+					<td colspan="2"><a href="NavigationServlet?page=newlogin">Back to Login Page.</a></td>
 				</tr>
 		</table>
 	</center>

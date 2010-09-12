@@ -14,16 +14,7 @@
 <title>Edit User Details</title>
 </head>
 <body>
-<table border=1 cellspacing=1 cellpadding=1 width=100%>
-	<tr align=center><td colspan=5><h1>Welcome <%= session.getAttribute("user_session") %></h1></td></tr>
-	<tr>
-		<td><a href="UserRegistrationServlet?page=userhome">User Home</a></td>
-		<td><a href="UserRegistrationServlet?page=createcontract">Create Contract</a></td>
-		<td>Create Advertisement</td>
-		<td>Create Product</td>
-		<td><a href="UserRegistrationServlet?page=logout">Logout</a></td>
-	</tr>
-</table>
+<%@ include file="/navigationbar.jsp" %>
 <br />
 	<% if(request.getAttribute("saveddetails")!=null){ %>
 		<p> Updated Successfully.</p> 		

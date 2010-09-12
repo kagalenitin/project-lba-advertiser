@@ -1,7 +1,9 @@
 
 
-function validateUserRegistration(){
-	val length = document.registrationForm.elements.length;
+function editProductDetails(productID){
 	
-	document.write(length);
+}
+
+function hello(){
+	alert('Hello');
 }
