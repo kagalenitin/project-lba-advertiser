@@ -31,6 +31,9 @@
 			<td><a href="NavigationServlet?page=unregistereduser">New User? Please register!</a></td>
 		</tr>
 		<tr>
+		    <td colspan=2><a href="adminlogin.jsp"/>Administrator</a></td>  
+		</tr>
+		<tr>
 			<td><% if(request.getParameter("loginfailed")!=null){ %>
 				Login Failed!!
 				<% }else if(request.getParameter("forgot")!=null){ %>

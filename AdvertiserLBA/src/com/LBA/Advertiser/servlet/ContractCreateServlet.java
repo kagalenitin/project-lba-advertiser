@@ -47,6 +47,7 @@ public class ContractCreateServlet extends HttpServlet
     	}else if(postAction.equals("post_contract")){
     		
 			contractBean.setSpace(request.getParameter("space"));
+			contractBean.setContractname(request.getParameter("contractname"));
 			contractBean.setStartdate(request.getParameter("startdate"));
 			contractBean.setDuration(request.getParameter("duration"));
 		

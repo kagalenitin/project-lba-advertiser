@@ -27,6 +27,7 @@
 			</tr>
 			<tr>
 			<td><b>Contract ID</b></td>
+			<td><b>Contract Name</b></td>
 			<td><b>Space</b></td>
 			<td><b>Start Date</b></td>
 			<td><b>End Date</b></td>
@@ -34,7 +35,8 @@
 			</tr>
 		<% 	for(int i=0; i<cModel.getContractCount(); i++){%> 
  	 	<tr>
- 			<td><a href="ContractCreateServlet?page=editid&contractid=<%= viewBean[i].getContractID() %>"><%= viewBean[i].getContractID() %></a></td>
+			<td><a href="ContractCreateServlet?page=editid&contractid=<%= viewBean[i].getContractID() %>"><%= viewBean[i].getContractID() %></a></td>
+			<td><label id="contractname"><%= viewBean[i].getContractname() %></label></td>
 			<td><label id="contractspace"><%= viewBean[i].getSpace() %></label></td>
 			<td><label id="contractstart"><%= viewBean[i].getStartdate() %></label></td>
 			<td><label id="contractend"><%= viewBean[i].getEnddate() %></label></td>
