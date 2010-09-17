@@ -77,7 +77,12 @@ public class NavigationServlet extends HttpServlet {
     		request.setAttribute("viewall", objProduct);
     		objProduct.viewAllProducts();
     		getServletContext().getRequestDispatcher("/viewallProduct.jsp").forward(request, response);;
+    	}else if(postAction.equals("adminuser")){
+    		//request.setAttribute("viewall", objProduct);
+    		//objProduct.viewAllProducts();
+    		getServletContext().getRequestDispatcher("/adminhome.jsp").forward(request, response);;
+    	}else if(postAction.equals("editcontract")){
+    		getServletContext().getRequestDispatcher("/viewContract.jsp").forward(request, response);;
     	}
 	}
-
 }

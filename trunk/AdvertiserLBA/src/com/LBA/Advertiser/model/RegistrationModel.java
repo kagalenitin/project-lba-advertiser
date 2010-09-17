@@ -188,4 +188,5 @@ public class RegistrationModel {
 		  }
 		  return isSuccess; 
 	}
+	
 }

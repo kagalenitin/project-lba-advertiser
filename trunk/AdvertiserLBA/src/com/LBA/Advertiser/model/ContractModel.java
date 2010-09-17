@@ -18,6 +18,7 @@ public class ContractModel {
 	static Statement stmtInsert=null;
 	static Statement stmtView=null;
 	static ResultSet rsSet = null;
+	ContractBean viewBean1 = new ContractBean();
 	
 	 
 	public void setContract(ContractBean conBeanObject){
@@ -25,7 +26,28 @@ public class ContractModel {
 		 *Connects to DB.
 		 **/
 		DBConnect.connectDB();
-		//SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM/dd");
+		java.util.Date startdate= new java.util.Date(conBeanObject.getStartdate());
+		/*System.out.println("Month"+startdate.getMonth());
+		System.out.println("Day"+startdate.getDate());
+		System.out.println("Year"+startdate.getYear());*/
+
+		int endmonth=startdate.getMonth()+Integer.parseInt(conBeanObject.getDuration())+1;
+		int year=startdate.getYear()+1900;
+		String enddate=null;
+		
+		if(endmonth>12)
+			
+		{
+			endmonth= endmonth % 12;
+			System.out.print("result"+endmonth);
+			year++;
+		}
+	
+			 enddate=year+"-0"+endmonth+"-0"+startdate.getDate();
+			
+		
+		java.sql.Date jsqlD = java.sql.Date.valueOf(enddate);
 		try {
 			//Logic to insert the value in the table. Inserting value in the 'Contract' DB table.
 			//Need to figure out how to insert Advertiser Id 
@@ -33,9 +55,8 @@ public class ContractModel {
 			stmtInsert = DBConnect.con.createStatement();
 			//java.sql.Date jsqlD = java.sql.Date.valueOf( "2010-01-31" );
 			String qry = "INSERT into contract"+
-			" (username, space, startdate,enddate,status)"+
-			" values ('veenit', '"+conBeanObject.getSpace()+"', '"+conBeanObject.getStartdate()+"','2010-09-10','InProcess');";
-			System.out.println(qry);
+			" (username,contractname, space, startdate,enddate,status)"+
+			" values ('"+GlobalBean.getUsersession()+"', '"+conBeanObject.getContractname()+"','"+conBeanObject.getSpace()+"', '"+conBeanObject.getStartdate()+"','"+jsqlD+"','InProcess');";
 			int res = stmtInsert.executeUpdate(qry);
 			if(res==1)
 			{
@@ -96,7 +117,7 @@ public class ContractModel {
 				DBConnect.connectDB();
 				stmtView = DBConnect.con.createStatement();
 				//String qry = "SELECT * from contract where space='"+ UserRegistrationServlet.globalSession +"'";
-				String qry = "SELECT * from Contract where username='kagalenitin'";
+				String qry = "SELECT * from Contract where username='"+ GlobalBean.getUsersession()+"';";
 				
 				int i=0;
 				rsSet = stmtView.executeQuery(qry);
@@ -104,6 +125,7 @@ public class ContractModel {
 					viewBean[i]= new ContractBean();
 					viewBean[i].setContractID(String.valueOf(rsSet.getInt("contractID")));
 					viewBean[i].setUsername(rsSet.getString("username"));
+					viewBean[i].setContractname(rsSet.getString("contractname"));
 					viewBean[i].setSpace(rsSet.getString("space"));
 					viewBean[i].setStartdate(rsSet.getString("startdate"));
 					viewBean[i].setEnddate(rsSet.getString("enddate"));
@@ -124,6 +146,38 @@ public class ContractModel {
 		
 		return viewBean;
 	}
-
-	
+//Start of addition by veenit on 9/13/2010
+	public ContractBean viewcurrentContractDetails(){
+		/*
+		 * This function will retrieve contract details
+		*/
+		
+		try {
+			DBConnect.connectDB();
+			stmtView = DBConnect.con.createStatement();
+			//String qry = "SELECT * from contract where space='"+ UserRegistrationServlet.globalSession +"'";
+			String qry = "SELECT * from contract where contractID=(select count(*) from contract)";
+			rsSet = stmtView.executeQuery(qry);
+			System.out.println(rsSet);
+			rsSet.next();
+			
+			viewBean1.setContractID(rsSet.getString("contractid"));
+			viewBean1.setUsername(rsSet.getString("username"));
+			viewBean1.setContractname(rsSet.getString("contractname"));
+			viewBean1.setSpace(rsSet.getString("space"));
+			viewBean1.setStartdate(rsSet.getString("startdate"));
+			viewBean1.setEnddate(rsSet.getString("enddate"));
+			//viewBean.set
+			//viewBean.setSpace(rsSet.getString("space"));
+			
+			stmtView.close();
+			rsSet.close();
+			DBConnect.disconnectDB();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return viewBean1;
+	}
+	//End of addition by Veenit on 09/13/2010
 }	

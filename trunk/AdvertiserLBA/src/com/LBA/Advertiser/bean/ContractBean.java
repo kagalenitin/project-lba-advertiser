@@ -5,6 +5,7 @@ import java.util.Date;
 public class ContractBean {
 
 	public String contractID;
+	public String contractname;
 	public String username;
 	public String space;
 	public String startdate;
@@ -22,6 +23,12 @@ public class ContractBean {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getContractname() {
+		return contractname;
+	}
+	public void setContractname(String contractname) {
+		this.contractname = contractname;
 	}
 	public String getDuration() {
 		return duration;
