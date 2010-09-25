@@ -6,38 +6,34 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Create Product</title>
+	<link rel="stylesheet" type="text/css" href="css/generalpurpose.css"  media="screen" />
+	<link rel="stylesheet" type="text/css" href="development-bundle/themes/base/jquery.ui.all.css" media="screen" /> 
+
 </head>
 <body>
 <%@ include file="/navigationbar.jsp" %>
-<table>
-	<tr>
-		<td><a href="NavigationServlet?page=viewproducts">View Products</a></td>
-	</tr>
-</table>
-<br /><br />
 <form method="post" action="ProductServlet">
-<center>
+	<center>
 				<% if(request.getAttribute("deleteproduct")!=null){ %>
-						<p>Product deleted successfully.</p>
+						<h3 id="login_font">Product deleted successfully.</h3>
 				<% } %>	
-				
-		<table border=1 cellspacing=1 cellpadding=1>
-			<tr><td colspan=2 align="center"><h1>Create Product Details!</h1></td></tr>
+				<h3 id="login_font">Create Product</h3>
+		<table id="login_table">
 			<tr>
-				<td align="right">Product Name:</td>
+				<td id="login_column">Product Name</td>
 				<td><input type="text" name="productname" id="productname"/></td>
 			</tr>
 			<tr>
-				<td align="right">Product Description:</td>
+				<td id="login_column">Product Description</td>
 				<td><input type="text" name="productdesc" id="productdesc" maxlength="150" /></td>
 			</tr>
 			<tr>
-				<td align="right">Product Price:</td>
+				<td id="login_column">Product Price</td>
 				<td><input type="text" name="price" id="price" /></td>
 			</tr>
 			<tr>
-				<td align="right"><input type="submit" value="Submit"/></td>
-				<td><input type="reset" value="Reset" /></td>
+				<td align="right"><button id="createproduct" type="submit"  class="ui-state-default ui-corner-all">Create Product</button></td>
+					<td><button id="clear" type="reset"  class="ui-state-default ui-corner-all" >Reset</button></td>
 			</tr>
 			<tr>
 				<td>

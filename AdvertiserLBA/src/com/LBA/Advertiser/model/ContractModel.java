@@ -2,10 +2,12 @@ package com.LBA.Advertiser.model;
 
 
 import java.sql.ResultSet;
+
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.LBA.Advertiser.bean.AdvertiserBean;
@@ -27,7 +29,11 @@ public class ContractModel {
 		 **/
 		DBConnect.connectDB();
 		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM/dd");
-		java.util.Date startdate= new java.util.Date(conBeanObject.getStartdate());
+		System.out.println("THTHHTT");
+		//Date getStDt = new Date(conBeanObject.getStartdate());
+		
+		Date startdate= new Date(conBeanObject.getStartdate());
+		
 		/*System.out.println("Month"+startdate.getMonth());
 		System.out.println("Day"+startdate.getDate());
 		System.out.println("Year"+startdate.getYear());*/
@@ -48,15 +54,18 @@ public class ContractModel {
 			
 		
 		java.sql.Date jsqlD = java.sql.Date.valueOf(enddate);
+		System.out.println("After THTHTT");
+		System.out.println(jsqlD);
 		try {
 			//Logic to insert the value in the table. Inserting value in the 'Contract' DB table.
 			//Need to figure out how to insert Advertiser Id 
-			
+			System.out.println(conBeanObject.getPaymenttype());
+			System.out.println(conBeanObject.getContractdate());
 			stmtInsert = DBConnect.con.createStatement();
-			//java.sql.Date jsqlD = java.sql.Date.valueOf( "2010-01-31" );
+			java.sql.Date jsqlDate = java.sql.Date.valueOf( "2010-01-31" );
 			String qry = "INSERT into contract"+
-			" (username,contractname, space, startdate,enddate,status)"+
-			" values ('"+GlobalBean.getUsersession()+"', '"+conBeanObject.getContractname()+"','"+conBeanObject.getSpace()+"', '"+conBeanObject.getStartdate()+"','"+jsqlD+"','InProcess');";
+			" (contractname,username,contractcreatedby,contractdate,space,startdate,enddate,paymenttype,status)"+
+			" values ('"+conBeanObject.getContractname()+"','"+GlobalBean.getUsersession()+"','"+conBeanObject.getContractcreatedby()+"','"+conBeanObject.getContractdate()+"','"+conBeanObject.getSpace()+"','"+conBeanObject.getStartdate()+"','"+jsqlD+"','"+conBeanObject.getPaymenttype()+"','InProcess');";
 			int res = stmtInsert.executeUpdate(qry);
 			if(res==1)
 			{
@@ -126,9 +135,12 @@ public class ContractModel {
 					viewBean[i].setContractID(String.valueOf(rsSet.getInt("contractID")));
 					viewBean[i].setUsername(rsSet.getString("username"));
 					viewBean[i].setContractname(rsSet.getString("contractname"));
+					viewBean[i].setContractcreatedby(rsSet.getString("contractcreatedby"));
+					viewBean[i].setContractdate(rsSet.getString("contractdate"));
 					viewBean[i].setSpace(rsSet.getString("space"));
 					viewBean[i].setStartdate(rsSet.getString("startdate"));
 					viewBean[i].setEnddate(rsSet.getString("enddate"));
+					viewBean[i].setPaymenttype(rsSet.getString("paymenttype"));
 					viewBean[i].setStatus(rsSet.getString("status"));
 					i++;
 		
@@ -164,11 +176,13 @@ public class ContractModel {
 			viewBean1.setContractID(rsSet.getString("contractid"));
 			viewBean1.setUsername(rsSet.getString("username"));
 			viewBean1.setContractname(rsSet.getString("contractname"));
+			viewBean1.setContractcreatedby(rsSet.getString("contractcreatedby"));
+			viewBean1.setContractdate(rsSet.getString("contractdate"));
 			viewBean1.setSpace(rsSet.getString("space"));
 			viewBean1.setStartdate(rsSet.getString("startdate"));
+			viewBean1.setPaymenttype(rsSet.getString("paymenttype"));
 			viewBean1.setEnddate(rsSet.getString("enddate"));
-			//viewBean.set
-			//viewBean.setSpace(rsSet.getString("space"));
+			
 			
 			stmtView.close();
 			rsSet.close();

@@ -1,0 +1,53 @@
+#content {
+  top : 20px;
+  margin : 0px 25% 0 165px;
+  padding : 3px;
+  font-family: "Verdana";
+  font-size: small;
+} 
+/* Login Page tables table and tr */
+#login_table{
+	 cellspacing: 150px;
+	 cellpadding: 0px;
+	 border: 0px;
+}
+
+#login_column{
+	 text-align: right;
+	 color: #FFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+	 cellspacing: 150px;
+	 cellpadding: 0px;
+	 border: 3px;
+}
+
+/* font on index page */
+
+#login_font{
+	font-family: "Verdana";
+	color: #000000;
+}
+
+/* View all contract table  */
+#view_contract{
+	cellspacing: 80px;
+	cellpadding: 80px;
+	border: 5px;
+
+}
+
+#viewall_column{
+	 color: #000000;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #CCCCCC;
+}
+
+#viewall_column_heading{
+	 color: #FFFFFF;
+	 font-family: "Verdana";
+	 font-size: medium;
+	 background-color: #003366;
+}

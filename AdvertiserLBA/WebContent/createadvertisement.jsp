@@ -76,7 +76,7 @@
 						<option value="<%= key[i] %>"><%= hashProduct.get(key[i]) %></option>
 					<%} %>
 					
-				<%}%>
+				<%}%> 
 					</select>
 				</td>
 			</tr>
@@ -146,5 +146,6 @@
 			
 	</form>
 </center>	
+
 </body>
 </html>

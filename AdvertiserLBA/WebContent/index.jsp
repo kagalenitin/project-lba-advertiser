@@ -4,33 +4,39 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link rel="stylesheet" href="css/generalpurpose.css" type="text/css"/>
+<link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Advertiser Login Page, LBA</title>
 </head>
-<body>
+<body bgcolor="#F3F3F3">
 <form name="loginform" method="post" action="UserRegistrationServlet">
+<br /><br /><br />
 <center>
-	<table border=1 cellspacing=0 cellpadding=0>
+
+	<h1 id="login_font">Location Based Advertisement </h1>
+		<h3 id="login_font">Enter Login Details</h3>
+	<table id="login_font">
 		<tr>
-			<td colspan=2>Enter Login Details:</td>
+			<td id="login_column">Username</td>
+			<td><input type="text" name="username" id="username" /></td>
+		</tr>
+		
+		<tr>
+			<td id="login_column">Password</td>
+			<td><input type="password" name="password" id="password" /></td>
 		</tr>
 		<tr>
-			<td bgcolor="#003366"><font color="#FFFFFF">Username:</font></td>
-			<td bgcolor="#CCCCCC"><input type="text" name="username" id="username" /></td>
+			<td align="right"><button id="login" type="submit"  class="ui-state-default ui-corner-all" >Login</button></td>
+			<td><button id="clear" type="reset"  class="ui-state-default ui-corner-all" >Reset</button></td>
 		</tr>
-		<tr>
-			<td bgcolor="#003366"><font color="#FFFFFF">Password:</font></td>
-			<td bgcolor="#CCCCCC"><input type="password" name="password" id="password" /></td>
+		<tr style="font-family:Verdana;font-size: small;">
+			<td><a href="NavigationServlet?page=forgotpassword">Forgot Password?</a>&nbsp;&nbsp;</td>
+			<td>&nbsp;&nbsp;<a href="NavigationServlet?page=unregistereduser">New User? Please register!</a></td>
 		</tr>
-		<tr>
-			<td><input type="submit" value="Login" id="login" /></td>
-			<td><input type="reset" value="Clear" id="clear" /></td>
-		</tr>
-		<tr>
-			<td><a href="NavigationServlet?page=forgotpassword">Forgot Password?</a></td>
-			<td><a href="NavigationServlet?page=unregistereduser">New User? Please register!</a></td>
-		</tr>
-		<tr>
+		<tr><td colspan="2"><hr /></td></tr>
+		<tr style="font-family:Verdana;font-size: small;">
 		    <td colspan=2><a href="adminlogin.jsp"/>Administrator</a></td>  
 		</tr>
 		<tr>

@@ -79,4 +79,14 @@
     <servlet-name>AdminServlet</servlet-name>
     <url-pattern>/AdminServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AdvertisementServlet</display-name>
+    <servlet-name>AdvertisementServlet</servlet-name>
+    <servlet-class>com.LBA.Advertiser.servlet.AdvertisementServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdvertisementServlet</servlet-name>
+    <url-pattern>/AdvertisementServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
