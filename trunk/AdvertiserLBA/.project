@@ -33,4 +33,16 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.jsdt.core.jsNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>WebContent/development-bundle</name>
+			<type>2</type>
+			<location>/Users/nitinkagale/Downloads/jquery-ui-1.8.5.custom/development-bundle</location>
+		</link>
+		<link>
+			<name>WebContent/images</name>
+			<type>2</type>
+			<location>/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images</location>
+		</link>
+	</linkedResources>
 </projectDescription>

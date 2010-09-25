@@ -6,11 +6,21 @@ public class ContractBean {
 
 	public String contractID;
 	public String contractname;
+	public String contractcreatedby;
+	public String contractdate;
 	public String username;
 	public String space;
 	public String startdate;
 	public String enddate;
 	public String duration;
+	public String paymenttype;
+	
+	public String getContractdate() {
+		return contractdate;
+	}
+	public void setContractdate(String contractdate) {
+		this.contractdate = contractdate;
+	}
 	public String status;
     /**
 	 * @return the status
@@ -66,5 +76,17 @@ public class ContractBean {
 	}
 	public void setEnddate(String string) {
 		this.enddate = string;
+	}
+	public String getContractcreatedby() {
+		return contractcreatedby;
+	}
+	public void setContractcreatedby(String contractcreatedby) {
+		this.contractcreatedby = contractcreatedby;
+	}
+	public String getPaymenttype() {
+		return paymenttype;
+	}
+	public void setPaymenttype(String paymenttype) {
+		this.paymenttype = paymenttype;
 	}
 }

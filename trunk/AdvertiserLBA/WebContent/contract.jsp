@@ -4,22 +4,24 @@
 <%@page import="com.LBA.Advertiser.model.ContractModel" %>
 <html>
 <head>
-<link type="text/css" href="js/ui.all.css" rel="stylesheet" />
-	<script type="text/javascript" src="js/jquery-1.3.2.js"></script>
-	<script type="text/javascript" src="js/ui.core.js"></script>
-	<script type="text/javascript" src="js/ui.datepicker.js"></script>
-	<link type="text/css" href="js/demos.css" rel="stylesheet" />
+   <link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />  
+	<link rel="stylesheet" href="css/generalpurpose.css" type="text/css" media="screen" /> 
+	<script type="text/javascript" src="development-bundle/jquery-1.4.2.js"></script>
+	<script type="text/javascript" src="development-bundle/ui/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="development-bundle/ui/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="development-bundle/ui/jquery.ui.datepicker.js"></script>
+	 
 	<script type="text/javascript">
-	$(function() {
-		$('#startdate').datepicker({
-			changeMonth: true,
-			changeYear: true
+		$(function() {
+			$('#startdate').datepicker({
+				changeMonth: true,
+				changeYear: true
+			});
 		});
-	});
 	</script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Create Contract</title>
 </head>
 <body>
 <%@ include file="/navigationbar.jsp" %>
@@ -27,26 +29,26 @@
 <form name="contractForm" method="post" action="ContractCreateServlet">
 <% if(request.getAttribute("registrationDone") !=null){ %>
 							<p> Contract Created Successfully.</p>
-		<% getServletContext().getRequestDispatcher("/viewcurrentcontract.jsp").forward(request, response);; } %>
+		<% getServletContext().getRequestDispatcher("/viewcurrentcontract.jsp").forward(request, response); } %>
 	<center>
-		<table border=1 cellspacing=0 cellpadding=0>
+		<div>
+			<img src="images/contract_logo.jpg" height="125" width="125" /><h3 id="login_font">Create Contract</h3>
+		</div>
+		<table id="login_table">
 				<tr>
-				<td colspan=2><center><h2>Contract Form </h2></center></td>
-				</tr>
-				<tr>
-					<td align="left">Contract Name:</td>
+					<td id="login_column">Contract Name:</td>
 					<td><input type="text" name="contractname" id="contractname"/></td>
 				</tr>
 				<tr>
-					<td align="left">Contract Created by </td>
+					<td id="login_column">Contract Created by </td>
 					<td><input type="text" name="contractcreatedby" id="contractcreateby"/></td>
 				</tr>
 				<tr>
-					<td align="left">Contract date </td>
+					<td id="login_column">Contract date(YYYY/MM/DD) </td>
 					<td><input type="text" name="contractdate" id="contractdate"/></td>
 				</tr>
 				<tr>
-					<td align="left">Space:</td>
+					<td id="login_column">Space:</td>
 					<td><select name="space" id="space">
 					<option value=50MB>50MB</option>
 					<option value=100MB>100MB</option>
@@ -58,11 +60,11 @@
 				</tr>
 				
 				<tr>
-					<td align="left">Startdate(YYYY/MM/DD):</td>
+					<td id="login_column">Startdate(YYYY/MM/DD):</td>
 					<td><input type="text" name="startdate" id="startdate"/></td>
 				</tr>
 				<tr>
-				<td align="left">Duration:</td>
+				<td id="login_column">Duration:</td>
 				<td><select name="duration" id="duration">
 					<option value="3">3 Months</option>
 					<option value="6">6 Months</option>
@@ -71,10 +73,17 @@
 					</select>
 					</td>
 				</tr>
+				<tr>
+				<td id="login_column">Payment Type:</td>
+				<td><select name="paymenttype" id="paymenttype">
+					<option value="By Click">By Click</option>
+					<option value="By Search">By Search</option>
+					</select>
+					</td>
+				</tr>
 				<tr>  
-					<td><input type="submit" value="Register" onclick="confirmation()"/></td> 
-					<td><input type="reset" value="Clear" /></td>
-					
+					<td align="right"><button id="register" type="submit"  class="ui-state-default ui-corner-all">Create Contract</button></td>
+					<td><button id="clear" type="reset"  class="ui-state-default ui-corner-all" >Reset</button></td>
 				</tr>
 	
 </table>

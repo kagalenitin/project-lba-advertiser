@@ -48,9 +48,12 @@ public class ContractCreateServlet extends HttpServlet
     		
 			contractBean.setSpace(request.getParameter("space"));
 			contractBean.setContractname(request.getParameter("contractname"));
+			contractBean.setContractcreatedby(request.getParameter("contractcreatedby"));
+			contractBean.setContractdate(request.getParameter("contractdate"));
 			contractBean.setStartdate(request.getParameter("startdate"));
 			contractBean.setDuration(request.getParameter("duration"));
-		
+			contractBean.setPaymenttype(request.getParameter("paymenttype"));
+			
 			objModel.setContract(contractBean);
 			request.setAttribute("registrationDone", objModel);
 			getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);;

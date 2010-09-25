@@ -52,7 +52,6 @@ public class UserRegistrationServlet extends HttpServlet {
 		 *repeating the request.getParameter() everytime.
 		 *For registration of new advertiser.*/  
 		String postAction = request.getParameter("page"); 
-		
 		if(postAction.equals("post_login")){
 			//Call login fn. in servlet
 			userLoginInServlet(request, response);
@@ -138,11 +137,20 @@ public class UserRegistrationServlet extends HttpServlet {
 		
 		advertiserBean.setUserName(request.getParameter("username"));
 		advertiserBean.setEmail(request.getParameter("email"));
+		objModel.getRandomString();
 		
-		if(objModel.retrievePassword(advertiserBean)){
-			//Redirect the user to login page. and print a message the mail is sent to you.
-			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-		}else{
+		if(objModel.validateretrivedetails(advertiserBean)){
+			if(objModel.retrievePassword(advertiserBean)){
+				objModel.setPassword(advertiserBean);
+				objModel.getRandomString();
+				//objModel.setPassword(advertiserBean);
+				//Redirect the user to login page. and print a message the mail is sent to you.
+				getServletContext().getRequestDispatcher("/index.jsp?forgot=true").forward(request, response);
+			} else {
+					getServletContext().getRequestDispatcher("/index.jsp?forgot=false").forward(request, response);
+				}
+			}
+		else{
 			response.sendRedirect("./forgotpassword.jsp?success=false");
 		}
 		

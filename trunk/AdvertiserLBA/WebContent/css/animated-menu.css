@@ -1,0 +1,56 @@
+body{
+    font-family:"Verdana";
+    background:#F3F3F3; 
+    margin: 50px 140px 10px 180px;
+	position:relative;
+	left:0px;
+	
+}
+
+ul{
+    margin:0;
+    padding:0;
+}
+
+li{
+    width:150px;
+    height:30px;
+    float:left;
+    color:#FFF;
+    text-align:center;
+    overflow:hidden;
+    font-family: "Verdana";
+    font-size: small;
+    display: inline;
+    
+}
+
+a{
+    color:#FFF;
+    text-decoration:none;
+}
+
+p{
+	margin-top: 5px;
+    padding:0px 0px;
+}
+
+.subtext{
+		padding-top:10px;
+}
+/* This is to keep the body position fixed, even after the menu is dropping down.*/
+.fixedbodyposition{
+	position:absolute;
+	top:35px;
+	z-index:auto;
+}
+
+	/*Menu Color Classes*/
+	.menuProfile{background:#003366;}
+	.menuContract{background:#003366;}
+	.menuAd{background:#003366;}
+	.menuProduct{background:#003366;}
+	.menuLogout{background:#003366;}
+	.submain{background:#003366;}
+	
+	

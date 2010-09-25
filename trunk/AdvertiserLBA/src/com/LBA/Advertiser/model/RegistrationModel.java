@@ -6,9 +6,21 @@ import com.LBA.Advertiser.bean.GlobalBean;
 
 import java.io.PrintStream;
 
+import java.security.Security;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
+import java.util.Random;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import sun.net.smtp.SmtpClient;
 
@@ -22,7 +34,8 @@ public class RegistrationModel {
 	static Statement stmtView=null;
 	static ResultSet rsSet = null;
 	AdvertiserBean editBean = new AdvertiserBean();
-	
+	private static final String charset = "0123456789abcdefghijklmnopqrstuvwxyz";
+	 public static String randompass ;
 	public void setUserRegistration(AdvertiserBean adBeanObject){
 		/*This method will insert the new user in the Advertiser table of the DB.
 		 *Connects to DB.
@@ -164,29 +177,121 @@ public class RegistrationModel {
 		
 	}
 	
-	public boolean retrievePassword(AdvertiserBean adBean){
+	//Start of Addition by Veenit on 9/18/2010 for email n random string generation
+	 public void  getRandomString() {
+	        Random rand = new Random(System.currentTimeMillis());
+	        StringBuffer randstring = new StringBuffer();
+	        for (int i = 0; i < 8; i++) {
+	        	
+	            int pos = rand.nextInt(charset.length());
+	            randstring.append(charset.charAt(pos));
+	        }
+	        randompass=randstring.toString();
+	    }
+	 
+	public void setPassword(AdvertiserBean adBeanObject){
+		/*This method will insert the new user in the Advertiser table of the DB.
+		 *Connects to DB.
+		 **/
+		DBConnect.connectDB();
+		try {
+			stmtInsert = DBConnect.con.createStatement();
+			String qry = "UPDATE Advertiser SET password='"+randompass+"' where email='"+adBeanObject.getEmail()+"'";
+				System.out.print(randompass);		
+			
+			int res = 0;
+			res = stmtInsert.executeUpdate(qry);
+			if(res==1){
+				valueInserted = true;
+			}
+			else{
+				valueInserted = false;
+			}
+			stmtInsert.close();
+			DBConnect.disconnectDB();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public boolean retrievePassword(AdvertiserBean adBeanObject){
+		boolean isSuccess=false;
+		DBConnect.connectDB();
+		try{
+		
+		 final String mailhost = "smtp.gmail.com";
+		 Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+		 Properties props = new Properties();
+		 props.setProperty("mail.transport.protocol", "smtp");
+		 props.setProperty("mail.host", mailhost);
+		 props.put("mail.smtp.auth", "true");
+		 props.put("mail.smtp.port", "465");
+		 props.put("mail.smtp.socketFactory.port", "465");
+		 props.put("mail.smtp.socketFactory.class",
+		 "javax.net.ssl.SSLSocketFactory");
+		 props.put("mail.smtp.socketFactory.fallback", "false");
+		 props.setProperty("mail.smtp.quitwait", "false");
+		 Session session = Session.getInstance(props, new javax.mail.Authenticator() 
+		 			{
+			 	protected PasswordAuthentication getPasswordAuthentication(){ 
+			 		return new PasswordAuthentication("hectomaniaster@gmail.com","" +
+			 		"");
+			 	}//Add password---
+		 		});		
+		 MimeMessage message = new MimeMessage(session);
+		 message.setSender(new InternetAddress("hectomaniaster@gmail.com"));
+		 message.setSubject( "Sending email from JSP!");
+		 message.setContent("Your new password is "+randompass, "text/plain");
+//		 if (recipients.indexOf(',') > 0) 
+//			 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
+//		 	else
+		 System.out.println();
+		 		message.setRecipient(Message.RecipientType.TO, new InternetAddress(adBeanObject.getEmail()));	
+		 Transport.send(message);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		 return true;
+	   }
+	
+
+	public boolean validateretrivedetails(AdvertiserBean adBeanObject){
 		boolean isSuccess=false;
 		DBConnect.connectDB();
 		
-		String from="hectomaniaster@gmail.com";
-		String to = adBean.getEmail();
 		
-		try{
-		     SmtpClient client = new SmtpClient("smtp.gmail.com");
-		     client.from(from);
-		     client.to(to);
-		     PrintStream message = client.startMessage();
-		     message.println("To: " + to);
-		     message.println("Subject:  Sending email from JSP!");
-		     message.println("This was sent from a JSP page!");
-		     message.println("Cool beans! :-)");
-		     client.closeServer();
-		     isSuccess=true;
-		  }
-		  catch (IOException e){	
-		     System.out.println("ERROR SENDING EMAIL:"+e);
-		  }
-		  return isSuccess; 
+		try {
+			stmtView = DBConnect.con.createStatement();
+			
+			String qryCount = "SELECT * FROM advertiser where username='"+adBeanObject.getUserName()+"' and email='"+adBeanObject.getEmail()+"';";
+			stmtView.executeQuery (qryCount);
+			rsSet = stmtView.getResultSet();
+			System.out.println(rsSet);
+			boolean valid= rsSet.next();
+			if (!valid){
+				isSuccess = false; 
+			}
+			else if (valid){	
+				isSuccess = true;
+				//GlobalBean.setUsersession(rsSet.getString("username"));
+			}
+		}
+		catch(Exception ex) { 
+			System.out.println("Invalid Username n Email id" + ex); 
+		} 
+		
+		try {
+			stmtView.close();
+			rsSet.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DBConnect.disconnectDB();
+		return isSuccess;
+
 	}
 	
 }

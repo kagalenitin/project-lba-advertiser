@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.LBA.Advertiser.bean.GlobalBean;
+import com.LBA.Advertiser.model.AdvertisementModel;
 import com.LBA.Advertiser.model.ContractModel;
 import com.LBA.Advertiser.model.ProductModel;
 import com.LBA.Advertiser.model.RegistrationModel;
@@ -18,6 +20,8 @@ public class NavigationServlet extends HttpServlet {
 	RegistrationModel objReg = new RegistrationModel();
     ProductModel objProduct = new ProductModel();
     ContractModel objContract = new ContractModel();
+    AdvertisementModel objAdModel = new AdvertisementModel();
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -70,6 +74,7 @@ public class NavigationServlet extends HttpServlet {
     	}else if(postAction.equals("contract")){
         	getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);;
     	}else if(postAction.equals("createad")){
+    		request.setAttribute("loadproduct", objAdModel);
     		getServletContext().getRequestDispatcher("/createadvertisement.jsp").forward(request, response);;
     	}else if(postAction.equals("createproduct")){
     		getServletContext().getRequestDispatcher("/createproduct.jsp").forward(request, response);;

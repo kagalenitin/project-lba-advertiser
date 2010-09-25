@@ -12,43 +12,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>View Contract Details</title>
+<link rel="stylesheet" href="css/generalpurpose.css" type="text/css" />
 </head>
 <body>
 <%@ include file="/navigationbar.jsp" %>
 <form method="post" name="editUserForm" action="ContractCreateServlet" >
-<br /> <br />
+<center>
 	<% if(cModel.getContractCount() == 0){ %>
-		<h1>Sorry ! You do not have any contract at this time.</h1>
+		<h1 id="login_font">Sorry ! You do not have any contract at this time.</h1>
 	<% } else {%>
 			
-		<table cellspacing="1" cellpadding="1" align="center" border="1">
+		<table>
 			<tr>
-				<td colspan=5>View Contract details:</td>
+				<td colspan=5><h3 id="login_font">View Contract Details</h3></td>
 			</tr>
 			<tr>
-			<td><b>Contract ID</b></td>
-			<td><b>Contract Name</b></td>
-			<td><b>Space</b></td>
-			<td><b>Start Date</b></td>
-			<td><b>End Date</b></td>
-			<td><b>Status</b></td>
+			<td id="viewall_column_heading" width="130"><b>Contract ID</b></td>
+			<td id="viewall_column_heading" width="200"><b>Contract Name</b></td>
+			<td id="viewall_column_heading" width="80"><b>Space</b></td>
+			<td id="viewall_column_heading" width="200"><b>Start Date</b></td>
+			<td id="viewall_column_heading" width="200"><b>End Date</b></td>
+			<td id="viewall_column_heading" width="80"><b>Status</b></td>
 			</tr>
 		<% 	for(int i=0; i<cModel.getContractCount(); i++){%> 
  	 	<tr>
-			<td><a href="ContractCreateServlet?page=editid&contractid=<%= viewBean[i].getContractID() %>"><%= viewBean[i].getContractID() %></a></td>
-			<td><label id="contractname"><%= viewBean[i].getContractname() %></label></td>
-			<td><label id="contractspace"><%= viewBean[i].getSpace() %></label></td>
-			<td><label id="contractstart"><%= viewBean[i].getStartdate() %></label></td>
-			<td><label id="contractend"><%= viewBean[i].getEnddate() %></label></td>
-			<td><label id="contractstatus"><%= viewBean[i].getStatus() %></label></td>
+			<td id="viewall_column" width="100"><a href="ContractCreateServlet?page=editid&contractid=<%= viewBean[i].getContractID() %>"><%= viewBean[i].getContractID() %></a></td>
+			<td id="viewall_column" width="200"><label id="contractname"><%= viewBean[i].getContractname() %></label></td>
+			<td id="viewall_column" width="80"><label id="contractspace"><%= viewBean[i].getSpace() %></label></td>
+			<td id="viewall_column" width="80"><label id="contractstart"><%= viewBean[i].getStartdate() %></label></td>
+			<td id="viewall_column" width="80"><label id="contractend"><%= viewBean[i].getEnddate() %></label></td>
+			<td id="viewall_column" width="80"><label id="contractstatus"><%= viewBean[i].getStatus() %></label></td>
 				
 		<% } %>
 		</tr> 	
 		</table>
-						
-	
 	<% } %>
-
+</center>
 </form>
 </body>
 </html>
