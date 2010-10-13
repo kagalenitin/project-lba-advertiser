@@ -1,19 +1,25 @@
 package com.LBA.Advertiser.model;
 
 
+
 import java.sql.ResultSet;
+
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.Date;
 
-import com.LBA.Advertiser.bean.AdvertiserBean;
+import javax.swing.text.DateFormatter;
+
+
 import com.LBA.Advertiser.bean.ContractBean;
 import com.LBA.Advertiser.bean.GlobalBean;
-import com.LBA.Advertiser.servlet.UserRegistrationServlet;
+
 
 public class ContractModel {
 	static boolean valueInserted;
@@ -28,45 +34,69 @@ public class ContractModel {
 		 *Connects to DB.
 		 **/
 		DBConnect.connectDB();
-		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy/MM/dd");
-		System.out.println("THTHHTT");
-		//Date getStDt = new Date(conBeanObject.getStartdate());
+		DateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("--------");
+		//Get the date from the conBeanObject.
+		java.util.Date startDate = new java.util.Date(conBeanObject.getStartdate());
 		
-		Date startdate= new Date(conBeanObject.getStartdate());
-		
-		/*System.out.println("Month"+startdate.getMonth());
-		System.out.println("Day"+startdate.getDate());
-		System.out.println("Year"+startdate.getYear());*/
-
-		int endmonth=startdate.getMonth()+Integer.parseInt(conBeanObject.getDuration())+1;
-		int year=startdate.getYear()+1900;
-		String enddate=null;
-		
+		System.out.println(conBeanObject.getDuration());
+		int endmonth=startDate.getMonth()+Integer.parseInt(conBeanObject.getDuration())+1;
+		int year=startDate.getYear()+1900;
+		String enddate="";
+		System.out.println(startDate.getDate());
 		if(endmonth>12)
 			
 		{
 			endmonth= endmonth % 12;
-			System.out.print("result"+endmonth);
 			year++;
 		}
-	
-			 enddate=year+"-0"+endmonth+"-0"+startdate.getDate();
-			
 		
-		java.sql.Date jsqlD = java.sql.Date.valueOf(enddate);
-		System.out.println("After THTHTT");
-		System.out.println(jsqlD);
+		//This part of the logic is to add the dashes between the date to make them 
+		 // in the format yyyy-MM-dd
+
+ 		if(endmonth<10){
+ 			System.out.println("1");
+ 			enddate = year+"-0"+endmonth;
+ 			if(startDate.getDate()<10){
+ 				System.out.println("2");
+ 				enddate = enddate + "-0"+startDate.getDate();
+ 			}else{
+ 				System.out.println("3");
+ 				enddate = enddate + "-"+startDate.getDate();
+ 			}
+ 		}else if(startDate.getDate()<10){
+ 			System.out.println("4");
+ 			enddate = year+"-"+ String.valueOf(endmonth) +"-0"+ startDate.getDate();
+ 		}else{
+ 			System.out.println("5");
+ 			enddate = year +"-"+ String.valueOf(endmonth) +"-"+ startDate.getDate();
+ 		}
+			
+		System.out.println("END DATE: "+ enddate);
+		
+		//java.sql.Date jsqlD = java.sql.Date.valueOf(enddate);
 		try {
 			//Logic to insert the value in the table. Inserting value in the 'Contract' DB table.
 			//Need to figure out how to insert Advertiser Id 
-			System.out.println(conBeanObject.getPaymenttype());
-			System.out.println(conBeanObject.getContractdate());
+			//Enddate convert into sql date format.
+			java.util.Date endDateObject = sdformat.parse(enddate);
+			java.sql.Date sqlEndDate = java.sql.Date.valueOf(sdformat.format(endDateObject));
+			
+			java.sql.Date sqlStartDate = java.sql.Date.valueOf(sdformat.format(startDate)); 
+	     	
+			//Contract date convert into sql date format.
+			java.util.Date contractDateObject = new java.util.Date(conBeanObject.getContractdate().toString());
+			System.out.println(contractDateObject);
+			java.sql.Date sqlContractDate = java.sql.Date.valueOf(sdformat.format(contractDateObject));
+			System.out.println(sqlContractDate);
 			stmtInsert = DBConnect.con.createStatement();
-			java.sql.Date jsqlDate = java.sql.Date.valueOf( "2010-01-31" );
+			
 			String qry = "INSERT into contract"+
 			" (contractname,username,contractcreatedby,contractdate,space,startdate,enddate,paymenttype,status)"+
-			" values ('"+conBeanObject.getContractname()+"','"+GlobalBean.getUsersession()+"','"+conBeanObject.getContractcreatedby()+"','"+conBeanObject.getContractdate()+"','"+conBeanObject.getSpace()+"','"+conBeanObject.getStartdate()+"','"+jsqlD+"','"+conBeanObject.getPaymenttype()+"','InProcess');";
-			int res = stmtInsert.executeUpdate(qry);
+			" values ('"+conBeanObject.getContractname()+"','"+GlobalBean.getUsersession()+"','"+conBeanObject.getContractcreatedby()+"','"+sqlContractDate+"','"+conBeanObject.getSpace()+"','"+sqlStartDate+"','"+sqlEndDate+"','"+conBeanObject.getPaymenttype()+"','InProcess');";
+			System.out.println(qry);
+			int res = 0;
+			res = stmtInsert.executeUpdate(qry);
 			if(res==1)
 			{
 				valueInserted = true;
@@ -79,8 +109,11 @@ public class ContractModel {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
+
 	}
 	
 	public boolean getContract(){

@@ -2,83 +2,54 @@
     pageEncoding="ISO-8859-1"%>
 <html>
 <head>
-	<link rel="stylesheet" href="css/generalpurpose.css" type="text/css"/>
-	<link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />
+<!--	<link rel="stylesheet" href="css/generalpurpose.css" type="text/css"/>-->
+<!--	<link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />-->
 	<script type="text/javascript" src="javascripts/jquery.js"></script>
 	<script type="text/javascript" src="javascripts/jquery.validate.js"></script>
 	<script type="text/javascript">
 	//initiate validator on load
-	 
 	$(function() {
-		//alert("qaz");
-		  jQuery.validator.addMethod("phone", function(phone_number, element) {
-		    phone_number = phone_number.replace(/\s+/g, ""); 
-			return this.optional(element) || phone_number.length > 9 &&
-				phone_number.match(/^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
-		}, "Please specify a valid phone number");
+		
 		// validate contact form on keyup and submit
-		$("#registrationForm").validate({
+		$("#contactForm").validate({
+			alert("e");
 			//set the rules for the field names
 			rules: {
-				companyname: {
+				name: {
 					required: true,
 					minlength: 2
 				},
-				username: {
+				email: {
 					required: true,
-					minlength: 8
-				},
-				password: {
-					required: true,
-					minlength: 6
+					email: true
 				},
 				firstname: {
 					required: true,
 					minlength: 2
 				},
-				lastname: {
-					required: true,
-					minlength: 2
-				},
-				address: {
-					required: true,
-					minlength: 2
-				},
-				phone: {
-					required: true,
-					phone: true
-				},
-				email: {
-					required: true,
-					email: true
-				}				
 			},
 			//set messages to appear inline
 			messages: {
-				companyname: "Please enter your company name",
-				username: "Username should be 8 characters",
-				password: "Password should be between 6-15 characters",
-				firstname: "Please enter your name",
-				lastname: "Please enter your message",
-				address: "Address cannot be empty.",
-				email: "Please enter a valid email address"
+				name: "Please enter your name",
+				email: "Please enter a valid email address",
+				message: "Please enter your message"
 			}
 		});
 	});
 </script>
 <style type="text/css">
 	.error {
-		color: blue;
-		font: 8pt verdana;
-		padding-left: 0px
+		color: red;
+		font: 12pt verdana;
+		padding-left: 10px
 	}
 </style>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Registration, LBA</title>
 </head>
 <body bgcolor="#F3F3F3">
-<br /><br /><br /><br /><br /><br />
-<form name="registrationForm" id="registrationForm" action="UserRegistrationServlet" method="post">
+<br /><br /><br />
+<form name="registrationForm" method="post" id="contactForm" >
 	<center>
 			<table width="80%"  bgcolor="#003366" >
 				<tr>
@@ -120,9 +91,9 @@
 					<td><input type="text" name="email" id="email"/></td>
 				</tr>
 				<tr>
-					 <td align="right"><button id="register" type="submit"  class="ui-state-default ui-corner-all" class="submit" >Register</button></td>
-					<td><button id="clear" type="reset"  class="ui-state-default ui-corner-all" >Clear</button></td> 
-					<!-- <td><input class="submit" type="submit" value="Submit" /></td> -->
+					<!-- <td align="right"><button id="register" type="submit"  class="ui-state-default ui-corner-all" class="submit" >Register</button></td>
+					<td><button id="clear" type="reset"  class="ui-state-default ui-corner-all" >Clear</button></td> -->
+					<td><input class="submit" type="submit" value="Submit" /></td>
 				</tr>
 				<tr><td colspan=2><hr /></td></tr>
 				<tr style="font-family:Verdana;font-size: small;">

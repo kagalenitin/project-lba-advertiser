@@ -1,7 +1,5 @@
 #content {
-  top : 20px;
-  margin : 0px 25% 0 165px;
-  padding : 3px;
+  margin : 40px 150px 50px 90px;
   font-family: "Verdana";
   font-size: small;
 } 
@@ -13,14 +11,13 @@
 }
 
 #login_column{
-	 text-align: right;
 	 color: #FFF;
 	 font-family: "Verdana";
 	 font-size: small;
 	 background-color: #003366;
 	 cellspacing: 150px;
 	 cellpadding: 0px;
-	 border: 3px;
+	 text-align: right:
 }
 
 /* font on index page */
@@ -48,6 +45,63 @@
 #viewall_column_heading{
 	 color: #FFFFFF;
 	 font-family: "Verdana";
-	 font-size: medium;
+	 font-size: small;
 	 background-color: #003366;
+}
+/* font on new user registration page */
+
+#registration_column{
+	 color: #FFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+	 cellpading: 120px;
+	 text-align: right;
+}
+
+/* font on contract.jsp page */
+
+#contract_column{
+	 color: #FFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+	 cellspacing: 150px;
+	 text-align: right;
+}
+
+/* View all product form */
+#viewall_product{
+	 color: #000000;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #CCCCCC;
+}
+
+#viewall_product_heading{
+	 color: #FFFFFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+}
+
+/*  Edit a product form */
+#edit_product{
+	 color: #FFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+	 cellspacing: 150px;
+	 text-align: right;
+}
+
+
+/* Create ad form */
+#createad_column{
+	 color: #FFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+	 cellpading: 120px;
+	 text-align: right;
 }

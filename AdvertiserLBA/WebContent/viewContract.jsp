@@ -23,7 +23,7 @@
 	<% } else {%>
 			
 		<table>
-			<tr>
+			<tr align="center">
 				<td colspan=5><h3 id="login_font">View Contract Details</h3></td>
 			</tr>
 			<tr>
@@ -36,7 +36,7 @@
 			</tr>
 		<% 	for(int i=0; i<cModel.getContractCount(); i++){%> 
  	 	<tr>
-			<td id="viewall_column" width="100"><a href="ContractCreateServlet?page=editid&contractid=<%= viewBean[i].getContractID() %>"><%= viewBean[i].getContractID() %></a></td>
+			<td id="viewall_column" width="100"><a href="ContractCreateServlet?page=editid&contractid=<%= viewBean[i].getContractID() %>"><font style="color: #000000"><%= viewBean[i].getContractID() %></font></a></td>
 			<td id="viewall_column" width="200"><label id="contractname"><%= viewBean[i].getContractname() %></label></td>
 			<td id="viewall_column" width="80"><label id="contractspace"><%= viewBean[i].getSpace() %></label></td>
 			<td id="viewall_column" width="80"><label id="contractstart"><%= viewBean[i].getStartdate() %></label></td>

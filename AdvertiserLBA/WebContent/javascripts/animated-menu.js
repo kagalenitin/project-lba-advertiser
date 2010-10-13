@@ -30,12 +30,12 @@ $(document).ready(function(){
         $(this).stop().animate({height:'30px'},{queue:false, duration:600, easing: 'easeOutBounce'})
     });
     
-    //When mouse rolls over for Ad
+    //When mouse rolls over for Signout
     $("li.menuProduct").mouseover(function(){
         $(this).stop().animate({height:'120px'},{queue:false, duration:600, easing: 'easeOutBounce'})
     });
 
-    //When mouse is removed for Ad
+    //When mouse is removed for Signout
     $("li.menuProduct").mouseout(function(){
         $(this).stop().animate({height:'30px'},{queue:false, duration:600, easing: 'easeOutBounce'})
     });
