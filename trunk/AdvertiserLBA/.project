@@ -35,6 +35,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>WebContent/FancyZoom 1.1</name>
+			<type>2</type>
+			<location>/Users/nitinkagale/Downloads/FancyZoom 1.1</location>
+		</link>
+		<link>
 			<name>WebContent/development-bundle</name>
 			<type>2</type>
 			<location>/Users/nitinkagale/Downloads/jquery-ui-1.8.5.custom/development-bundle</location>
@@ -43,6 +48,26 @@
 			<name>WebContent/images</name>
 			<type>2</type>
 			<location>/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images</location>
+		</link>
+		<link>
+			<name>WebContent/css/jquery.treeview.css</name>
+			<type>1</type>
+			<location>/Users/nitinkagale/Downloads/jquery.treeview/jquery.treeview.css</location>
+		</link>
+		<link>
+			<name>WebContent/images/adSpotWeb.gif</name>
+			<type>1</type>
+			<location>/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/adSpotWeb.gif</location>
+		</link>
+		<link>
+			<name>WebContent/javascripts/jquery.js</name>
+			<type>1</type>
+			<location>/Users/nitinkagale/Downloads/ajax-login-php/jquery.js</location>
+		</link>
+		<link>
+			<name>WebContent/javascripts/jquery.treeview.js</name>
+			<type>1</type>
+			<location>/Users/nitinkagale/Downloads/jquery.treeview/jquery.treeview.js</location>
 		</link>
 	</linkedResources>
 </projectDescription>

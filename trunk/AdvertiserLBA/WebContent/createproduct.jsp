@@ -20,15 +20,15 @@
 				<h3 id="login_font">Create Product</h3>
 		<table id="login_table">
 			<tr>
-				<td id="login_column">Product Name</td>
+				<td id="edit_product">Product Name</td>
 				<td><input type="text" name="productname" id="productname"/></td>
 			</tr>
 			<tr>
-				<td id="login_column">Product Description</td>
+				<td id="edit_product">Product Description</td>
 				<td><input type="text" name="productdesc" id="productdesc" maxlength="150" /></td>
 			</tr>
 			<tr>
-				<td id="login_column">Product Price</td>
+				<td id="edit_product">Product Price</td>
 				<td><input type="text" name="price" id="price" /></td>
 			</tr>
 			<tr>

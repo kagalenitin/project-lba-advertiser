@@ -12,8 +12,9 @@
 	<classpathentry kind="lib" path="/Applications/eclipse/plugins/javamail-1.3/mail.jar"/>
 	<classpathentry kind="lib" path="/Applications/eclipse/plugins/mysql-connector-java-5.1.13/mysql-connector-java-5.1.13-bin.jar"/>
 	<classpathentry kind="lib" path="/Applications/eclipse/plugins/mysql-connector-java-5.1.13/EXCEPTIONS-CONNECTOR-J"/>
-	<classpathentry kind="lib" path="/Applications/eclipse/plugins/commons-io-1.4/commons-io-1.4.jar"/>
-	<classpathentry kind="lib" path="/Applications/eclipse/plugins/commons-fileupload-1.2.2/lib/commons-fileupload-1.2.2.jar"/>
 	<classpathentry kind="lib" path="/Applications/eclipse/plugins/activation.jar/activation.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/commons-fileupload-1.2.2/lib/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/commons-io-1.4/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/imageinfo-1.9.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -81,10 +81,10 @@ public class AdvertisementModel {
 				DBConnect.connectDB();
 				
 				stmtView = DBConnect.con.createStatement();
-				String qry = "SELECT productID, productname from PRODUCT where username='"+GlobalBean.getUsersession()+"';";
+				String qry = "SELECT * from PRODUCT where username='"+GlobalBean.getUsersession()+"';";
 				rsRead = stmtView.executeQuery(qry);
 				while(rsRead.next()){
-					hashProduct.put(rsRead.getInt("productID"), rsRead.getString("productname"));
+					hashProduct.put(rsRead.getInt("productID"), rsRead.getString("productname")+"\t"+rsRead.getString("productdesc")+"\t"+ rsRead.getDouble("price")+"\t");
 				}
 				stmtView.close();
 				rsRead.close();
@@ -180,10 +180,11 @@ public class AdvertisementModel {
 		Hashtable<Integer, String> hashContract = new Hashtable<Integer, String>();
 		try {
 			stmtView = DBConnect.con.createStatement();
-			String qry = "SELECT contractID, contractname from Contract where username='"+ GlobalBean.getUsersession()+"';";
+			String qry = "SELECT * from Contract where username='"+ GlobalBean.getUsersession()+"';";
 			rsSet = stmtView.executeQuery(qry);
 			while(rsSet.next()){
-				hashContract.put(rsSet.getInt("contractID"), rsSet.getString("contractname"));
+				hashContract.put(rsSet.getInt("contractID"), rsSet.getString("contractname")+"\t"+rsSet.getString("contractcreatedby")+"\t"+rsSet.getDate("contractdate")+"\t"+rsSet.getString("space")
+				+"\t"+rsSet.getDate("startdate")+"\t"+rsSet.getDate("enddate")+"\t");
 			}
 			
 			stmtView.close();
@@ -209,9 +210,6 @@ public class AdvertisementModel {
 		
 		try {
 			stmtInsert = DBConnect.con.createStatement();
-			
-			
-			
 			int rs = stmtInsert.executeUpdate("INSERT INTO image set image='';");
 			if (rs==1){
 				System.out.println("Successful");
@@ -220,9 +218,31 @@ public class AdvertisementModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public long checkContractAdSize(int contractID){
+		long totalSize = 0;
+		DBConnect.connectDB();
 		
-		
-		
+		try {
+			stmtInsert = DBConnect.con.createStatement();
+			String qry = "Select SUM(ad.adSize) as totalSize, c.contractID, a.adID from contract c, ad_product ad, advertisement a where a.adID = ad.adID and c.contractID="+contractID+" and c.contractID = a.contractID ;";
+			//select SUM(ad.adSize) as totalSize, c.contractID, a.adID from contract c, ad_product ad, advertisement a where a.adID = ad.adID and c.contractID = a.contractID; 
+			//select SUM(ad.adSize) as totalSize, c.contractID, a.adID from contract c, ad_product ad, advertisement a where a.adID = ad.adID and c.contractID = a.contractID and c.contractID=2;
+			
+			rsRead = stmtInsert.executeQuery(qry);
+			rsRead.next();
+			
+			totalSize = rsRead.getLong("totalSize");
+			
+			stmtInsert.close();
+			rsRead.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return totalSize;
 	}
 	
 	

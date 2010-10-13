@@ -41,7 +41,8 @@ public class ContractCreateServlet extends HttpServlet
     		request.setAttribute("viewcontract", objModel);
     		getServletContext().getRequestDispatcher("/viewContract.jsp").forward(request, response);}
     	
-    	else*/ if(postAction.equals("contract")){
+    	else*/ 
+    	if(postAction.equals("contract")){
         	getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);;
 
     	}else if(postAction.equals("post_contract")){

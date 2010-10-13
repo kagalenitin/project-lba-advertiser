@@ -20,6 +20,7 @@ public class UserRegistrationServlet extends HttpServlet {
     AdvertiserBean advertiserBean = new AdvertiserBean();
     HttpSession session = null;
     public static String globalSession = null;
+    
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -51,6 +52,7 @@ public class UserRegistrationServlet extends HttpServlet {
 		/*I need to figure out a way to handle javascript + not 
 		 *repeating the request.getParameter() everytime.
 		 *For registration of new advertiser.*/  
+		response.setContentType("text/html");
 		String postAction = request.getParameter("page"); 
 		if(postAction.equals("post_login")){
 			//Call login fn. in servlet
@@ -71,6 +73,7 @@ public class UserRegistrationServlet extends HttpServlet {
 	/* Trying to define all the detailed functions outside post, just for clean coding */
 	public void userLoginInServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		//The user may either set username or email.
+		
 		if(request.getParameter("username").contains("@")){
 			advertiserBean.setUserName("");
 			advertiserBean.setEmail(request.getParameter("username"));
@@ -84,17 +87,22 @@ public class UserRegistrationServlet extends HttpServlet {
 			//Check whether the user logs in using username or emailID.
 			if(advertiserBean.getUserName().equals("")){
 				request.getSession().setAttribute("user_session",advertiserBean.getEmail());
+				session = request.getSession(true);
+				globalSession = (String) session.getValue("user_session");
 				getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
+				
 			}else if(advertiserBean.getEmail().equals("")){
 				request.getSession().setAttribute("user_session",advertiserBean.getUserName());
+				session = request.getSession(true);
+				globalSession = (String) session.getValue("user_session");
 				getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
 			}
-			session = request.getSession(true);
-			globalSession = (String) session.getValue("user_session");
 			
 		}else{
 			//Still need to handle the error page. We can create an error page !
 			response.sendRedirect("./index.jsp?loginfailed=false");
+			//response.sendRedirect("/mypage2.html");
+			
 		}
 		
 	}

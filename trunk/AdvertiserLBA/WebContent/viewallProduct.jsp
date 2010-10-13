@@ -11,38 +11,39 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
-
+<link rel="stylesheet" href="css/generalpurpose.css" type="text/css" />
 <title>View All Product Details</title>
 </head>
 <body>
 <%@ include file="/navigationbar.jsp" %>
 
 <center>
-<br /><br />
 	<% if(request.getAttribute("deleteproduct") !=null){ %>
-	<p> Deleted Successfully.</p>
+	<p> Product Deleted Successfully.</p>
 	<% } %>
 	
 	<% if(objProduct.getProductCount()==0){ %>
 		<h1>Sorry ! You do not have any products.</h1>
 	<%} else{ %>
 	<form name="viewproducts" method="post" action="ProductServlet">
-	<table border=1 cellspacing=1 cellpadding=1>
+	<table>
+		<tr align="center">
+				<td colspan=4><h3 id="login_font">View Product Details</h3></td>
+		</tr>
 		<tr>
-			<td><b>Product ID</b></td>
-			<td><b>Product Name</b></td>
-			<td><b>Product Description</b></td>
-			<td><b>Price (in $)</b></td>
+			<td id="viewall_product_heading" width="90"><b>Product ID</b></td>
+			<td id="viewall_product_heading" width="220"><b>Product Name</b></td>
+			<td id="viewall_product_heading" width="400"><b>Product Description</b></td>
+			<td id="viewall_product_heading" width="90"><b>Price (in $)</b></td>
 			
 		</tr>
 
 		<% 	for(int i=0; i<objProduct.getProductCount(); i++){%> 
  	 	<tr>
- 			<td><a href="ProductServlet?page=editid&productid=<%= objBean[i].getCount() %>"><%= objBean[i].getCount() %></a></td>
-			<td><label id="productname"><%= objBean[i].getProductName() %></label></td>
-			<td><label id="productdesc"><%= objBean[i].getProductDesc() %></label></td>
-			<td><label id="productprice"><%= objBean[i].getPrice() %></label></td>
+ 			<td id="viewall_product"><a href="ProductServlet?page=editid&productid=<%= objBean[i].getCount() %>"><font style="color:#000000"><%= objBean[i].getCount() %></font></a></td>
+			<td id="viewall_product" ><label id="productname"><%= objBean[i].getProductName() %></label></td>
+			<td id="viewall_product"><label id="productdesc"><%= objBean[i].getProductDesc() %></label></td>
+			<td id="viewall_product"><label id="productprice"><%= objBean[i].getPrice() %></label></td>
 				
 		<% } %>
 		</tr> 
