@@ -1,5 +1,6 @@
 $(document).ready(function(){
-
+//var $anim = jQuery.noConflict();
+ //$anim(function(){
     //When mouse rolls over for PROFILE
     $("li.menuProfile").mouseover(function(){
         $(this).stop().animate({height:'70px'},{queue:false, duration:600, easing: 'easeOutBounce'})

@@ -7,11 +7,15 @@ import java.sql.Statement;
 import com.LBA.Advertiser.bean.AdminBean;
 import com.LBA.Advertiser.bean.AdvertiserBean;
 import com.LBA.Advertiser.bean.GlobalBean;
+import com.LBA.Advertiser.bean.ProductBean;
 public class AdminModel {
 	static boolean valueInserted;
 	static Statement stmtInsert=null;
 	static Statement stmtView=null;
 	static ResultSet rsSet = null;
+	static ResultSet rsRead = null;
+	ProductBean productBean = new ProductBean();
+	
 	
 	
 
@@ -53,4 +57,63 @@ public boolean userLogin(AdminBean adminBeanObject){
 
 	}
 	//End of addition by Veenit on 09/2/10
+public int getProductCount(){
+	DBConnect.connectDB();
+	
+	int count=0;
+
+	try {
+		stmtView = DBConnect.con.createStatement();
+		String qryCount = "SELECT COUNT(*) as cnt FROM Product;";
+		rsSet = stmtView.executeQuery(qryCount);
+		rsSet.next();
+		count = rsSet.getInt("cnt");
+		
+		stmtView.close();
+		rsSet.close();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return count;
+}
+
+
+public ProductBean[] viewAllProducts(){
+	
+	DBConnect.connectDB();
+	int count = getProductCount();
+	ProductBean[] objBean = new ProductBean[count];
+	if(count == 0){
+		
+	}else{
+
+		try{	
+			int i=0;
+			//objBean = new ProductBean[count];
+			stmtView = DBConnect.con.createStatement();
+			
+			String qry = "SELECT * FROM Product;";
+			rsRead = stmtView.executeQuery(qry);
+			while(rsRead.next()){
+				objBean[i] = new ProductBean();
+				objBean[i].setCount(rsRead.getInt("productid"));
+				objBean[i].setProductName(rsRead.getString("productname"));
+				objBean[i].setProductdescription(rsRead.getString("productdescription"));
+				objBean[i].setPrice(rsRead.getDouble("price"));
+				objBean[i].setUsername(rsRead.getString("username"));
+				i++;
+			}
+			
+			stmtView.close();
+			rsRead.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+	}
+	return objBean;		
+}
 }

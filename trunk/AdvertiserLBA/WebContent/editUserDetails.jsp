@@ -18,62 +18,60 @@
 	<!-- Javascript/jquery reference -->
 	<script type="text/javascript" src="javascripts/jquery.js"></script>
 	<script type="text/javascript" src="javascripts/jquery.validate.js"></script>
-		<script type="text/javascript">
+	<script type="text/javascript">
 	//initiate validator on load
-	 
-	$(function() {
-		//alert("qaz");
-		//$("#edituser").click(function(){
-			//alert("qaz");
-			jQuery.validator.addMethod("phone", function(phone_number, element) {
-		    	phone_number = phone_number.replace(/\s+/g, ""); 
-				return this.optional(element) || phone_number.length > 9 &&
-				phone_number.match(/^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
-			}, "Please specify a valid phone number");
-			$("#editUserForm").validate({
-				rules:{
-					companyname: {
-						required: true,
-						minlength: 2
+		var $eud = jQuery.noConflict(); 
+		$eud(function() {
+			
+				$eud.validator.addMethod("phone", function(phone_number, element) {
+			    	phone_number = phone_number.replace(/\s+/g, ""); 
+					return this.optional(element) || phone_number.length > 9 &&
+					phone_number.match(/^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
+				}, "Please specify a valid phone number");
+				$eud("#editUserForm").validate({
+					rules:{
+						companyname: {
+							required: true,
+							minlength: 2
+						},
+						password: {
+							required: true,
+							minlength: 8
+						},
+						firstname:{
+							required: true,
+							minlength: 2
+						},
+						lastname: {
+							required: true,
+							minlength: 2
+						},
+						address: {
+							required: true,
+							minlength: 2
+						},
+						phone: {
+							required: true,
+							phone: true
+						},
+						email: {
+							required: true,
+							email: true
+						}	
 					},
-					password: {
-						required: true,
-						minlength: 6
-					},
-					firstname:{
-						required: true,
-						minlength: 2
-					},
-					lastname: {
-						required: true,
-						minlength: 2
-					},
-					address: {
-						required: true,
-						minlength: 2
-					},
-					phone: {
-						required: true,
-						phone: true
-					},
-					email: {
-						required: true,
-						email: true
-					}	
-				},
-				messages: {
-					companyname: "Please enter your company name",
-					password: "Password should be 6-8 characters",
-					firstname: "Please enter firstname",
-					lastname: "Please enter your lastname",
-					address: "Address cannot be empty.",
-					email: "Please enter a valid email address",
-					phone: "Please specify a 10-digit phone number"
-				}
-					
-			//});
-		});	
-	});
+					messages: {
+						companyname: "Please enter your company name",
+						password: "Password should be 8 characters",
+						firstname: "Please enter firstname",
+						lastname: "Please enter your lastname",
+						address: "Address cannot be empty.",
+						email: "Please enter a valid email address",
+						phone: "Please specify a 10-digit phone number"
+					}
+						
+				//});
+			});	
+		});
 </script>
 <style type="text/css">
 	.error {
@@ -127,8 +125,8 @@
 				<td><input type="text" name="email" id="email" value="<%= editBean.getEmail() %>" /></td>
 			</tr>
 			<tr>
-				<!-- <td align="right"><button id="edituser" type="submit" class="ui-state-default ui-corner-all"  class="submit" >Edit n Save</button></td> -->
-				<td><input class="submit" type="submit" value="Submit" id="edituser" name="edituser" /></td>
+				<td align="right"><button id="edituser" type="submit" class="ui-state-default ui-corner-all"  class="submit" >Edit n Save</button></td>
+				<!-- <td><input class="submit" type="submit" value="Submit" id="edituser" name="edituser" /></td> -->
 			</tr>
 			
 		</table>

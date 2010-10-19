@@ -4,8 +4,11 @@ import java.sql.ResultSet;
 import java.util.Hashtable;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import com.LBA.Advertiser.bean.AdvertisementBean;
 import com.LBA.Advertiser.bean.GlobalBean;
 
 
@@ -81,10 +84,11 @@ public class AdvertisementModel {
 				DBConnect.connectDB();
 				
 				stmtView = DBConnect.con.createStatement();
-				String qry = "SELECT * from PRODUCT where username='"+GlobalBean.getUsersession()+"';";
+				String qry = "select * from product where product.username='"+GlobalBean.getUsersession()+"' AND productID NOT IN (SELECT ad_product.productID from ad_product where product.productID = ad_product.productID);";
+
 				rsRead = stmtView.executeQuery(qry);
 				while(rsRead.next()){
-					hashProduct.put(rsRead.getInt("productID"), rsRead.getString("productname")+"\t"+rsRead.getString("productdesc")+"\t"+ rsRead.getDouble("price")+"\t");
+					hashProduct.put(rsRead.getInt("productID"), rsRead.getString("productname")+"\t"+rsRead.getString("productdescription")+"\t"+ rsRead.getDouble("price")+"\t");
 				}
 				stmtView.close();
 				rsRead.close();
@@ -198,7 +202,7 @@ public class AdvertisementModel {
 			
 	}
 	
-	public void addAdvertisement(){
+	public void addAdvertisement(AdvertisementBean sqlAdBean){
 		/*
 		 * To add the Advertisement in the database. I have all the values in the bean now. 
 		 * I want to add the record in the database. But before I start adding it, I need to check 
@@ -210,14 +214,51 @@ public class AdvertisementModel {
 		
 		try {
 			stmtInsert = DBConnect.con.createStatement();
-			int rs = stmtInsert.executeUpdate("INSERT INTO image set image='';");
+			
+			//This logic is to convert the java date to sql date.
+			 
+			
+			java.sql.Date sqlStartDate = java.sql.Date.valueOf(sqlAdBean.getAdStartDate());
+			System.out.println(sqlStartDate);
+			java.sql.Date sqlEndDate = java.sql.Date.valueOf(sqlAdBean.getAdEndDate());
+			System.out.println(sqlEndDate);
+			String qty = "INSERT INTO Advertisement (adname, addesc, contractID, adstartdate, adenddate) values ('"+ sqlAdBean.getAdName()+"','"+sqlAdBean.getAdDesc() +"', "+sqlAdBean.getContractID() +", '"+sqlStartDate +"', '"+sqlEndDate +"');";
+			System.out.println(qty);
+			int rs = stmtInsert.executeUpdate(qty);
 			if (rs==1){
 				System.out.println("Successful");
+				stmtView = DBConnect.con.createStatement();
+				String qry = "SELECT MAX(adID) as adID from Advertisement";
+				rsRead = stmtView.executeQuery(qry);
+				rsRead.next();
+				
+				int adID = rsRead.getInt("adID");
+				//rsRead.close();
+				//stmtView.close();
+				Statement stmt = DBConnect.con.createStatement();
+				int res = stmt.executeUpdate("INSERT INTO AD_Product (adID, productID, adfilelocation, adSize) values("+ adID + ", "+ sqlAdBean.getProductID()+ ", '"+ sqlAdBean.getFileLocation() + "', '"+ sqlAdBean.getFileSize() + "')");
+				if(res==1){
+					valueInserted= true;
+				}
+				else{
+					valueInserted = false;
+				}
+				
+				stmt.close();
 			}
+			
+			rsRead.close();
+			stmtInsert.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean getInsertedResult(){
+		//Return the result of the value inserted.
+		return valueInserted;
 	}
 	
 	public long checkContractAdSize(int contractID){
@@ -226,10 +267,11 @@ public class AdvertisementModel {
 		
 		try {
 			stmtInsert = DBConnect.con.createStatement();
-			String qry = "Select SUM(ad.adSize) as totalSize, c.contractID, a.adID from contract c, ad_product ad, advertisement a where a.adID = ad.adID and c.contractID="+contractID+" and c.contractID = a.contractID ;";
+			
+			String qry = "Select SUM(ad.adSize) as totalSize, c.contractID, a.adID from contract c, ad_product ad, advertisement a where a.adID = ad.adID and c.contractID="+contractID+" and c.contractID = a.contractID and c.username='"+GlobalBean.getUsersession() +"';";
 			//select SUM(ad.adSize) as totalSize, c.contractID, a.adID from contract c, ad_product ad, advertisement a where a.adID = ad.adID and c.contractID = a.contractID; 
 			//select SUM(ad.adSize) as totalSize, c.contractID, a.adID from contract c, ad_product ad, advertisement a where a.adID = ad.adID and c.contractID = a.contractID and c.contractID=2;
-			
+			System.out.println(qry);
 			rsRead = stmtInsert.executeQuery(qry);
 			rsRead.next();
 			

@@ -9,11 +9,51 @@
 	<link rel="stylesheet" type="text/css" href="css/generalpurpose.css"  media="screen" />
 	<link rel="stylesheet" type="text/css" href="development-bundle/themes/base/jquery.ui.all.css" media="screen" /> 
 
+	<script type="text/javascript" src="javascripts/jquery.js"></script>
+	<script type="text/javascript" src="javascripts/jquery.validate.js"></script>
+	
+	<script type="text/javascript">
+		var $prod = jQuery.noConflict();
+		$prod(function(){
+			 
+			$prod('#createproductform').validate({
+				rules:{
+					productname:{
+						required: true,
+						minlength: 5
+					},
+					productdesc:{
+						required: true,
+						minlength: 5
+					},
+					price: {
+						required: true,
+						number: true
+					}
+				},
+				messages:{
+					productname: "Please enter product name. Atleast 5 characters",
+					productdesc: "Describe something about the product",
+					price: "Please enter product price. Eg: 120.45"
+				}
+				
+			});
+		});
+			</script>
+			 
+		
+	<style type="text/css">
+		.error {
+			color: blue;
+			font: 8pt verdana;
+			padding-left: 0px
+		} 	
+	</style>
 </head>
 <body>
 <%@ include file="/navigationbar.jsp" %>
-<form method="post" action="ProductServlet">
-	<center>
+<form method="post" action="ProductServlet" id="createproductform" name="createproductform">
+		<center>
 				<% if(request.getAttribute("deleteproduct")!=null){ %>
 						<h3 id="login_font">Product deleted successfully.</h3>
 				<% } %>	
@@ -28,11 +68,11 @@
 				<td><input type="text" name="productdesc" id="productdesc" maxlength="150" /></td>
 			</tr>
 			<tr>
-				<td id="edit_product">Product Price</td>
+				<td id="edit_product">Product Price (in $)</td>
 				<td><input type="text" name="price" id="price" /></td>
 			</tr>
 			<tr>
-				<td align="right"><button id="createproduct" type="submit"  class="ui-state-default ui-corner-all">Create Product</button></td>
+				<td align="right"><button id="createproduct" type="submit"  class="ui-state-default ui-corner-all" class="submit">Create Product</button></td>
 					<td><button id="clear" type="reset"  class="ui-state-default ui-corner-all" >Reset</button></td>
 			</tr>
 			<tr>

@@ -105,3 +105,18 @@
 	 cellpading: 120px;
 	 text-align: right;
 }
+
+/* Menu bar for different page */
+.menuOnContract{  
+		width:150px;
+	    height:30px;
+	    float:left;
+	    color:#FFF;
+	    text-align:center;
+	    overflow:hidden;
+	    font-family: "Verdana";
+	    font-size: small;
+	    display: inline;
+	    background:#003366;
+	    
+    }

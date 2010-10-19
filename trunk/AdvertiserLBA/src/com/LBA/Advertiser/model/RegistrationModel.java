@@ -34,6 +34,7 @@ public class RegistrationModel {
 	static Statement stmtView=null;
 	static ResultSet rsSet = null;
 	AdvertiserBean editBean = new AdvertiserBean();
+	GlobalBean glblBean = new GlobalBean();
 	private static final String charset = "0123456789abcdefghijklmnopqrstuvwxyz";
 	 public static String randompass ;
 	public void setUserRegistration(AdvertiserBean adBeanObject){
@@ -83,7 +84,7 @@ public class RegistrationModel {
 			//To check username and password compatibility. 
 			//We will be allowing user to either login using username or email address.
 			stmtView = DBConnect.con.createStatement();
-			String qry = "select firstname, lastname, username from advertiser where (username='"+ adBeanObject.getUserName() +"' or email='"+ adBeanObject.getEmail() +"') and password ='"+adBeanObject.getPassword()+"'" ;
+			String qry = "select firstname, lastname, username, companyname from advertiser where (username='"+ adBeanObject.getUserName() +"' or email='"+ adBeanObject.getEmail() +"') and password ='"+adBeanObject.getPassword()+"'" ;
 			
 			stmtView.executeQuery (qry);
 			rsSet = stmtView.getResultSet();
@@ -94,6 +95,9 @@ public class RegistrationModel {
 			else if (valid){	
 				isSuccess = true;
 				GlobalBean.setUsersession(rsSet.getString("username"));
+				GlobalBean.setCompanyname(rsSet.getString("companyname"));
+				GlobalBean.setFirstname(rsSet.getString("firstname"));
+				GlobalBean.setLastname(rsSet.getString("lastname"));
 			}
 		}
 		catch(Exception ex) { 
@@ -236,14 +240,14 @@ public class RegistrationModel {
 		 Session session = Session.getInstance(props, new javax.mail.Authenticator() 
 		 			{
 			 	protected PasswordAuthentication getPasswordAuthentication(){ 
-			 		return new PasswordAuthentication("hectomaniaster@gmail.com","" +
+			 		return new PasswordAuthentication("cmpe287.fall10@gmail.com","Nitin@e492" +
 			 		"");
 			 	}//Add password---
 		 		});		
 		 MimeMessage message = new MimeMessage(session);
-		 message.setSender(new InternetAddress("hectomaniaster@gmail.com"));
-		 message.setSubject( "Sending email from JSP!");
-		 message.setContent("Your new password is "+randompass, "text/plain");
+		 message.setSender(new InternetAddress(adBeanObject.getEmail()));
+		 message.setSubject( "Password retrieval from AdSpot Admin!");
+		 message.setContent("Kindly use the current password as soon as possible. The password will deactivate in 10 days. Your new password is "+randompass, "text/plain");
 //		 if (recipients.indexOf(',') > 0) 
 //			 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipients));
 //		 	else

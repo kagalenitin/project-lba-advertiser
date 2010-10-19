@@ -2,6 +2,10 @@ package com.LBA.Advertiser.model;
 
 
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.sql.ResultSet;
 
 
@@ -16,9 +20,17 @@ import java.util.Date;
 
 import javax.swing.text.DateFormatter;
 
+import org.apache.catalina.connector.Request;
+
 
 import com.LBA.Advertiser.bean.ContractBean;
 import com.LBA.Advertiser.bean.GlobalBean;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfWriter;
 
 
 public class ContractModel {
@@ -37,8 +49,8 @@ public class ContractModel {
 		DateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
 		System.out.println("--------");
 		//Get the date from the conBeanObject.
-		java.util.Date startDate = new java.util.Date(conBeanObject.getStartdate());
-		
+		//java.util.Date startDate = new java.util.Date(conBeanObject.getStartdate());
+		java.sql.Date startDate = java.sql.Date.valueOf(conBeanObject.getStartdate());
 		System.out.println(conBeanObject.getDuration());
 		int endmonth=startDate.getMonth()+Integer.parseInt(conBeanObject.getDuration())+1;
 		int year=startDate.getYear()+1900;
@@ -79,21 +91,21 @@ public class ContractModel {
 			//Logic to insert the value in the table. Inserting value in the 'Contract' DB table.
 			//Need to figure out how to insert Advertiser Id 
 			//Enddate convert into sql date format.
-			java.util.Date endDateObject = sdformat.parse(enddate);
-			java.sql.Date sqlEndDate = java.sql.Date.valueOf(sdformat.format(endDateObject));
-			
-			java.sql.Date sqlStartDate = java.sql.Date.valueOf(sdformat.format(startDate)); 
+			//java.util.Date endDateObject = sdformat.parse(enddate);
+			//java.sql.Date sqlEndDate = java.sql.Date.valueOf(sdformat.format(endDateObject));
+			java.sql.Date sqlEndDate = java.sql.Date.valueOf(enddate);
+			//java.sql.Date sqlStartDate = java.sql.Date.valueOf(startDate); 
 	     	
 			//Contract date convert into sql date format.
-			java.util.Date contractDateObject = new java.util.Date(conBeanObject.getContractdate().toString());
-			System.out.println(contractDateObject);
-			java.sql.Date sqlContractDate = java.sql.Date.valueOf(sdformat.format(contractDateObject));
+			//java.util.Date contractDateObject = new java.util.Date(conBeanObject.getContractdate().toString());
+			//System.out.println(contractDateObject);
+			java.sql.Date sqlContractDate = java.sql.Date.valueOf(conBeanObject.getContractdate());
 			System.out.println(sqlContractDate);
 			stmtInsert = DBConnect.con.createStatement();
 			
 			String qry = "INSERT into contract"+
 			" (contractname,username,contractcreatedby,contractdate,space,startdate,enddate,paymenttype,status)"+
-			" values ('"+conBeanObject.getContractname()+"','"+GlobalBean.getUsersession()+"','"+conBeanObject.getContractcreatedby()+"','"+sqlContractDate+"','"+conBeanObject.getSpace()+"','"+sqlStartDate+"','"+sqlEndDate+"','"+conBeanObject.getPaymenttype()+"','InProcess');";
+			" values ('"+conBeanObject.getContractname()+"','"+GlobalBean.getUsersession()+"','"+conBeanObject.getContractcreatedby()+"','"+sqlContractDate+"','"+conBeanObject.getSpace()+"','"+startDate+"','"+sqlEndDate+"','"+conBeanObject.getPaymenttype()+"','InProcess');";
 			System.out.println(qry);
 			int res = 0;
 			res = stmtInsert.executeUpdate(qry);
@@ -109,10 +121,7 @@ public class ContractModel {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} 
 
 	}
 	
@@ -201,12 +210,13 @@ public class ContractModel {
 			DBConnect.connectDB();
 			stmtView = DBConnect.con.createStatement();
 			//String qry = "SELECT * from contract where space='"+ UserRegistrationServlet.globalSession +"'";
-			String qry = "SELECT * from contract where contractID=(select count(*) from contract)";
+			//String qry = "SELECT *  from contract contractID =(select MAX(contractID) from contract where username='"+ GlobalBean.getUsersession()+"';";
+			String qry = "select c1.*, sq1.maxID FROM contract c1, (SELECT MAX(contractID) as maxID from contract where username = '"+ GlobalBean.getUsersession() +"') AS sq1 WHERE contractID = sq1.maxID;";
 			rsSet = stmtView.executeQuery(qry);
 			System.out.println(rsSet);
 			rsSet.next();
 			
-			viewBean1.setContractID(rsSet.getString("contractid"));
+			viewBean1.setContractID(rsSet.getString("maxID"));
 			viewBean1.setUsername(rsSet.getString("username"));
 			viewBean1.setContractname(rsSet.getString("contractname"));
 			viewBean1.setContractcreatedby(rsSet.getString("contractcreatedby"));
@@ -227,4 +237,34 @@ public class ContractModel {
 		return viewBean1;
 	}
 	//End of addition by Veenit on 09/13/2010
+	
+
+	 public void GeneratePDF() throws DocumentException, MalformedURLException, IOException{
+		 ContractModel cModel = new ContractModel();
+		 ContractBean viewBean = cModel.viewcurrentContractDetails();
+		 
+		  Document document=new Document();
+		  
+	      PdfWriter.getInstance(document,new FileOutputStream("/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/"+ viewBean.getContractID()+viewBean.getContractname()+".pdf"));
+	      document.open();  
+	      Image image = Image.getInstance ("/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/adSpotWeb.gif");
+	      Paragraph para=new Paragraph("\n\nContract Details:"+"\n");
+	      Paragraph para1=new Paragraph("Contract Id:"+ viewBean.getContractID()+"\n"+"Contract Name:"+viewBean.getContractname()+"\n"+"Contract Created by:"+viewBean.getContractcreatedby()+"\n" +"Contract Space:"+viewBean.getSpace()+"\n"+"Contract Start Date:"+viewBean.getStartdate()+"\n"+"Contract End Date:"+viewBean.getEnddate()+"\n"+"Contract Payment Type:"+viewBean.getPaymenttype()+"\n");
+	      Paragraph para3=new Paragraph("\nADSpot Agreement Details:"+"\n");
+	      Paragraph para4= new Paragraph("\nAdSpot is wholly owned by the PNV Limited. Advertiser agrees that AdSpot has the right to reject advertising:"+"\n"+ "1. If editors determine that the advertising is inconsistent with their understanding of the community’s objectives, values or image or the aesthetics standards of AdSpot."+"\n"+ " 2. If advertiser fails to meet deadlines for space reservation, ad revisions & approvals or new advertising."+"\n"+" 3. For any other reason or for no reason."+"\n"
+          +"Advertising space is sold on a “first-come first-served” basis. Advertiser releases AdSpot from any and all loss, liability or expense occasioned by Advertiser by reason of "+"\n"+"a) any failure to publish advertising pursuant to this contract"+"\n"+" b) failure to return ad media (original artwork, discs, film)."+"\n"+" In such event the advertising is not affected, the Advertising Charge (or the prorated portion thereof) will be refunded to the Advertiser\n");
+	      Paragraph para5=new Paragraph("\nContract Signed By: _____________________"+"\n");
+	      Paragraph para6=new Paragraph("\nSignature: __________________"+"\n");
+	      Paragraph para7=new Paragraph("\nContract Signed on:______________________ "+"\n");
+	      document.add(image);
+	      document.add(para);
+	      document.add(para1);
+	      document.add(para3);
+	      document.add(para4);
+	      document.add(para5);
+	      document.add(para6);
+	      document.add(para7);
+	      document.close(); 
+	      
+	 }
 }	

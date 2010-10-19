@@ -20,10 +20,10 @@ public class ProductModel {
 		DBConnect.connectDB();
 		try {
 			stmtInsert = DBConnect.con.createStatement();
-			String qry ="INSERT INTO Product (productname, productdesc, price, username) values " +
-			"('"+beanObj.getProductName()+"', '"+beanObj.getProductDesc()+"', "+ beanObj.getPrice() +
+			String qry ="INSERT INTO Product (productname, productdescription, price, username) values " +
+			"('"+beanObj.getProductName()+"', '"+beanObj.getProductdescription()+"', "+ beanObj.getPrice() +
 			", '"+GlobalBean.getUsersession()+"')";
-			
+			System.out.println(qry);
 			int res = stmtInsert.executeUpdate(qry);
 			
 			if(res==1){
@@ -86,7 +86,7 @@ public class ProductModel {
 					objBean[i] = new ProductBean();
 					objBean[i].setCount(rsRead.getInt("productid"));
 					objBean[i].setProductName(rsRead.getString("productname"));
-					objBean[i].setProductDesc(rsRead.getString("productdesc"));
+					objBean[i].setProductdescription(rsRead.getString("productdescription"));
 					objBean[i].setPrice(rsRead.getDouble("price"));
 					i++;
 				}
@@ -117,7 +117,7 @@ public class ProductModel {
 			productBean.setCount(rsRead.getInt("productID"));
 			productBean.setAdvertiserName(rsRead.getString("username"));
 			productBean.setProductName(rsRead.getString("productname"));
-			productBean.setProductDesc(rsRead.getString("productdesc"));
+			productBean.setProductdescription(rsRead.getString("productdescription"));
 			productBean.setPrice(rsRead.getDouble("price"));
 			
 			stmtView.close();
@@ -140,7 +140,7 @@ public class ProductModel {
 			DBConnect.connectDB();
 			stmtInsert = DBConnect.con.createStatement();
 			String qry = "UPDATE Product SET productname='"+
-						 beanObject.getProductName() + "', productdesc='"+ beanObject.getProductDesc()+"'"+
+						 beanObject.getProductName() + "', productdescription='"+ beanObject.getProductdescription()+"'"+
 						 ", price="+beanObject.getPrice()+" WHERE productID="+beanObject.getCount()+";";
 			int res = stmtInsert.executeUpdate(qry);
 			if(res==1){

@@ -8,12 +8,44 @@
 <link rel="stylesheet" href="css/generalpurpose.css" type="text/css"/>
 <link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />
 
+	<script type="text/javascript" src="javascripts/jquery.js"></script>
+	<script type="text/javascript" src="javascripts/jquery.validate.js"></script>
+	<script type="text/javascript">
+		var $eud = jQuery.noConflict(); 
+		$eud(function(){
+			$eud('#forgotpassword').validate({
+				rules:{
+					username:{
+						required: true,
+						minlength: 5
+					},
+					email:{
+						required: true,
+						email: true
+					}
+				},
+				messages:{
+					username: "Please enter a valid username",
+					email: "Please enter a valid email"
+				}
+			});
+
+		});
+	</script>
+	
+	<style type="text/css">
+	.error {
+		color: blue;
+		font: 8pt verdana;
+		padding-left: 0px
+	}
+</style>
 </head>
 
 
 <body bgcolor="#F3F3F3">
 <br /><br /><br /><br /><br /><br />
-<form method="post" action="UserRegistrationServlet">
+<form method="post" action="UserRegistrationServlet" id="forgotpassword" name="forgotpassword">
 	<center>
 		<table width="80%" bgcolor="#003366">
 			<tr align="center">
@@ -34,7 +66,7 @@
 							<td><input type="text" name="email" id="email" /></td>
 						</tr>
 						<tr>
-							<td align="right"><button id="login" type="submit"  class="ui-state-default ui-corner-all">Retrieve Password</button></td>
+							<td align="right"><button id="login" type="submit"  class="ui-state-default ui-corner-all" class="submit">Retrieve Password</button></td>
 							<td align="left"><button id="reset" type="reset"  class="ui-state-default ui-corner-all">Reset</button></td>
 						</tr>
 						<tr>
@@ -42,8 +74,11 @@
 						</tr>
 						<tr>
 							<td><% if(request.getParameter("success")!=null) { %>
-									<p>Retrieve password Failed!!</p>
+									<p style="font-family:Verdana;font-size: small; font-style: italic">Retrieve password Failed!!</p>
 								<% } %>
+								<% if(request.getAttribute("emailsent")!=null) { %>
+										<p style="font-family:Verdana;font-size: small; font-style: italic">Password was reset successfully. Please check your email.</p>
+								<%} %>
 							</td>
 						</tr>
 					</table>	
