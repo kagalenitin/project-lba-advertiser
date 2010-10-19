@@ -3,7 +3,8 @@ package com.LBA.Advertiser.bean;
 public class ProductBean {
 	public String advertiserName;
 	public String productName;
-	public String productDesc;
+	public String productdescription;
+	public String username;
 	public double price;
 	public int count;
 	/**
@@ -11,6 +12,12 @@ public class ProductBean {
 	 */
 	public int getCount() {
 		return count;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	/**
 	 * @param count the count to set
@@ -45,20 +52,18 @@ public class ProductBean {
 	/**
 	 * @return the productDesc
 	 */
-	public String getProductDesc() {
-		return productDesc;
-	}
-	/**
-	 * @param productDesc the productDesc to set
-	 */
-	public void setProductDesc(String productDesc) {
-		this.productDesc = productDesc;
-	}
+	
 	/**
 	 * @return the price
 	 */
 	public double getPrice() {
 		return price;
+	}
+	public String getProductdescription() {
+		return productdescription;
+	}
+	public void setProductdescription(String productdescription) {
+		this.productdescription = productdescription;
 	}
 	/**
 	 * @param price the price to set

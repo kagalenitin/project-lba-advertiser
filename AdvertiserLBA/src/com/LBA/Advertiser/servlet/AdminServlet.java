@@ -76,13 +76,15 @@ public class AdminServlet extends HttpServlet {
 			//Check whether the user logs in using username or emailID.
 			if(adminBean.getUserName().equals("")){
 				request.getSession().setAttribute("user_session",adminBean.getEmail());
+				session = request.getSession(true);
+				globalSession = (String) session.getValue("user_session");
 				getServletContext().getRequestDispatcher("/adminhome.jsp").forward(request, response);
 			}else if(adminBean.getEmail().equals("")){
 				request.getSession().setAttribute("user_session",adminBean.getUserName());
+				session = request.getSession(true);
+				globalSession = (String) session.getValue("user_session");
 				getServletContext().getRequestDispatcher("/adminhome.jsp").forward(request, response);
 			}
-			session = request.getSession(true);
-			globalSession = (String) session.getValue("user_session");
 			
 		}else{
 			//Still need to handle the error page. We can create an error page !

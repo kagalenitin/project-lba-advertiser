@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 
 import com.LBA.Advertiser.bean.AdvertiserBean;
+import com.LBA.Advertiser.bean.GlobalBean;
 import com.LBA.Advertiser.model.*;
 /**
  * Servlet implementation class UserRegistrationServlet
@@ -18,6 +19,7 @@ public class UserRegistrationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     RegistrationModel objModel = new RegistrationModel();
     AdvertiserBean advertiserBean = new AdvertiserBean();
+    GlobalBean glblBean = new GlobalBean();
     HttpSession session = null;
     public static String globalSession = null;
     
@@ -89,12 +91,16 @@ public class UserRegistrationServlet extends HttpServlet {
 				request.getSession().setAttribute("user_session",advertiserBean.getEmail());
 				session = request.getSession(true);
 				globalSession = (String) session.getValue("user_session");
+				glblBean.setUsersession(globalSession);
+				request.setAttribute("loggedin",glblBean);
 				getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
 				
 			}else if(advertiserBean.getEmail().equals("")){
 				request.getSession().setAttribute("user_session",advertiserBean.getUserName());
 				session = request.getSession(true);
 				globalSession = (String) session.getValue("user_session");
+				glblBean.setUsersession(globalSession);
+				request.setAttribute("loggedin",glblBean);
 				getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
 			}
 			
@@ -153,7 +159,9 @@ public class UserRegistrationServlet extends HttpServlet {
 				objModel.getRandomString();
 				//objModel.setPassword(advertiserBean);
 				//Redirect the user to login page. and print a message the mail is sent to you.
-				getServletContext().getRequestDispatcher("/index.jsp?forgot=true").forward(request, response);
+				//getServletContext().getRequestDispatcher("/index.jsp?forgot=true").forward(request, response);
+				request.setAttribute("emailsent", "Email was sent for password reset.");
+				getServletContext().getRequestDispatcher("/forgotpassword.jsp").forward(request, response);
 			} else {
 					getServletContext().getRequestDispatcher("/index.jsp?forgot=false").forward(request, response);
 				}

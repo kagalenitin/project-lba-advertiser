@@ -11,6 +11,19 @@ public class AdvertisementBean {
 	public String channelID;
 	public String contractID;
 	public String fileLocation;
+	public String fileSize;
+	/**
+	 * @return the fileSize
+	 */
+	public String getFileSize() {
+		return fileSize;
+	}
+	/**
+	 * @param fileSize the fileSize to set
+	 */
+	public void setFileSize(String fileSize) {
+		this.fileSize = fileSize;
+	}
 	/**
 	 * @return the fileName
 	 */

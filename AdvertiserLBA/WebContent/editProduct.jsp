@@ -43,7 +43,7 @@
 			</tr>
 			<tr>
 				<td id="edit_product">Product Description </td>
-				<td><input type="text" name="productdesc" value="<%= objBean.getProductDesc() %>" /></td>
+				<td><input type="text" name="productdesc" value="<%= objBean.getProductdescription() %>" /></td>
 			</tr>
 			<tr>
 				<td id="edit_product">Product Price </td>

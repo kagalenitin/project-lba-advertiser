@@ -1,13 +1,68 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1" %>
+
+<%@ page import="com.LBA.Advertiser.bean.GlobalBean" %>
+<%
+	GlobalBean objGlobal = new GlobalBean();
+%>    
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+
+<%@page import="com.LBA.Advertiser.bean.AdvertiserBean"%><html>
 <head>
 	<link rel="stylesheet" href="css/animated-menu.css" type="text/css" media="screen" />
 	
 	<script src="development-bundle/jquery-1.4.2.js" type="text/javascript"></script> 
-    <script src="javascripts/animated-menu.js" type="text/javascript"></script>
-    <script src="javascripts/jquery.easing.1.3.js" type="text/javascript"></script> 
+    <!-- <script src="javascripts/animated-menu.js" type="text/javascript"></script> -->
+    <script src="javascripts/jquery.easing.1.3.js" type="text/javascript"></script>
+    <script type="text/javascript">
+	   // $(document).ready(function(){
+	    	var $anim = jQuery.noConflict();
+	    	 $anim(function(){
+		    	
+	    	    //When mouse rolls over for PROFILE
+	    	    $anim("li.menuProfile").mouseover(function(){
+	    	        $anim(this).stop().animate({height:'70px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse is removed for PROFILE 
+	    	    $anim("li.menuProfile").mouseout(function(){
+	    	        $anim(this).stop().animate({height:'30px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse rolls over for CONTRACT
+	    	    $anim("li.menuContract").mouseover(function(){
+	    	        $anim(this).stop().animate({height:'150px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse is removed for CONTRACT
+	    	    $anim("li.menuContract").mouseout(function(){
+	    	        $anim(this).stop().animate({height:'30px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse rolls over for Ad
+	    	    $anim("li.menuAd").mouseover(function(){
+	    	        $anim(this).stop().animate({height:'200px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse is removed for Ad
+	    	    $anim("li.menuAd").mouseout(function(){
+	    	        $anim(this).stop().animate({height:'30px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	    	    
+	    	    //When mouse rolls over for Product
+	    	    $anim("li.menuProduct").mouseover(function(){
+	    	        $anim(this).stop().animate({height:'120px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse is removed for Product
+	    	    $anim("li.menuProduct").mouseout(function(){
+	    	        $anim(this).stop().animate({height:'30px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	    	 
+	    	});
+    </script>
+     
     
 </head>
 <body class="navigation-body">
@@ -33,9 +88,9 @@
 	        <li class="menuAd" id="menuAd">
 	            <p class="navigation-div">Ad Manager</p>
 	            <p class="subtext"><a href="NavigationServlet?page=createad">Create Advertisement</a></p>
-	            <p class="subtext">View Advertisement</p>
-	            <p class="subtext">Edit Advertisement</p>
-	            <p class="subtext">Remove Advertisement</p>
+	            <p class="subtext">View Advertisements</p>
+	            <p class="subtext">Set Merchant Location</p>
+	            <p class="subtext">View Catalogue</p>
 	        </li>
 	        <li class="menuProduct" id="menuProduct">
 	            <p class="navigation-div">Product Manager</p>
@@ -47,13 +102,12 @@
 	        </li>
 	          <li class="submain"></li>
 	    </ul>
-	    
+	  
 	</div>
-	<table>
-		<tr>
-			<td width="40%" valign="bottom"><h5>You are logged in as, <%= session.getAttribute("user_session") %></h5></td>
-		</tr>
-	</table>	
+	  <br />
+	<div style="background-color: #333333; margin : 0px 90px 120px 40px;">
+		<h5 style="color: #CCCCCC">You are logged in as, <%= GlobalBean.getFirstname() +" "+ GlobalBean.getLastname()+". " %>Your company is, <%= GlobalBean.getCompanyname() %></h5>
+	</div>	
 	
 </body>
 </html>

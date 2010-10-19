@@ -20,21 +20,146 @@
 
 	<script src="FancyZoom 1.1/js-global/FancyZoom.js" type="text/javascript"></script>
 	<script src="FancyZoom 1.1/js-global/FancyZoomHTML.js" type="text/javascript"></script>
-
-<!-- Now here we will be putting script files for DatePicker -->
+ 
+	<!-- Now here we will be putting script files for DatePicker -->
+ 	<script type="text/javascript" src="development-bundle/jquery-1.4.2.js"> </script> 
+	<script type="text/javascript" src="development-bundle/ui/jquery.ui.core.js"></script>
+	<script type="text/javascript" src="development-bundle/ui/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="development-bundle/ui/jquery.ui.datepicker.js"></script>
 	<script type="text/javascript">
-	
+		var $cad = jQuery.noConflict();
+		$cad(function(){
+			$cad("#contractenddate").datepicker({
+				dateFormat: "yy-mm-dd",
+				defaultDate: $cad('#contractenddate').val()
+			});	
+
+			$cad("#contractstartdate").datepicker({
+				dateFormat: "yy-mm-dd",
+				defaultDate: $cad('#contractstartdate').val()
+			});	
+
+			$cad("#adstartdate").datepicker({
+				dateFormat: "yy-mm-dd",
+				beforeShow: customRange
+			});
+
+			function customRange(input){
+				//alert($('#contractname: selected').val());
+				if(($cad('#contractstartdate').val()=="") || ($cad('#contractenddate').val()=="")){
+						alert('Select contract name before you can pick a date.');
+						$cad("input#adstartdate").datepicker("disabled", true);
+				}
+				else{
+					
+					var dateMin;
+					var dateMax;
+				 	dateMin = $cad("#contractstartdate").datepicker("getDate");
+				 	dateMax= $cad("#contractenddate").datepicker("getDate");
+					//alert(dateMin);
+					 return{ 
+						 minDate: dateMin,
+						 maxDate: dateMax
+					};
+				}
+			}
+
+			$cad("#adenddate").datepicker({
+				dateFormat: "yy-mm-dd",
+				beforeShow: customEndRange
+			});
+
+			function customEndRange(input){
+				//alert($('#contractname: selected').val());
+				if(($cad('#contractstartdate').val()=="") || ($cad('#contractenddate').val()=="")){
+						alert('Select contract name before you can pick a date.');
+						$cad("input#adenddate").datepicker("disabled", true);
+				}
+				else{
+					
+					var dateMin;var dateMax;
+				 	dateMin = $cad("#contractstartdate").datepicker("getDate");
+				 	dateMax= $cad("#contractenddate").datepicker("getDate");
+					//alert(dateMin);
+					 return{ 
+						 minDate: dateMin,
+						 maxDate: dateMax
+					};
+				}
+			}
+			
+		});
 	</script>
+	 
 
-
-
-
+	<!-- This part is for validation of fields -->
+	<script type="text/javascript" src="javascripts/jquery.js"></script>
+	<script type="text/javascript" src="javascripts/jquery.validate.js"></script> 
+	<script type="text/javascript">
+		var $vl = jQuery.noConflict();
+		$vl(function() {
+			$vl.validator.addMethod("productname", function(value, element) {
+	              return this.optional(element) || (value.indexOf("Select Product") == -1);
+	          }, "Please select a product");
+			$vl.validator.addMethod("contractname", function(value, element) {
+	              return this.optional(element) || (value.indexOf("Select Contract") == -1);
+	          }, "Please select a contract");
+			$vl.validator.addMethod("channelname", function(value, element) {
+	              return this.optional(element) || (value.indexOf("Select Channel") == -1);
+	          }, "Please select a channel");
+			$vl('#createadvertisement').validate({
+				rules: {
+					adfile:{
+						required: true
+					},
+					adname:{
+						required: true,
+						minlength: 5
+					},
+					addesc:{
+						required: true,
+						minlength: 5
+					},
+					productname:{
+						productname: true
+					},
+					contractname:{
+						contractname: true
+					},
+					channelname:{
+						channelname: true
+					},
+					adstartdate:{
+						required: true
+					},
+					adenddate:{
+						required: true
+					}
+					
+				},
+				messages:{
+					adfile: "Please select a file",
+					adname: "Please enter Ad name",
+					addesc: "Please enter description",
+					adstartdate: "Please select ad start date",
+					adenddate: "Please select ad end date"
+				}
+			});
+		});
+	</script> 
 <title>Create New Advertisement</title>
+<style type="text/css">
+	.error {
+		color: blue;
+		font: 8pt verdana;
+		padding-left: 0px
+	}
+</style>
 </head>
-<body  id="createAdvertisement" onload="setupZoom()">
-<%@ include file="/navigationbar.jsp" %>
+<body id="createAdvertisement" onload="setupZoom()">
+<%@ include file="./navigationbar.jsp" %>
 <br /> <br />	
-<form method="post" action="AdvertisementServlet" enctype="multipart/form-data" name="createadvertisement">
+<form method="post" action="AdvertisementServlet" enctype="multipart/form-data" name="createadvertisement" id="createadvertisement">
 	<center>
 		<h3 id="login_font">Create Ad Details</h3>	
 		<table>
@@ -97,12 +222,12 @@
 						<!--  This part of the code is JavaScript handled to display the values of selected product. -->
 
 				<script type="text/javascript">
-			
-						jQuery(function(){
+						var $cn = jQuery.noConflict();
+						$cn(function(){
 						
-							$('select#productname').change(function(){
+							$cn('select#productname').change(function(){
 							
-								if($('#productname :selected').text() == "Select Product"){
+								if($cn('#productname :selected').text() == "Select Product"){
 									document.getElementById('productdesc').value = "No product description";
 									document.getElementById('productprice').value = "0.00";
 									
@@ -127,7 +252,7 @@
 									
 									//And print its corresponding description and price.
 									for(cntView=0; cntView<myProducts.length; cntView+=3){
-										if(myProducts[cntView].match($('#productname :selected').val())){
+										if(myProducts[cntView].match($cn('#productname :selected').val())){
 											//alert($('#productname :selected').val());
 											var desc = myProducts[cntView+1];
 											var price = myProducts[cntView+2];
@@ -192,17 +317,19 @@
 					<!-- On change event of contract, we should populate the values of contract details for user reference -->
 
 		<script type="text/javascript">
-				
-				jQuery(function(){
+				var $cn = jQuery.noConflict();
+				$cn(function(){
 						
-						$('select#contractname').change(function(){
-							if($('#contractname :selected').text() == "Select Contract Name"){
+						$cn('select#contractname').change(function(){
+							if($cn('#contractname :selected').text() == "Select Contract Name"){
 								document.getElementById('contractcreatedby').value = "";
 								document.getElementById('contractdate').value = "";
 								document.getElementById('space').value = "";
 								document.getElementById('contractdate').value = "";
 								document.getElementById('contractstartdate').value = "";
 								document.getElementById('contractenddate').value = "";
+								document.getElementById('adstartdate').value="";
+								document.getElementById('adenddate').value="";
 							}else{
 								var myContract = new Array();
 								var contract = '<%= arrContract %>';
@@ -216,7 +343,7 @@
 
 								for(cntView = 0; cntView < myContract.length; cntView +=6){
 
-									if(myContract[cntView].match($('#contractname :selected').val())){
+									if(myContract[cntView].match($cn('#contractname :selected').val())){
 										//alert($('#contractname :selected').val());
 										var name = myContract[cntView+1];
 										var contDate = myContract[cntView+2];
@@ -229,6 +356,8 @@
 										document.getElementById('space').value = "";
 										document.getElementById('contractstartdate').value = "";
 										document.getElementById('contractenddate').value = "";
+										document.getElementById('adstartdate').value="";
+										document.getElementById('adenddate').value="";
 									}
 								}
 									document.getElementById('contractcreatedby').value = name;
@@ -252,7 +381,7 @@
 				<td><input type="text" name="contractcreatedby" id="contractcreatedby" readOnly="readonly" style="background-color: #CCCCCC; color: #003366; font-weight: bold" /></td>
 			</tr>
 			<tr>
-				<td id="createad_column"><label>Contract Date</label></td>
+				<td id="createad_column"><label>Contract Created Date (yyyy-mm-dd)</label></td>
 				<td><input type="text" name="contractdate" id="contractdate" readOnly="readonly" style="background-color: #CCCCCC; color: #003366; font-weight: bold" /></td>
 			</tr>
 			<tr>
@@ -260,20 +389,44 @@
 				<td><input type="text" name="space" id="space" readOnly="readonly" style="background-color: #CCCCCC; color: #003366; font-weight: bold" /></td>
 			</tr>
 			<tr>
-				<td id="createad_column"><label>Contract Start Date</label></td>
-				<td><input type="text" name="contractstartdate" id="contractstartdate" readOnly="readonly" style="background-color: #CCCCCC; color: #003366; font-weight: bold" /></td>
+				<td id="createad_column"><label>Contract Start Date (yyyy-mm-dd)</label></td>
+				<td>
+					<input type="text" name="contractstartdate" id="contractstartdate" readOnly="readonly" style="background-color: #CCCCCC; color: #003366; font-weight: bold" />
+					<script type="text/javascript">
+						
+					</script>
+				</td>
 			</tr>
 			<tr>
-				<td id="createad_column"><label>Contract End Date</label></td>
-				<td><input type="text" name="contractenddate" id="contractenddate" readOnly="readonly" style="background-color: #CCCCCC; color: #003366; font-weight: bold" /></td>
+				<td id="createad_column"><label>Contract End Date (yyyy-mm-dd)</label></td>
+				<td>
+					<input type="text" name="contractenddate" id="contractenddate" readOnly="readonly" style="background-color: #CCCCCC; color: #003366; font-weight: bold" />
+					<script type="text/javascript">
+						
+							
+						
+					</script>
+				</td>
 			</tr>
 			<tr>
-				<td id="createad_column"><label>Ad Start Date</label></td>
-				<td><input type="text" name="adstartdate" id="adstartdate" /></td>
+				<td id="createad_column"><label>Ad Start Date (yyyy-mm-dd)</label></td>
+				<td><input type="text" name="adstartdate" id="adstartdate" />
+				<script type="text/javascript">
+					
+				</script>
+				</td>
 			</tr>
 			<tr>
-				<td id="createad_column"><label>Ad End Date</label></td>
-				<td><input type="text" name="adenddate" id="adenddate" /></td>
+				<td id="createad_column"><label>Ad End Date (yyyy-mm-dd)</label></td>
+				<td>
+					<input type="text" name="adenddate" id="adenddate" />
+					<script type="text/javascript">
+					jQuery(function(){
+						
+						
+					});
+				</script>
+				</td>
 			</tr>
 			<tr>
 				<td id="createad_column"><label>Channel Name</label></td>
@@ -284,7 +437,7 @@
 					<input type="text" name="channelname" id="channelname" value="No Channel" readonly="readonly" />
 				<%} else{ %>
 					<select name="channelname">
-					<option value="selectchannel">Select Channel</option>
+					<option value="Select Channel">Select Channel</option>
 					<% Enumeration<Integer> enumKey = hashChannel.keys();
 						Integer[] key = new Integer[channelCount];
 						int count=0;
@@ -301,14 +454,14 @@
 				</td>
 			</tr>
 			<tr>
-				<td><button id="createad" type="submit" class="ui-state-default ui-corner-all">Create Ad !</button></td>
+				<td align="right"><button id="createad" type="submit" class="ui-state-default ui-corner-all" class="submit">Create Ad !</button></td>
 				<td><button id="reset" type="reset" class="ui-state-default ui-corner-all">Clear</button></td>
 			</tr>
 		</table>
 		</center>	
 		
 	</form>
-	
+	<a href="home.jsp" style="font-color: #003366">Back to homepage</a>
 
 </body>
 </html>

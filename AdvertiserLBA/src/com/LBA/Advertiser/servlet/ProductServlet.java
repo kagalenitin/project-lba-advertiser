@@ -80,7 +80,7 @@ public class ProductServlet extends HttpServlet {
 		
 		productBeanObj.setAdvertiserName(GlobalBean.getUsersession());
 		productBeanObj.setProductName(request.getParameter("productname"));
-		productBeanObj.setProductDesc(request.getParameter("productdesc"));
+		productBeanObj.setProductdescription(request.getParameter("productdesc"));
 		productBeanObj.setPrice(Double.parseDouble(request.getParameter("price")));
 		
 		objProductModel.setProductDetails(productBeanObj);
@@ -94,7 +94,7 @@ public class ProductServlet extends HttpServlet {
 		productBeanObj.setCount(Integer.parseInt(request.getParameter("productid")));
 		productBeanObj.setAdvertiserName(GlobalBean.getUsersession());
 		productBeanObj.setProductName(request.getParameter("productname"));
-		productBeanObj.setProductDesc(request.getParameter("productdesc"));
+		productBeanObj.setProductdescription(request.getParameter("productdesc"));
 		productBeanObj.setPrice(Double.parseDouble(request.getParameter("productprice")));
 		
 		if(objProductModel.updateProduct(productBeanObj)){

@@ -15,7 +15,7 @@
 <title>View All Product Details</title>
 </head>
 <body>
-<%@ include file="/navigationbar.jsp" %>
+<%@ include file="./navigationbar.jsp" %>
 
 <center>
 	<% if(request.getAttribute("deleteproduct") !=null){ %>
@@ -42,7 +42,7 @@
  	 	<tr>
  			<td id="viewall_product"><a href="ProductServlet?page=editid&productid=<%= objBean[i].getCount() %>"><font style="color:#000000"><%= objBean[i].getCount() %></font></a></td>
 			<td id="viewall_product" ><label id="productname"><%= objBean[i].getProductName() %></label></td>
-			<td id="viewall_product"><label id="productdesc"><%= objBean[i].getProductDesc() %></label></td>
+			<td id="viewall_product"><label id="productdesc"><%= objBean[i].getProductdescription() %></label></td>
 			<td id="viewall_product"><label id="productprice"><%= objBean[i].getPrice() %></label></td>
 				
 		<% } %>

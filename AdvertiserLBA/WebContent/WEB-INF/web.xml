@@ -89,4 +89,14 @@
     <servlet-name>AdvertisementServlet</servlet-name>
     <url-pattern>/AdvertisementServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ChannelCreateServlet</display-name>
+    <servlet-name>ChannelCreateServlet</servlet-name>
+    <servlet-class>com.LBA.Advertiser.servlet.ChannelCreateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ChannelCreateServlet</servlet-name>
+    <url-pattern>/ChannelCreateServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

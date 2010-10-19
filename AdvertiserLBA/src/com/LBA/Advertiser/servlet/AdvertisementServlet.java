@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -35,7 +35,8 @@ import com.LBA.Advertiser.model.AdvertisementModel;
  */
 public class AdvertisementServlet extends HttpServlet {
 	ArrayList<String> arrAdDetails = new ArrayList<String>();
-	File file=null;
+	public static boolean find=false;
+	static File file=null;
     
 	long contractFileSize = 0;
 	
@@ -45,6 +46,9 @@ public class AdvertisementServlet extends HttpServlet {
     
 	AdvertisementBean objAdBean = new AdvertisementBean();
 	AdvertisementModel objAdModel = new AdvertisementModel();
+	static String contType = "";
+	
+	public String entireMsg="";
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -73,14 +77,14 @@ public class AdvertisementServlet extends HttpServlet {
 	}
 
 	public void uploadImageFromServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
+		System.out.println("thr");
 		int adIDCount = objAdModel.getAdvertisementIDCount() + 1;
 		
 		
         String reg = "[.*]";
         String replacingtext = "";
         String fileType="";
-        long fileSize=0;
+        String fileSize="";
          
         
         Pattern pattern = Pattern.compile(reg);
@@ -125,32 +129,35 @@ public class AdvertisementServlet extends HttpServlet {
                     	System.out.println("Valid file format");
                     }else{
                     	System.out.println("Invalid file format");
+                    	entireMsg = entireMsg.concat("Invalid file format");
                     }
                     
                     int indexOf = itemName.indexOf(".");
                     domainName = itemName.substring(indexOf);
-                    fileSize =  item.getSize();
+                    fileSize =  String.valueOf(item.getSize());
                     System.out.println("Filesize: "+fileSize);
-                    
+                    contType = item.getContentType();
+                    System.out.println("ContTpe: "+contType);
             	}
             	
             }
             
-            /*for(int i=0; i<arrAdDetails.size(); i++){
+            for(int i=0; i<arrAdDetails.size(); i++){
             	System.out.println("i: "+i +" "+arrAdDetails.get(i));
-            }*/
+            }
            
             if(checkTotalUsedSpace()){
             	System.out.println("OK You have space available to upload.");
             }else{
             	System.out.println("Not enough space to upload.");
+            	entireMsg = entireMsg.concat("Not enough space to upload.");
             }
             
          
            
     		//Save the image file in the images folder of the application.
             finalImage = buffer.toString() + String.valueOf(adIDCount) + arrAdDetails.get(2) + domainName;
-            
+            //Remember to change the location 
         	String destinationDir = "/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/userUploadedImages/";
             //String destinationDir = request.getContextPath().toString() +"/images/userUploadedImages/";
             //System.out.println("Servlet : " + destinationDir);
@@ -162,13 +169,13 @@ public class AdvertisementServlet extends HttpServlet {
 				 * Handle Form Fields.
 				 */
 				if(item.isFormField()) {
-					System.out.println("File Name = "+item.getFieldName()+", Value = "+item.getString());
+					//System.out.println("File Name = "+item.getFieldName()+", Value = "+item.getString());
 				} else {
 					//Handle Uploaded files.
-					System.out.println("Field Name = "+item.getFieldName()+
-						", File Name = "+item.getName()+
-						", Content type = "+item.getContentType()+
-						", File Size = "+item.getSize());
+				//	System.out.println("Field Name = "+item.getFieldName()+
+					//	", File Name = "+item.getName()+
+						//", Content type = "+item.getContentType()+
+						//", File Size = "+item.getSize());
 					/*
 					 * Write file to the ultimate location.
 					 */
@@ -182,38 +189,83 @@ public class AdvertisementServlet extends HttpServlet {
 				}
 				//out.close();
 			}
-    		//objAdBean.setFileLocation(savedFile.toString());
-			
-			if(checkDimension()){
-				
+    		
+			boolean retValue = checkDimension();
+			System.out.println("retValue;" +retValue);
+			if(find==true){
+				System.out.println("Video format, no dimension check");
+			}else if(retValue){
+				System.out.println("Dimension looks good");
+			}else{
+				entireMsg = entireMsg.concat("Dimensions r not good");
 			}
-		
-            /*if((validFileSizeFlag==true) && (validFileTypeFlag==true)){
-            	System.out.println("Success");
-            }else{
-            	System.out.println("UnSuccess");
-            }*/
             
-            /*objAdBean.setAdName(arrAdDetails.get(0));
-    		objAdBean.setAdDesc(arrAdDetails.get(1));
-    		objAdBean.setProductID(arrAdDetails.get(2));
-    		objAdBean.setContractID(arrAdDetails.get(3));
-    		objAdBean.setAdStartDate(arrAdDetails.get(4));
-    		objAdBean.setAdEndDate(arrAdDetails.get(5));
-    		objAdBean.setChannelID(arrAdDetails.get(6));
-    		//Append the AdID + productID here and then set the final Image.
-    		finalImage = buffer.toString() + String.valueOf(adIDCount) + arrAdDetails.get(2) + domainName;
-    		
-    		arrAdDetails.add(finalImage);
-    		objAdBean.setFileName(arrAdDetails.get(7));
-    		
-    		*/
-	    }
+			if((validFileSizeFlag==true) && (validFileTypeFlag==true) && ((find==true) || (retValue==true))){
+				//Insert everything in the arrAdDetails.
+				System.out.println("All is well");
+				objAdBean.setAdName(arrAdDetails.get(0));
+	    		objAdBean.setAdDesc(arrAdDetails.get(1));
+	    		objAdBean.setProductID(arrAdDetails.get(2));
+	    		objAdBean.setContractID(arrAdDetails.get(5));
+	    		objAdBean.setAdStartDate(arrAdDetails.get(11));
+	    		objAdBean.setAdEndDate(arrAdDetails.get(12));
+	    		objAdBean.setChannelID(arrAdDetails.get(13));
+	    		objAdBean.setFileName(finalImage);
+	    		System.out.println(destinationDir+finalImage);
+	    		objAdBean.setFileLocation(destinationDir+finalImage);
+	    		objAdBean.setFileSize(fileSize);
+	    		
+	    		objAdModel.addAdvertisement(objAdBean);
+	    		request.setAttribute("adcreated", objAdModel);
+	    		getServletContext().getRequestDispatcher("/resultofad.jsp").forward(request, response);
+			}
+			else{
+				//Traverse the item and delete the file which is been created at the location.
+				System.out.println("Something went wrong");
+				System.out.println(destinationDir+finalImage);
+				itr = items.iterator();
+				while(itr.hasNext()) {
+					 item = (FileItem) itr.next();
+					/*
+					 * Handle Form Fields.
+					 */
+					if(item.isFormField()) {
+						System.out.println("File Name = "+item.getFieldName()+", Value = "+item.getString());
+					} else {
+						//Handle Uploaded files.
+					//	System.out.println("Field Name = "+item.getFieldName()+
+						//	", File Name = "+item.getName()+
+							//", Content type = "+item.getContentType()+
+							//", File Size = "+item.getSize());
+						/*
+						 * Write file to the ultimate location.
+						 */
+						file = new File(destinationDir+finalImage);
+						try {
+							if(file.delete())
+								System.out.println("File deleted");
+							else
+								System.out.println("File not deleted.");
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+					}
+			
+					
+				}	
+				request.setAttribute("witherror", entireMsg);
+				getServletContext().getRequestDispatcher("/resultofad.jsp").forward(request, response);
+           
+			}
+		}
 	    
 	}
 	
 	public boolean checkTotalUsedSpace(){
 		//Check the totalUsedSize from the contract allotted size. 
+		System.out.println("Arr add L: "+arrAdDetails.get(5));
         long totalUsedFileSize = objAdModel.checkContractAdSize(Integer.parseInt(arrAdDetails.get(5)));
         System.out.println("TotalUsed File Size in Contract: "+ totalUsedFileSize);
         
@@ -228,7 +280,6 @@ public class AdvertisementServlet extends HttpServlet {
         }
         else{
         	validFileSizeFlag = false;
-        	
         }
         
 		return validFileSizeFlag;
@@ -237,22 +288,38 @@ public class AdvertisementServlet extends HttpServlet {
 	public boolean checkFileType(){
 		  //Checking file types:
         String[] arrFileType= {"image/jpeg", "image/gif", "image/png", "image/bmp", "video/quicktime", "video/mp4", "audio/x-pn-realaudio", "audio/mpeg"};
-        
+        System.out.println("ContTpe"+item.getContentType());
 		for(int i=0; i<arrFileType.length; i++){
 			if(item.getContentType().equals(arrFileType[i])){
+				System.out.println("Matches the file");
 				validFileTypeFlag=true;
+				break;
 			}else{
     			validFileTypeFlag=false;
     		}
 		}
-        
+        System.out.println("ValidFlagType:"+validFileTypeFlag);
 		return validFileTypeFlag;
 	}
 	
-	public boolean checkDimension(){
-		boolean flag = false;
+	public static boolean checkDimension(){
+		boolean flag=false; 
+		
+		DataInput dis;
 		//  The file dimension is a bit skeptical. I am not able to get the exact dimension of the uploaded image
-            DataInput dis;
+		String arrFile[] = {"video/quicktime", "video/mp4", "audio/x-pn-realaudio", "audio/mpeg"};
+		for(int i=0; i<arrFile.length; i++){
+			if(contType.equals(arrFile[i])){
+				System.out.println("The video format is not supported for dimension checking");
+				find=true; 
+				break;
+			}
+		}
+		
+		if(find==true){
+			return false;
+		}else{
+
 			try {
 				dis = new DataInputStream(new FileInputStream(file));
 				ImageInfo ii = new ImageInfo();
@@ -261,10 +328,11 @@ public class AdvertisementServlet extends HttpServlet {
 	            ii.setCollectComments(true);
 	            if (!ii.check()) {
 	            	System.err.println("Not a supported image file format.");
+	            	return false;
 	            }
 	            System.out.println(ii.getHeight()+"  width"+ ii.getWidth());
-	            if((ii.getHeight()>450) && (ii.getWidth()>150)){
-	            	flag = true;
+	            if((ii.getHeight()>250) && (ii.getWidth()>150)){
+	            	flag=true;
 	            }else{
 	            	flag=false;
 	            }
@@ -272,7 +340,7 @@ public class AdvertisementServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-            
+		}			
 		return flag;
 	}
 }

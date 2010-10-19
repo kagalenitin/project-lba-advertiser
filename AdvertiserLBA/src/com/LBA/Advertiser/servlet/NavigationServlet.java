@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.LBA.Advertiser.bean.GlobalBean;
+import com.LBA.Advertiser.model.AdminModel;
 import com.LBA.Advertiser.model.AdvertisementModel;
+import com.LBA.Advertiser.model.ChannelModel;
 import com.LBA.Advertiser.model.ContractModel;
 import com.LBA.Advertiser.model.ProductModel;
 import com.LBA.Advertiser.model.RegistrationModel;
+import com.itextpdf.text.DocumentException;
 
 /**
  * Servlet implementation class NavigationServlet
@@ -21,6 +24,9 @@ public class NavigationServlet extends HttpServlet {
     ProductModel objProduct = new ProductModel();
     ContractModel objContract = new ContractModel();
     AdvertisementModel objAdModel = new AdvertisementModel();
+    ChannelModel objChannel = new ChannelModel();
+    AdminModel objAdminProduct = new AdminModel();
+
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -85,9 +91,31 @@ public class NavigationServlet extends HttpServlet {
     	}else if(postAction.equals("adminuser")){
     		//request.setAttribute("viewall", objProduct);
     		//objProduct.viewAllProducts();
-    		getServletContext().getRequestDispatcher("/adminhome.jsp").forward(request, response);;
+    		getServletContext().getRequestDispatcher("/adminlogin.jsp").forward(request, response);;
     	}else if(postAction.equals("editcontract")){
     		getServletContext().getRequestDispatcher("/viewContract.jsp").forward(request, response);;
+    	}else if(postAction.equals("createchannel")){
+    		getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
     	}
+    	else if(postAction.equals("viewchannel")){
+    		request.setAttribute("viewchannel", objChannel);
+    		objChannel.viewChannelDetails();
+    		getServletContext().getRequestDispatcher("/viewallchannel.jsp").forward(request, response);;
+    	}
+    	else if(postAction.equals("admin_product")){
+    		request.setAttribute("viewall", objAdminProduct);
+    		objAdminProduct.viewAllProducts();
+    		getServletContext().getRequestDispatcher("/adminviewallproducts.jsp").forward(request, response);;
+    	}else if(postAction.equals("createpdf")){
+    		
+    		try {
+				objContract.GeneratePDF();
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    		getServletContext().getRequestDispatcher("/pdf.jsp").forward(request, response);;
+    	}
+
 	}
 }
