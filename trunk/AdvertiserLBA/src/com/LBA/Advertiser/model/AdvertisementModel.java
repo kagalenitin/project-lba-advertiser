@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import com.LBA.Advertiser.bean.AdMerchantBean;
 import com.LBA.Advertiser.bean.AdvertisementBean;
 import com.LBA.Advertiser.bean.GlobalBean;
+import com.LBA.Advertiser.servlet.UserRegistrationServlet;
 
 
 public class AdvertisementModel {
@@ -379,9 +380,10 @@ public class AdvertisementModel {
 					int i=0;
 					//objBean = new ProductBean[count];
 					stmtView = DBConnect.con.createStatement();
-					String qry = "SELECT adname,addesc,adstartdate,adenddate,adsize,p.productid,productname,productdescription,price from advertisement a,ad_product c,product p where a.adID=c.adID and c.productID= p.productID";
+					//String qry = "SELECT adname,addesc,adstartdate,adenddate,adsize,p.productid,productname,productdescription,price from advertisement a,ad_product c,product p where a.adID=c.adID and c.productID= p.productID";
+					String qry = "SELECT adname,addesc,adstartdate,adenddate,adsize,p.productid,productname,productdescription,price from advertisement a,ad_product c,product p where a.adID=c.adID and c.productID= p.productID and p.username='"+ GlobalBean.getUsersession()+"'";
 					rsRead = stmtView.executeQuery(qry);
-					System.out.println(rsRead);
+					//System.out.println(rsRead);
 					while(rsRead.next()){
 						objBean[i] = new AdvertisementBean();
 						objBean[i].setAdName(rsRead.getString("adname"));
@@ -389,14 +391,15 @@ public class AdvertisementModel {
 						objBean[i].setAdsize(rsRead.getString("adsize"));
 						objBean[i].setAdStartDate(rsRead.getString("adstartdate"));
 						objBean[i].setAdEndDate(rsRead.getString("adenddate"));
-						objBean[i].setProductid(rsRead.getString("productid"));
+						objBean[i].setProductID(rsRead.getString("productid"));
 						objBean[i].setProductname(rsRead.getString("productname"));
 						objBean[i].setProductdescription(rsRead.getString("productdescription"));
 						objBean[i].setProductprice(rsRead.getString("price"));
 						
-						
 						i++;
+						
 					}
+					
 					//System.out.println(rsRead.getString("contractname"));
 					stmtView.close();
 					rsRead.close();
@@ -417,11 +420,12 @@ public class AdvertisementModel {
 		try {
 			stmtView = DBConnect.con.createStatement();
 			
-			String qryCount = "SELECT COUNT(*) as cnt FROM advertisement";
+			//String qryCount = "SELECT COUNT(*) as cnt FROM advertisement";
+			String qryCount = "select count(ad.adID) as cnt from advertisement ad, ad_product ap, product p where ad.adID = ap.adID and ap.productID=p.productID and p.username='"+GlobalBean.getUsersession() +"'";
 			rsSet = stmtView.executeQuery(qryCount);
 			rsSet.next();
 			count = rsSet.getInt("cnt");
-			
+			//System.out.println(count);
 			stmtView.close();
 			rsSet.close();
 		} catch (SQLException e) {

@@ -121,7 +121,7 @@ public class NavigationServlet extends HttpServlet {
     	}else if(postAction.equals("viewcatalog")){
     		request.setAttribute("viewallads", objAdModel);
     		objAdModel.viewAllAds();
-    		System.out.println("error not found");
+    		//System.out.println("error not found");
     		getServletContext().getRequestDispatcher("/viewallads.jsp").forward(request, response);
     	}
 
