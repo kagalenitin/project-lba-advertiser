@@ -23,7 +23,7 @@
 		<h1 id="login_font">Sorry ! You do not have any channels created.</h1>
 	<% } else {%>
 			<h3 id="login_font">View Channel Details</h3>
-		<table>
+		<table cellpadding="3">
 			<tr>
 				<td id="viewall_column_heading" width="50"><b>Channel ID</b></td>
 				<td id="viewall_column_heading" width="200"><b>Channel Name</b></td>

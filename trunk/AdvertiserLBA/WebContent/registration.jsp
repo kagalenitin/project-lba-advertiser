@@ -80,12 +80,12 @@
 <br /><br /><br /><br /><br /><br />
 <form name="registrationForm" id="registrationForm" action="UserRegistrationServlet" method="post">
 	<center>
-			<table width="80%"  bgcolor="#003366" >
+			<table width="80%"  bgcolor="#003366" cellpadding="3">
 				<tr>
 					<td align="left"><img src="images/adSpotWeb.gif" height="72" width="175" /></td>
 				</tr>
 			</table>
-			<table>
+			<table cellpadding="3">
 				<tr><td><h3 id="login_font">Registration Page</h3></td></tr>
 				<tr>
 					<td id="registration_column">Company Name</td>

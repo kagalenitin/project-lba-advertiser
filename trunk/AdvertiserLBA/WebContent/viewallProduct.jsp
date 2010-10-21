@@ -26,7 +26,7 @@
 		<h1>Sorry ! You do not have any products.</h1>
 	<%} else{ %>
 	<form name="viewproducts" method="post" action="ProductServlet">
-	<table>
+	<table cellpadding="3">
 		<tr align="center">
 				<td colspan=4><h3 id="login_font">View Product Details</h3></td>
 		</tr>

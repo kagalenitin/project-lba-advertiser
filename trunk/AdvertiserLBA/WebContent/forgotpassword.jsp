@@ -47,7 +47,7 @@
 <br /><br /><br /><br /><br /><br />
 <form method="post" action="UserRegistrationServlet" id="forgotpassword" name="forgotpassword">
 	<center>
-		<table width="80%" bgcolor="#003366">
+		<table width="80%" bgcolor="#003366" cellpadding="3">
 			<tr align="center">
 				<td align="left"><img src="images/adSpotWeb.gif" height="72" width="175" /></td>
 			</tr>

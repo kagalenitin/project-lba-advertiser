@@ -91,7 +91,7 @@
 <form method="post" action="UserRegistrationServlet" name="editUserForm" id="editUserForm">
 	<center>
 		<h3 id="login_font">Edit User Details</h3>	
-		<table>
+		<table cellpadding="3">
 			<tr>
 				<td id="registration_column"><label>Company Name </label></td>
 				<td><input type="text" name="companyname" id="companyname" value="<%= editBean.getCompanyName() %>" /></td>

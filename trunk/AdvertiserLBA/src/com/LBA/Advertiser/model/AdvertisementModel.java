@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import com.LBA.Advertiser.bean.AdMerchantBean;
 import com.LBA.Advertiser.bean.AdvertisementBean;
 import com.LBA.Advertiser.bean.GlobalBean;
 
@@ -22,7 +23,7 @@ public class AdvertisementModel {
 	
 	public int getAdvertisementIDCount(){
 		/*
-		 * Get the count of the Product for current user 
+		 * Get the count of the Advertisement 
 		 */
 		DBConnect.connectDB();
 		
@@ -31,7 +32,7 @@ public class AdvertisementModel {
 		try {
 			stmtView = DBConnect.con.createStatement();
 			
-			String qryCount = "SELECT COUNT(*) as cnt FROM Advertisement";
+			String qryCount = "select COUNT(*) as cnt from advertisement ad, ad_product ap, product p where ad.adID= ap.adID and p.productID=ap.productID and p.username='"+GlobalBean.getUsersession() +"';";
 			rsSet = stmtView.executeQuery(qryCount);
 			rsSet.next();
 			count = rsSet.getInt("cnt");
@@ -238,13 +239,23 @@ public class AdvertisementModel {
 				Statement stmt = DBConnect.con.createStatement();
 				int res = stmt.executeUpdate("INSERT INTO AD_Product (adID, productID, adfilelocation, adSize) values("+ adID + ", "+ sqlAdBean.getProductID()+ ", '"+ sqlAdBean.getFileLocation() + "', '"+ sqlAdBean.getFileSize() + "')");
 				if(res==1){
-					valueInserted= true;
+					Statement smlstmnt = DBConnect.con.createStatement();
+					int rss = smlstmnt.executeUpdate("INSERT INTO Channel_Ad values ("+ sqlAdBean.getChannelID()+", "+ adID +");");
+					if(rss==1){
+						valueInserted= true;
+					}else{
+						valueInserted= false;
+					}
+					smlstmnt.close();
+					
 				}
 				else{
 					valueInserted = false;
 				}
 				
-				stmt.close();
+				stmt.close();	
+			}else{
+				valueInserted = false;
 			}
 			
 			rsRead.close();
@@ -287,5 +298,136 @@ public class AdvertisementModel {
 		return totalSize;
 	}
 	
+	public Hashtable<Integer, String> loadAdName(){
+		Hashtable<Integer, String> hashAd = new Hashtable<Integer, String>();
+		Statement stmt = null;
+		DBConnect.connectDB();
+		try {
+			stmt= DBConnect.con.createStatement();
+			String qry = "select ad.* from advertisement ad, ad_product ap, product p where ad.adID= ap.adID and p.productID=ap.productID and p.username='"+GlobalBean.getUsersession() +"';";
+			rsSet = stmt.executeQuery(qry);
+			while(rsSet.next()){
+				hashAd.put(rsSet.getInt("adID"), rsSet.getString("adname")+"\t"+rsSet.getString("addesc")+"\t");
+			}
+			
+			stmt.close();
+			rsSet.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		DBConnect.disconnectDB();
+		return hashAd;
+			
+	}
 	
+	public void addMerchantLocationToAd(AdMerchantBean adBean){
+		DBConnect.connectDB();
+		
+		try {
+			stmtInsert = DBConnect.con.createStatement();
+			String qry = "INSERT INTO MerchantLocation (longitude, latitude, address, city, state, zip) values ('"+ adBean.getLongitude()+"', '"+ adBean.getLatitude()+"', " +
+					"'"+adBean.getAddress() +"', '"+ adBean.getCity()+"', '"+adBean.getState() +"', "+ Integer.parseInt(adBean.getZip()) +");";
+			System.out.println(qry);
+			int res = stmtInsert.executeUpdate(qry);
+			if(res==1){
+				System.out.println("In here");
+				stmtView = DBConnect.con.createStatement();
+				String qry1 = "SELECT MAX(merchantlocationID) as mercID from MerchantLocation";
+				rsRead = stmtView.executeQuery(qry1);
+				rsRead.next();
+				int mercID = rsRead.getInt("mercID");
+				System.out.println(mercID);
+				Statement stmt = DBConnect.con.createStatement();
+				String newqry = "INSERT INTO Ad_Merchant (merchantlocationID, adID) values ("+ mercID +", "+ adBean.getAdID()+");";
+				int rs = stmt.executeUpdate(newqry);
+				if(rs==1){
+					valueInserted = true;
+				}else{
+					valueInserted = false;
+				}
+				stmt.close();
+			}
+			stmtView.close();
+			stmtInsert.close();
+			rsRead.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		DBConnect.disconnectDB();
+	}
+	
+	public boolean getAdMerchantResult(){
+			return valueInserted;
+	}
+	
+	public AdvertisementBean[] viewAllAds(){
+			
+			DBConnect.connectDB();
+			int count = getProductCount();
+			AdvertisementBean[] objBean = new AdvertisementBean [count];
+			//ContractBean[] obj = new ContractBean[count];
+			if(count == 0){
+				
+			}else{
+	
+				try{	
+					int i=0;
+					//objBean = new ProductBean[count];
+					stmtView = DBConnect.con.createStatement();
+					String qry = "SELECT adname,addesc,adstartdate,adenddate,adsize,p.productid,productname,productdescription,price from advertisement a,ad_product c,product p where a.adID=c.adID and c.productID= p.productID";
+					rsRead = stmtView.executeQuery(qry);
+					System.out.println(rsRead);
+					while(rsRead.next()){
+						objBean[i] = new AdvertisementBean();
+						objBean[i].setAdName(rsRead.getString("adname"));
+						objBean[i].setAdDesc(rsRead.getString("addesc"));
+						objBean[i].setAdsize(rsRead.getString("adsize"));
+						objBean[i].setAdStartDate(rsRead.getString("adstartdate"));
+						objBean[i].setAdEndDate(rsRead.getString("adenddate"));
+						objBean[i].setProductid(rsRead.getString("productid"));
+						objBean[i].setProductname(rsRead.getString("productname"));
+						objBean[i].setProductdescription(rsRead.getString("productdescription"));
+						objBean[i].setProductprice(rsRead.getString("price"));
+						
+						
+						i++;
+					}
+					//System.out.println(rsRead.getString("contractname"));
+					stmtView.close();
+					rsRead.close();
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					
+			}
+			return objBean;
+	}
+	public int getAdCount(){
+		DBConnect.connectDB();
+		
+		int count=0;
+	
+		try {
+			stmtView = DBConnect.con.createStatement();
+			
+			String qryCount = "SELECT COUNT(*) as cnt FROM advertisement";
+			rsSet = stmtView.executeQuery(qryCount);
+			rsSet.next();
+			count = rsSet.getInt("cnt");
+			
+			stmtView.close();
+			rsSet.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
 }

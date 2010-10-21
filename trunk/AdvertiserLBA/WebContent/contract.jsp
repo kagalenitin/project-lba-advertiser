@@ -85,7 +85,7 @@ span{
 <body style="margin: 50px 140px 10px 180px;" alink="#FFFFFF" vlink="#FFFFFF">
 <%@ include file="./navigationbar.jsp" %>
 <form name="contractForm" method="post" action="ContractCreateServlet" id="contractForm">
-<table align="center">
+<table align="center" cellpadding="3">
 	<tr>
 		<td align="center">
 		<% if(request.getAttribute("registrationDone") !=null){ %>
@@ -93,7 +93,7 @@ span{
 		<% }else if(request.getParameter("contractCreate")!=null){ %>
 				<p> Contract not created.</p>
 		<%} %>
-		<table align="center">
+		<table align="center" cellpadding="3">
 				<tr>
 					<td colspan="2" align="center"><h3 id="login_font">Create Contract</h3></td>
 				</tr>

@@ -22,7 +22,7 @@
 		<h1 id="login_font">Sorry ! You do not have any contract at this time.</h1>
 	<% } else {%>
 			
-		<table>
+		<table cellpadding="3">
 			<tr align="center">
 				<td colspan=5><h3 id="login_font">View Contract Details</h3></td>
 			</tr>

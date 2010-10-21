@@ -27,7 +27,7 @@
 
 <center>
 		<h3 id="login_font">Edit Product</h3>
-		<table>
+		<table cellpadding="3">
 			<tr>
 				<td><% if(request.getAttribute("change") !=null){ %>
 					<p>Updated Successfully.</p>

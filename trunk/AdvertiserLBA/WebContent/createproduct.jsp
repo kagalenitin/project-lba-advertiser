@@ -58,7 +58,7 @@
 						<h3 id="login_font">Product deleted successfully.</h3>
 				<% } %>	
 				<h3 id="login_font">Create Product</h3>
-		<table id="login_table">
+		<table id="login_table" cellpadding="3">
 			<tr>
 				<td id="edit_product">Product Name</td>
 				<td><input type="text" name="productname" id="productname"/></td>

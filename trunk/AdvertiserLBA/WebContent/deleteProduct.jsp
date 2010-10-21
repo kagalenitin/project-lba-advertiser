@@ -25,7 +25,7 @@
 <%@ include file="navigationbar.jsp" %>
 <center>
 <form name="deletePage" action="ProductServlet" method="post">
-	<table>
+	<table cellpadding="3">
 			<tr>
 				<td colspan=2><h3>This step will delete your product!</h3></td>
 			</tr>
