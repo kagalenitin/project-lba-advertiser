@@ -53,7 +53,7 @@
 				<% } %>	
    				<h3 id="login_font">Create Channel</h3>
    
-     <table>
+     <table cellpadding="3">
 				<tr>
 					<td id="edit_product">Channel Name </td>
 					<td><input type="text" name="channelname" id="channelname"/></td>

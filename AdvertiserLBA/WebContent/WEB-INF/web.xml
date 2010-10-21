@@ -99,4 +99,14 @@
     <servlet-name>ChannelCreateServlet</servlet-name>
     <url-pattern>/ChannelCreateServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SetADMerchant</display-name>
+    <servlet-name>SetADMerchant</servlet-name>
+    <servlet-class>com.LBA.Advertiser.servlet.SetADMerchant</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SetADMerchant</servlet-name>
+    <url-pattern>/SetADMerchant</url-pattern>
+  </servlet-mapping>
 </web-app>

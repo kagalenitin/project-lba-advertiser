@@ -16,7 +16,7 @@
 <body>
 	
 <form method="post" name="editUserForm" action="ContractCreateServlet" >
-<table>
+<table cellpadding="3">
 	<tr>
 		<td colspan=2>View Channel details:</td>
 	</tr>

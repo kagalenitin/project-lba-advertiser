@@ -18,7 +18,7 @@
 <body>
 <%@ include file="./navigationbar.jsp" %>	
 <form method="post" name="editUserForm" action="ContractCreateServlet" >
-<table align="center">
+<table align="center" cellpadding="3">
 	<tr>
 		
 	</tr>

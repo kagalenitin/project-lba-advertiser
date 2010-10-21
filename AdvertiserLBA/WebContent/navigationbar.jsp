@@ -61,9 +61,7 @@
 	    	    });
 	    	 
 	    	});
-    </script>
-     
-    
+    </script>  
 </head>
 <body class="navigation-body">
 	<table>
@@ -88,9 +86,9 @@
 	        <li class="menuAd" id="menuAd">
 	            <p class="navigation-div">Ad Manager</p>
 	            <p class="subtext"><a href="NavigationServlet?page=createad">Create Advertisement</a></p>
+	            <p class="subtext"><a href="NavigationServlet?page=viewcatalog">View Catalogue</a></p>
+	            <p class="subtext"><a href="NavigationServlet?page=admerchant">Set Merchant Location</a></p>
 	            <p class="subtext">View Advertisements</p>
-	            <p class="subtext">Set Merchant Location</p>
-	            <p class="subtext">View Catalogue</p>
 	        </li>
 	        <li class="menuProduct" id="menuProduct">
 	            <p class="navigation-div">Product Manager</p>
@@ -104,10 +102,9 @@
 	    </ul>
 	  
 	</div>
-	  <br />
-	<div style="background-color: #333333; margin : 0px 90px 120px 40px;">
+	<br />
+	<div style="background-color: #333333; margin : 0px 90px 30px 40px;">
 		<h5 style="color: #CCCCCC">You are logged in as, <%= GlobalBean.getFirstname() +" "+ GlobalBean.getLastname()+". " %>Your company is, <%= GlobalBean.getCompanyname() %></h5>
-	</div>	
-	
+	</div>
 </body>
 </html>

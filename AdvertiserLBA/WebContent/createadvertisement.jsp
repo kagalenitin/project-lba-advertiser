@@ -162,7 +162,7 @@
 <form method="post" action="AdvertisementServlet" enctype="multipart/form-data" name="createadvertisement" id="createadvertisement">
 	<center>
 		<h3 id="login_font">Create Ad Details</h3>	
-		<table>
+		<table cellpadding="3">
 			<tr>
 				<td id="createad_column"><label>Load Ad</label></td>
 				<td><input type="file" name="adfile" id="adfile" /></td>
@@ -186,7 +186,7 @@
 			</tr>
 			<tr>
 				<td id="createad_column"><label>Ad Description</label></td>
-				<td><input type="text" name="addesc" id="addesc" /></td>
+				<td><textarea name="addesc" id="addesc" rows="10" cols="30"></textarea></td>
 			</tr>
 			<tr>
 				<td id="createad_column"><label>Product Name</label></td>
@@ -253,7 +253,7 @@
 									//And print its corresponding description and price.
 									for(cntView=0; cntView<myProducts.length; cntView+=3){
 										if(myProducts[cntView].match($cn('#productname :selected').val())){
-											//alert($('#productname :selected').val());
+											//alert($cn('#productname :selected').val());
 											var desc = myProducts[cntView+1];
 											var price = myProducts[cntView+2];
 										}
@@ -420,12 +420,7 @@
 				<td id="createad_column"><label>Ad End Date (yyyy-mm-dd)</label></td>
 				<td>
 					<input type="text" name="adenddate" id="adenddate" />
-					<script type="text/javascript">
-					jQuery(function(){
-						
-						
-					});
-				</script>
+					
 				</td>
 			</tr>
 			<tr>
@@ -461,7 +456,5 @@
 		</center>	
 		
 	</form>
-	<a href="home.jsp" style="font-color: #003366">Back to homepage</a>
-
-</body>
+	</body>
 </html>

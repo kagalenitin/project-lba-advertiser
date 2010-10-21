@@ -25,7 +25,7 @@
 		<h1>Sorry ! You do not have any products.</h1>
 	<%} else{ %>
 	
-	<table align="center">
+	<table align="center" cellpadding="3">
 		<tr>
 			<td id="viewall_product_heading" width="90"><b>Product ID</b></td>
 			<td id="viewall_product_heading" width="190"><b>Product Name</b></td>

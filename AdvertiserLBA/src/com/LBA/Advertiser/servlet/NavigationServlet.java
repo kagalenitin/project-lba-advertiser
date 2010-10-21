@@ -107,14 +107,22 @@ public class NavigationServlet extends HttpServlet {
     		objAdminProduct.viewAllProducts();
     		getServletContext().getRequestDispatcher("/adminviewallproducts.jsp").forward(request, response);;
     	}else if(postAction.equals("createpdf")){
-    		
+    		//PDF Generation of the contract created.
     		try {
 				objContract.GeneratePDF();
 			} catch (DocumentException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    		getServletContext().getRequestDispatcher("/pdf.jsp").forward(request, response);;
+    		getServletContext().getRequestDispatcher("/pdf.jsp").forward(request, response);
+    	}else if(postAction.equals("admerchant")){
+    		request.setAttribute("loadad", objAdModel);
+    		getServletContext().getRequestDispatcher("/admerchant.jsp").forward(request, response);
+    	}else if(postAction.equals("viewcatalog")){
+    		request.setAttribute("viewallads", objAdModel);
+    		objAdModel.viewAllAds();
+    		System.out.println("error not found");
+    		getServletContext().getRequestDispatcher("/viewallads.jsp").forward(request, response);
     	}
 
 	}
