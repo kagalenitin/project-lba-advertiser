@@ -16,7 +16,7 @@ public class AdvertisementBean {
 	public String productname;
 	public String productdescription;
 	public String productprice;
-	public String productid;
+	//public String productid;
 	/**
 	 * @return the adsize
 	 */
@@ -68,14 +68,14 @@ public class AdvertisementBean {
 	/**
 	 * @return the productid
 	 */
-	public String getProductid() {
-		return productid;
-	}
+	//public String getProductid() {
+	//	return productid;
+	//}
 	/**
 	 * @param productid the productid to set
 	 */
 	public void setProductid(String productid) {
-		this.productid = productid;
+		//this.productid = productid;
 	}
 	/**
 	 * @return the fileSize
