@@ -80,13 +80,13 @@
 	        <li class="menuContract" id="menuContract">
 	            <p class="navigation-div">Contract Manager</p>
 	            <p class="subtext"><a href="NavigationServlet?page=contract">Create Contract</a></p>
-	            <p class="subtext"><a href="NavigationServlet?page=viewcontract">View All Contract</a></p>
+	            <p class="subtext"><a href="NavigationServlet?page=viewcontract">Contract Catalogue</a></p>
 	            <p class="subtext"><a href="NavigationServlet?page=viewcontract">Print Contract</a></p>
 	        </li>
 	        <li class="menuAd" id="menuAd">
 	            <p class="navigation-div">Ad Manager</p>
 	            <p class="subtext"><a href="NavigationServlet?page=createad">Create Advertisement</a></p>
-	            <p class="subtext"><a href="NavigationServlet?page=viewcatalog">View Catalogue</a></p>
+	            <p class="subtext"><a href="NavigationServlet?page=viewcatalog">Advertisement Catalogue</a></p>
 	            <p class="subtext"><a href="NavigationServlet?page=admerchant">Set Merchant Location</a></p>
 	            <p class="subtext">View Advertisements</p>
 	        </li>
