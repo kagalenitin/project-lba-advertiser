@@ -4,20 +4,22 @@
 <head>
 	<link rel="stylesheet" href="css/generalpurpose.css" type="text/css"/>
 	<link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="javascripts/jquery.js"></script>
-	<script type="text/javascript" src="javascripts/jquery.validate.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script> 
+	<script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
+	
+	<!-- <script type="text/javascript" src="development-bundle/jquery-1.4.2.js"></script> -->
 	<script type="text/javascript">
 	//initiate validator on load
-	 
-	$(function() {
-		//alert("qaz");
-		  jQuery.validator.addMethod("phone", function(phone_number, element) {
+	 var $jry = jQuery.noConflict();
+	$jry(function() {
+		alert("qaz");
+		  $jry.validator.addMethod("phone", function(phone_number, element) {
 		    phone_number = phone_number.replace(/\s+/g, ""); 
 			return this.optional(element) || phone_number.length > 9 &&
 				phone_number.match(/^(1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
 		}, "Please specify a valid phone number");
 		// validate contact form on keyup and submit
-		$("#registrationForm").validate({
+		$jry("#registrationForm").validate({
 			//set the rules for the field names
 			rules: {
 				companyname: {

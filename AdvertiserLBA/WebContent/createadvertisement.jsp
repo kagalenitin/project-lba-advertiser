@@ -93,8 +93,8 @@
 	 
 
 	<!-- This part is for validation of fields -->
-	<script type="text/javascript" src="javascripts/jquery.js"></script>
-	<script type="text/javascript" src="javascripts/jquery.validate.js"></script> 
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script> 
+	<script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
 	<script type="text/javascript">
 		var $vl = jQuery.noConflict();
 		$vl(function() {
