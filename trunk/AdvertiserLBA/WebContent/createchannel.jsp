@@ -3,17 +3,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link rel="stylesheet" href="css/generalpurpose.css" type="text/css"/>
+	<link rel="stylesheet" href="css/generalpurpose.css" type="text/css"/>
 	<link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />
-	<script type="text/javascript" src="javascripts/jquery.js"></script>
-	<script type="text/javascript" src="javascripts/jquery.validate.js"></script>
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script> 
+	<script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
+	
 	<script type="text/javascript">
 	//initiate validator on load
-	 
-	$(function() {
-		//alert("qaz");
+	 $jry = jQuery.noConflict();
+	 $jry(function() {
+		alert("qaz");
 		// validate  form on keyup and submit
-		$("#channelform").validate({
+		$jry("#channelform").validate({
 			//set the rules for the field names
 			rules: {
 				channelname: {
