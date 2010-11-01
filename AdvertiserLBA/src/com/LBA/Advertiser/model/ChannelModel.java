@@ -90,7 +90,6 @@ public class ChannelModel {
 				String qry = "SELECT * from channel;";
 				int i=0;
 				rsSet = stmtView.executeQuery(qry);
-				System.out.println(rsSet);
 				while(rsSet.next()){
 					viewBean[i]= new ChannelBean();
 					viewBean[i].setChannelid(rsSet.getString("channelid"));

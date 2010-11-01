@@ -51,6 +51,7 @@ public class RegistrationModel {
 						"'"+ adBeanObject.getLastName()+"', '"+adBeanObject.getAddress()+"', "+adBeanObject.getPhone()+", '"+adBeanObject.getEmail() +"');";
 			
 			int res = 0;
+			System.out.println(qry);
 			res = stmtInsert.executeUpdate(qry);
 			if(res==1){
 				valueInserted = true;

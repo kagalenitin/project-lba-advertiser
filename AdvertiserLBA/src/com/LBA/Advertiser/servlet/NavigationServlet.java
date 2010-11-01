@@ -49,81 +49,90 @@ public class NavigationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		String postAction = request.getParameter("page"); 
-		
-		if(postAction.equals("unregistereduser")){
-			//Redirects to NEW USER registration.jsp
-			getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
-		}else if(postAction.equals("forgotpassword")){
-			//Redirects to forgot password .jsp.
-			getServletContext().getRequestDispatcher("/forgotpassword.jsp").forward(request, response);
-		}else if(postAction.equals("logout")){
-			//unsets user_session variable and logout user. I am not sure how to unset the session var.
-			request.setAttribute("user_session", "");
-			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-		}else if(postAction.equals("newlogin")){
-			//New REGISTERED user login.
-			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-		}else if(postAction.equals("userhome")){
-			//Send user to homepage after login.
-			getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
-		}else if(postAction.equals("edituser")){
-			//Send user to editUserpage.
-			request.setAttribute("editadvertiser", objReg);
-			getServletContext().getRequestDispatcher("/editUserDetails.jsp").forward(request, response);
-		}else if(postAction.equals("viewcontract")){
-			//View all contract
-			objContract.viewContractDetails();
-    		request.setAttribute("viewcontract1", objContract);
-    		getServletContext().getRequestDispatcher("/viewContract.jsp").forward(request, response);
-    	}else if(postAction.equals("contract")){
-        	getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);;
-    	}else if(postAction.equals("createad")){
-    		request.setAttribute("loadproduct", objAdModel);
-    		getServletContext().getRequestDispatcher("/createadvertisement.jsp").forward(request, response);;
-    	}else if(postAction.equals("createproduct")){
-    		getServletContext().getRequestDispatcher("/createproduct.jsp").forward(request, response);;
-    	}else if(postAction.equals("viewproducts")){
-    		request.setAttribute("viewall", objProduct);
-    		objProduct.viewAllProducts();
-    		getServletContext().getRequestDispatcher("/viewallProduct.jsp").forward(request, response);;
-    	}else if(postAction.equals("adminuser")){
-    		//request.setAttribute("viewall", objProduct);
-    		//objProduct.viewAllProducts();
-    		getServletContext().getRequestDispatcher("/adminlogin.jsp").forward(request, response);;
-    	}else if(postAction.equals("editcontract")){
-    		getServletContext().getRequestDispatcher("/viewContract.jsp").forward(request, response);;
-    	}else if(postAction.equals("createchannel")){
-    		getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
-    	}
-    	else if(postAction.equals("viewchannel")){
-    		request.setAttribute("viewchannel", objChannel);
-    		objChannel.viewChannelDetails();
-    		getServletContext().getRequestDispatcher("/viewallchannel.jsp").forward(request, response);;
-    	}
-    	else if(postAction.equals("admin_product")){
-    		request.setAttribute("viewall", objAdminProduct);
-    		objAdminProduct.viewAllProducts();
-    		getServletContext().getRequestDispatcher("/adminviewallproducts.jsp").forward(request, response);;
-    	}else if(postAction.equals("createpdf")){
-    		//PDF Generation of the contract created.
-    		try {
-				objContract.GeneratePDF();
-			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		getServletContext().getRequestDispatcher("/pdf.jsp").forward(request, response);
-    	}else if(postAction.equals("admerchant")){
-    		request.setAttribute("loadad", objAdModel);
-    		getServletContext().getRequestDispatcher("/admerchant.jsp").forward(request, response);
-    	}else if(postAction.equals("viewcatalog")){
-    		request.setAttribute("viewallads", objAdModel);
-    		objAdModel.viewAllAds();
-    		//System.out.println("error not found");
-    		getServletContext().getRequestDispatcher("/viewallads.jsp").forward(request, response);
-    	}
+		try{
+			String postAction = request.getParameter("page"); 
+			
+			if(postAction.equals("unregistereduser")){
+				//Redirects to NEW USER registration.jsp
+				getServletContext().getRequestDispatcher("/registration.jsp").forward(request, response);
+			}else if(postAction.equals("forgotpassword")){
+				//Redirects to forgot password .jsp.
+				getServletContext().getRequestDispatcher("/forgotpassword.jsp").forward(request, response);
+			}else if(postAction.equals("logout")){
+				//unsets user_session variable and logout user. I am not sure how to unset the session var.
+				request.setAttribute("user_session", "");
+				getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+			}else if(postAction.equals("newlogin")){
+				//New REGISTERED user login.
+				getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+			}else if(postAction.equals("errlog")){
+				//Coming from an error page. 
+				getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+			}else if(postAction.equals("userhome")){
+				//Send user to homepage after login.
+				getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
+			}else if(postAction.equals("edituser")){
+				//Send user to editUserpage.
+				request.setAttribute("editadvertiser", objReg);
+				getServletContext().getRequestDispatcher("/editUserDetails.jsp").forward(request, response);
+			}else if(postAction.equals("viewcontract")){
+				//View all contract	
+				objContract.viewContractDetails();
+	    		request.setAttribute("viewcontract1", objContract);
+	    		getServletContext().getRequestDispatcher("/viewContract.jsp").forward(request, response);
+	    	}else if(postAction.equals("contract")){
+	        	getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);;
+	    	}else if(postAction.equals("createad")){
+	    		request.setAttribute("loadproduct", objAdModel);
+	    		getServletContext().getRequestDispatcher("/createadvertisement.jsp").forward(request, response);;
+	    	}else if(postAction.equals("createproduct")){
+	    		getServletContext().getRequestDispatcher("/createproduct.jsp").forward(request, response);;
+	    	}else if(postAction.equals("viewproducts")){
+	    		
+	    		request.setAttribute("viewall", objProduct);
+	    		objProduct.viewAllProducts();
+	    		getServletContext().getRequestDispatcher("/viewallProduct.jsp").forward(request, response);;
+	    	}else if(postAction.equals("adminuser")){
+	    		
+	    		//request.setAttribute("viewall", objProduct);
+	    		//objProduct.viewAllProducts();
+	    		getServletContext().getRequestDispatcher("/adminlogin.jsp").forward(request, response);;
+	    	}else if(postAction.equals("editcontract")){
+	    		getServletContext().getRequestDispatcher("/viewContract.jsp").forward(request, response);;
+	    	}else if(postAction.equals("createchannel")){
+	    		getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
+	    	}
+	    	else if(postAction.equals("viewchannel")){
+	    		request.setAttribute("viewchannel", objChannel);
+	    		//objChannel.viewChannelDetails();
+	    		getServletContext().getRequestDispatcher("/viewallchannel.jsp").forward(request, response);;
+	    	}
+	    	else if(postAction.equals("admin_product")){
+	    		System.out.println("nside Admin");
+	    		request.setAttribute("viewall", objAdminProduct);
+	    		//objAdminProduct.viewAllProducts();
+	    		getServletContext().getRequestDispatcher("/adminviewallproducts.jsp").forward(request, response);;
+	    	}else if(postAction.equals("createpdf")){
+	    		//PDF Generation of the contract created.
+	    		try {
+	    			request.setAttribute("print", objContract);
+					objContract.GeneratePDF();
+				} catch (DocumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    		getServletContext().getRequestDispatcher("/pdf.jsp").forward(request, response);
+	    	}else if(postAction.equals("admerchant")){
+	    		request.setAttribute("loadad", objAdModel);
+	    		getServletContext().getRequestDispatcher("/admerchant.jsp").forward(request, response);
+	    	}else if(postAction.equals("viewcatalog")){
+	    		request.setAttribute("viewallads", objAdModel);
+	    		objAdModel.viewAllAds();
+	    		getServletContext().getRequestDispatcher("/viewallads.jsp").forward(request, response);
+	    	}
+		}catch(Exception ex){
+			getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
+		}
 
 	}
 }

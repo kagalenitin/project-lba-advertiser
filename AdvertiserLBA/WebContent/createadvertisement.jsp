@@ -174,7 +174,7 @@
 				<table>
 					<tr>
 						<td><a href="images/adSpotWeb.gif" title="AdSpot Logo"><img src="images/adSpotWeb.gif" height="50" width="50" /></a></td>
-						<td><a href="images/adSpotWeb.gif" title="AdSpot Logo"><img src="images/adSpotWeb.gif" height="50" width="50" /></a></td>
+						<td><a href="images/jcpenny.jpg" title="JCPenny Logo"><img src="images/jcpenny.jpg" height="50" width="50" /></a></td>
 					</tr>
 				</table>
 				</td>

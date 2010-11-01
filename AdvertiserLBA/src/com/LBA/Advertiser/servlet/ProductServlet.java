@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.LBA.Advertiser.bean.GlobalBean;
 import com.LBA.Advertiser.bean.ProductBean;
+import com.LBA.Advertiser.model.AdvertisementModel;
 import com.LBA.Advertiser.model.ProductModel;
 import com.LBA.Advertiser.model.RegistrationModel;
 
@@ -40,39 +41,44 @@ public class ProductServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-		String postAction = request.getParameter("page");
-		
-		if(postAction.equals("post_product")){
-			setProductFromServlet(request, response);
-		}else if(postAction.equals("editid")){
-			//From view all products to editproduct
-			String productID = request.getParameter("productid");
-			objProductModel.editProductDetail(Integer.parseInt(productID));
-			request.setAttribute("editdelete", objProductModel);
-			getServletContext().getRequestDispatcher("/editProduct.jsp").forward(request, response);
-		}else if(postAction.equals("editsave")){
-			//To edit the product
-			editProductFromServlet(request, response);
-		}else if(postAction.equals("delconfirm")){
-			//Transfer data from editProduct.jsp to deleteProduct.jsp to confirm if user wants to delete. 
-			productBeanObj.setCount(Integer.parseInt(request.getParameter("productid")));
-			objProductModel.editProductDetail(productBeanObj.getCount());
-			request.setAttribute("confirmdelete", objProductModel);
-			getServletContext().getRequestDispatcher("/deleteProduct.jsp").forward(request, response);
-		}else if(postAction.equals("backtoall")){
-			//From deleteProduct.jsp to viewallProduct.jsp
-			request.setAttribute("viewall", objProductModel);
-    		objProductModel.viewAllProducts();
-    		getServletContext().getRequestDispatcher("/viewallProduct.jsp").forward(request, response);;
-		}else if(postAction.equals("backtoedit")){
-			//From deleteProduct.jsp to editProduct.jsp page.
-			String productID = request.getParameter("productid");
-			objProductModel.editProductDetail(Integer.parseInt(productID));
-			request.setAttribute("editdelete", objProductModel);
-			getServletContext().getRequestDispatcher("/editProduct.jsp").forward(request, response);;
-		}else if(postAction.equals("deldata")){
-			deleteProductFromServlet(request, response);
+		try{
+			String postAction = request.getParameter("page");
+			
+			if(postAction.equals("post_product")){
+				setProductFromServlet(request, response);
+			}else if(postAction.equals("editid")){
+				//From view all products to editproduct
+				String productID = request.getParameter("productid");
+				objProductModel.editProductDetail(Integer.parseInt(productID));
+				request.setAttribute("editdelete", objProductModel);
+				getServletContext().getRequestDispatcher("/editProduct.jsp").forward(request, response);
+			}else if(postAction.equals("editsave")){
+				//To edit the product
+				editProductFromServlet(request, response);
+			}else if(postAction.equals("delconfirm")){
+				//Transfer data from editProduct.jsp to deleteProduct.jsp to confirm if user wants to delete. 
+				productBeanObj.setCount(Integer.parseInt(request.getParameter("productid")));
+				objProductModel.editProductDetail(productBeanObj.getCount());
+				request.setAttribute("confirmdelete", objProductModel);
+				getServletContext().getRequestDispatcher("/deleteProduct.jsp").forward(request, response);
+			}else if(postAction.equals("backtoall")){
+				//From deleteProduct.jsp to viewallProduct.jsp
+				request.setAttribute("viewall", objProductModel);
+	    		objProductModel.viewAllProducts();
+	    		getServletContext().getRequestDispatcher("/viewallProduct.jsp").forward(request, response);;
+			}else if(postAction.equals("backtoedit")){
+				//From deleteProduct.jsp to editProduct.jsp page.
+				String productID = request.getParameter("productid");
+				objProductModel.editProductDetail(Integer.parseInt(productID));
+				request.setAttribute("editdelete", objProductModel);
+				getServletContext().getRequestDispatcher("/editProduct.jsp").forward(request, response);;
+			}else if(postAction.equals("deldata")){
+				deleteProductFromServlet(request, response);
+			}
+
+			
+		}catch(Exception ex){
+			getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
 		}
 	}
 
@@ -84,6 +90,7 @@ public class ProductServlet extends HttpServlet {
 		productBeanObj.setPrice(Double.parseDouble(request.getParameter("price")));
 		
 		objProductModel.setProductDetails(productBeanObj);
+		
 		request.setAttribute("createproduct", objProductModel);
 		request.setAttribute("productsuccess", "true");
 		

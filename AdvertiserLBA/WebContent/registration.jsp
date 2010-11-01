@@ -12,7 +12,7 @@
 	//initiate validator on load
 	 var $jry = jQuery.noConflict();
 	$jry(function() {
-		alert("qaz");
+		
 		  $jry.validator.addMethod("phone", function(phone_number, element) {
 		    phone_number = phone_number.replace(/\s+/g, ""); 
 			return this.optional(element) || phone_number.length > 9 &&

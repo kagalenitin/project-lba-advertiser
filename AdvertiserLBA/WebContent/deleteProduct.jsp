@@ -11,11 +11,18 @@
 <head>
 	<link rel="stylesheet" href="css/generalpurpose.css" type="text/css" />
 	<link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />  	 
-	
+	<script type="text/javascript" src="javascripts/jquery-1.4.2.js"></script>
 <script type="text/javascript">
-	function whichcall(val){
-		document.deletePage.page.value=val;
-	}	
+
+	//function whichcall(val){
+		//alert(val);
+		//document.deletePage.page.value = val;
+	//}
+	function setValue(vl){
+		//Set the page variable (hidden) to move to the other page.
+		$('input#page').val(vl);
+	}
+		
 </script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -24,7 +31,7 @@
 <body>
 <%@ include file="navigationbar.jsp" %>
 <center>
-<form name="deletePage" action="ProductServlet" method="post">
+<form name="deletePage" method="post" action="ProductServlet">
 	<table cellpadding="3">
 			<tr>
 				<td colspan=2><h3>This step will delete your product!</h3></td>
@@ -46,11 +53,30 @@
 				<td><input type="text" name="productprice" value="<%= objBean.getPrice() %>" disabled="disabled" /></td>
 			</tr>
 			<tr>
-				<td align="right"><button type="submit" name="delete" id="deleteproduct" onclick="whichcall('deldata')" class="ui-state-default ui-corner-all">Delete Product</button></td>
-				<td align="left"><button type="submit" name="backtoall" id="backtoall" onclick="whichcall('backtoall')" class="ui-state-default ui-corner-all">Back to All Products</button><button type="submit" name="backtoedit" id="backtoedit" onclick="whichcall('backtoedit')" class="ui-state-default ui-corner-all">Back to Edit</button></td>
+				<td align="right"><button type="submit" name="delete" id="deleteproduct" class="ui-state-default ui-corner-all">Delete Product</button>
+				<script type="text/javascript">
+					$('button#deleteproduct').click(function(){
+						setValue('deldata');
+					});
+				</script>
+					
+				</td>
+				
+				<td align="left"><button type="submit" name="backtoall" id="backtoall" class="ui-state-default ui-corner-all">Back to All Products</button><button type="submit" name="backtoedit" id="backtoedit" class="ui-state-default ui-corner-all">Back to Edit</button>
+				<script type="text/javascript">
+					$('button#backtoall').click(function(){
+						setValue('backtoall');
+					});
+
+					$('button#backtoedit').click(function(){
+						setValue('backtoedit');
+					});
+				</script>
+				
+				</td>
 			</tr>
 		</table>
-		<input type="hidden" name="page" />
+		<input type="hidden" name="page" id="page"/>
 	</form>
 </center>
 

@@ -16,6 +16,15 @@ public class AdvertisementBean {
 	public String productname;
 	public String productdescription;
 	public String productprice;
+	public String adId;
+	
+	
+	public String getAdId() {
+		return adId;
+	}
+	public void setAdId(String adId) {
+		this.adId = adId;
+	}
 	//public String productid;
 	/**
 	 * @return the adsize

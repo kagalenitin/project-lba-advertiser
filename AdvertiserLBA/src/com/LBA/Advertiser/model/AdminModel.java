@@ -102,6 +102,7 @@ public ProductBean[] viewAllProducts(){
 				objBean[i].setProductdescription(rsRead.getString("productdescription"));
 				objBean[i].setPrice(rsRead.getDouble("price"));
 				objBean[i].setUsername(rsRead.getString("username"));
+				System.out.println(objBean[i].getProductName());
 				i++;
 			}
 			
