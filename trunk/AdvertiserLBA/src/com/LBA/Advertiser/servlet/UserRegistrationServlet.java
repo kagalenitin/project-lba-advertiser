@@ -54,21 +54,26 @@ public class UserRegistrationServlet extends HttpServlet {
 		/*I need to figure out a way to handle javascript + not 
 		 *repeating the request.getParameter() everytime.
 		 *For registration of new advertiser.*/  
-		response.setContentType("text/html");
-		String postAction = request.getParameter("page"); 
-		if(postAction.equals("post_login")){
-			//Call login fn. in servlet
-			userLoginInServlet(request, response);
-		}else if(postAction.equals("post_register")){
-			//Call registration fn. in servlet.
-			userRegistrationInServlet(request, response);
-		}else if(postAction.equals("post_editdetails")){
-			//Edit user details.
-			editRegistrationInServlet(request, response);
-		}else if(postAction.equals("post_forgot")){
-			// Post forgot password event.
-			forgotPasswordInServlet(request, response);
+		try{
+			response.setContentType("text/html");
+			String postAction = request.getParameter("page"); 
+			if(postAction.equals("post_login")){
+				//Call login fn. in servlet
+				userLoginInServlet(request, response);
+			}else if(postAction.equals("post_register")){
+				//Call registration fn. in servlet.
+				userRegistrationInServlet(request, response);
+			}else if(postAction.equals("post_editdetails")){
+				//Edit user details.
+				editRegistrationInServlet(request, response);
+			}else if(postAction.equals("post_forgot")){
+				// Post forgot password event.
+				forgotPasswordInServlet(request, response);
+			}	
+		}catch(Exception ex){
+			getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
 		}
+		
 		 		
 	}
 	

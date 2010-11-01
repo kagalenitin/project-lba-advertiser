@@ -67,7 +67,7 @@
 	<table>
 		<tr>
 			<td width="20%"><img src="images/adSpotWeb.gif" /></td>
-			<td width="60%"></td>
+			<td width="100%" align="center"><img src="images/banner.jpg" /></td>
 		</tr>
 	</table>
 	<div>

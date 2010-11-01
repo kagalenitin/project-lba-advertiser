@@ -34,22 +34,27 @@ public class ChannelCreateServlet extends HttpServlet
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
     	
-    	String postAction = request.getParameter("page"); 
-    	 if(postAction.equals("create_channel")){
-        	//getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
+    	try{
+    		String postAction = request.getParameter("page"); 
+    		if(postAction.equals("create_channel")){
+           	//getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
 
-    	
-    		
-			channelBean.setChannelid(request.getParameter("channelid"));
-			channelBean.setChannelname(request.getParameter("channelname"));
-			channelBean.setChanneldescription(request.getParameter("channeldescription"));
-			
-			objModel.setChannel(channelBean);
-			request.setAttribute("registrationDone", objModel);
-			request.setAttribute("createchannel", "true");
-			getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
-    	
-    	
-    }	 
-}
-}
+       	
+       		
+   			channelBean.setChannelid(request.getParameter("channelid"));
+   			channelBean.setChannelname(request.getParameter("channelname"));
+   			channelBean.setChanneldescription(request.getParameter("channeldescription"));
+   			
+   			objModel.setChannel(channelBean);
+   			request.setAttribute("registrationDone", objModel);
+   			request.setAttribute("createchannel", "true");
+   			getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
+       	
+    		}
+    	}catch(Exception ex){
+    		getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
+    	}
+    	    	
+    	 
+    }
+  }

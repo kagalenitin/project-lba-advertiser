@@ -86,8 +86,8 @@ public class AdvertisementModel {
 				DBConnect.connectDB();
 				
 				stmtView = DBConnect.con.createStatement();
-				String qry = "select * from product where product.username='"+GlobalBean.getUsersession()+"' AND productID NOT IN (SELECT ad_product.productID from ad_product where product.productID = ad_product.productID);";
-
+				//String qry = "select * from product where product.username='"+GlobalBean.getUsersession()+"' AND productID NOT IN (SELECT ad_product.productID from ad_product where product.productID = ad_product.productID);";
+				String qry = "Select * from product where product.username='"+GlobalBean.getUsersession()+"';";
 				rsRead = stmtView.executeQuery(qry);
 				while(rsRead.next()){
 					hashProduct.put(rsRead.getInt("productID"), rsRead.getString("productname")+"\t"+rsRead.getString("productdescription")+"\t"+ rsRead.getDouble("price")+"\t");
@@ -369,7 +369,7 @@ public class AdvertisementModel {
 	public AdvertisementBean[] viewAllAds(){
 			
 			DBConnect.connectDB();
-			int count = getProductCount();
+			int count = getProductCountForAds();
 			AdvertisementBean[] objBean = new AdvertisementBean [count];
 			//ContractBean[] obj = new ContractBean[count];
 			if(count == 0){
@@ -395,9 +395,8 @@ public class AdvertisementModel {
 						objBean[i].setProductname(rsRead.getString("productname"));
 						objBean[i].setProductdescription(rsRead.getString("productdescription"));
 						objBean[i].setProductprice(rsRead.getString("price"));
-						
 						i++;
-						
+
 					}
 					
 					//System.out.println(rsRead.getString("contractname"));
@@ -412,6 +411,35 @@ public class AdvertisementModel {
 			}
 			return objBean;
 	}
+	
+	//=======
+	public int getProductCountForAds(){
+		/*
+		 * Get the count of the Product for current user 
+		 */
+		DBConnect.connectDB();
+		
+		int count=0;
+	
+		try {
+			stmtView = DBConnect.con.createStatement();
+			
+			String qryCount = "select COUNT(ad.adID) as cnt from product p, ad_product ad where p.productID=ad.productID and p.username='"+ GlobalBean.getUsersession()+"';";
+			rsSet = stmtView.executeQuery(qryCount);
+			rsSet.next();
+			count = rsSet.getInt("cnt");
+			
+			stmtView.close();
+			rsSet.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	//=======
+	
 	public int getAdCount(){
 		DBConnect.connectDB();
 		
@@ -432,6 +460,79 @@ public class AdvertisementModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return count;
+	}
+	
+
+	public AdvertisementBean[] viewAddDetails(int productID){
+
+		int count = getADCountForWS(productID);
+		System.out.println("Count:"+count);
+		AdvertisementBean[] viewAdBean = new AdvertisementBean[count];
+		int j=0;
+		
+		if(count>0){
+			System.out.println("Inside if");
+			try{
+				
+				DBConnect.connectDB();
+				stmtView = DBConnect.con.createStatement();
+				String qry = "SELECT ad.adID as adv, ad.adfilelocation as loc, ad.adSize as size," +
+						" a.adstartdate as stdt, a.adenddate as eddt, a.adname as name, a.addesc as descrp " +
+						"from advertisement a, ad_product ad, product p where a.adID=ad.adID and ad.productID=p.productID and p.productID="+ productID +";";
+				rsSet = stmtView.executeQuery(qry);
+				while(rsSet.next()){
+					viewAdBean[j] = new AdvertisementBean();
+					viewAdBean[j].setAdId(rsSet.getString("adv"));
+					viewAdBean[j].setFileLocation(rsSet.getString("loc"));
+					viewAdBean[j].setAdsize(rsSet.getString("size"));
+					viewAdBean[j].setAdStartDate(rsSet.getString("stdt"));
+					viewAdBean[j].setAdEndDate(rsSet.getString("eddt"));
+					viewAdBean[j].setAdName(rsSet.getString("name"));
+					viewAdBean[j].setAdDesc(rsSet.getString("descrp"));
+					j++;
+				}
+				
+			stmtView.close();
+			rsSet.close();
+			}
+				
+			catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		for(int i=0; i<j; i++){
+			System.out.println(viewAdBean[i].getAdId()+" \n"+viewAdBean[i].getAdName()+"\n"+viewAdBean[i].getAdEndDate());
+		}
+		return viewAdBean;
+	}
+	
+	public int getADCountForWS(int productID){
+		int count=0;
+		
+		DBConnect.connectDB();
+		
+		try {
+			stmtInsert = DBConnect.con.createStatement();
+			String qry ="select count(ad.adID) as cnt from advertisement a, product p, ad_product" +
+					" ad where p.productID=ad.productID and ad.adID=a.adID and p.productID="+ productID +";";
+			
+			rsRead = stmtInsert.executeQuery(qry);
+			rsRead.next();
+			count = rsRead.getInt("cnt");
+			
+			stmtInsert.close();
+			rsRead.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		DBConnect.disconnectDB();
 		return count;
 	}
 }

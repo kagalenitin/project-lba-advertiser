@@ -54,10 +54,5 @@
 			<type>1</type>
 			<location>/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/adSpotWeb.gif</location>
 		</link>
-		<link>
-			<name>WebContent/javascripts/jquery.treeview.js</name>
-			<type>1</type>
-			<location>/Users/nitinkagale/Downloads/jquery.treeview/jquery.treeview.js</location>
-		</link>
 	</linkedResources>
 </projectDescription>

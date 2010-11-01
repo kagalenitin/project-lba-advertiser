@@ -7,8 +7,55 @@
 	<link rel="stylesheet" href="css/animated-menu.css" type="text/css" media="screen" />
 	
 	<script src="development-bundle/jquery-1.4.2.js" type="text/javascript"></script> 
-    <script src="javascripts/animated-menu.js" type="text/javascript"></script>
+   <!--  <script src="javascripts/animated-menu.js" type="text/javascript"></script> -->
     <script src="javascripts/jquery.easing.1.3.js" type="text/javascript"></script> 
+    <script type="text/javascript">
+	   // $(document).ready(function(){
+	    	var $anim = jQuery.noConflict();
+	    	 $anim(function(){
+		    	
+	    	    //When mouse rolls over for PROFILE
+	    	    $anim("li.menuProfile").mouseover(function(){
+	    	        $anim(this).stop().animate({height:'70px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse is removed for PROFILE 
+	    	    $anim("li.menuProfile").mouseout(function(){
+	    	        $anim(this).stop().animate({height:'30px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse rolls over for CONTRACT
+	    	    $anim("li.menuContract").mouseover(function(){
+	    	        $anim(this).stop().animate({height:'150px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse is removed for CONTRACT
+	    	    $anim("li.menuContract").mouseout(function(){
+	    	        $anim(this).stop().animate({height:'30px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse rolls over for Ad
+	    	    $anim("li.menuAd").mouseover(function(){
+	    	        $anim(this).stop().animate({height:'200px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse is removed for Ad
+	    	    $anim("li.menuAd").mouseout(function(){
+	    	        $anim(this).stop().animate({height:'30px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	    	    
+	    	    //When mouse rolls over for Product
+	    	    $anim("li.menuProduct").mouseover(function(){
+	    	        $anim(this).stop().animate({height:'120px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	
+	    	    //When mouse is removed for Product
+	    	    $anim("li.menuProduct").mouseout(function(){
+	    	        $anim(this).stop().animate({height:'30px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	    });
+	    	 
+	    	});
+    </script>  
 </head>
 <body class="navigation-body">
 	<table>

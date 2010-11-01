@@ -37,24 +37,30 @@ public class SetADMerchant extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		if(request.getParameter("page").equals("adset")){
-			objAdMBean.setAdID(request.getParameter("ad"));
-			objAdMBean.setAddress(request.getParameter("address"));
-			objAdMBean.setCity(request.getParameter("city"));
-			objAdMBean.setState(request.getParameter("state"));
-			objAdMBean.setZip(request.getParameter("zip"));
-			objAdMBean.setLatitude(request.getParameter("latitude"));
-			objAdMBean.setLongitude(request.getParameter("longitude"));
-			
-			objAdModel.addMerchantLocationToAd(objAdMBean);
-			if(objAdModel.getAdMerchantResult()){
-				request.setAttribute("success", objAdModel);
-				getServletContext().getRequestDispatcher("/setlocation.jsp").forward(request, response);;
-			}else{
-				request.setAttribute("unsuccess", "Sorry ! Ad location was not set.");
-				getServletContext().getRequestDispatcher("/setlocation.jsp").forward(request, response);;
+		
+			String postAction = request.getParameter("page");
+			if(postAction.equals("adset")){
+				objAdMBean.setAdID(request.getParameter("ad"));
+				objAdMBean.setAddress(request.getParameter("address"));
+				objAdMBean.setCity(request.getParameter("city"));
+				objAdMBean.setState(request.getParameter("state"));
+				objAdMBean.setZip(request.getParameter("zip"));
+				objAdMBean.setLatitude(request.getParameter("latitude"));
+				objAdMBean.setLongitude(request.getParameter("longitude"));
+				try{
+					System.out.println("Here");
+					objAdModel.addMerchantLocationToAd(objAdMBean);
+					if(objAdModel.getAdMerchantResult()){
+						request.setAttribute("success", objAdModel);
+						getServletContext().getRequestDispatcher("/setlocation.jsp").forward(request, response);;
+					}else{
+						request.setAttribute("unsuccess", "Sorry ! Ad location was not set.");
+						getServletContext().getRequestDispatcher("/setlocation.jsp").forward(request, response);;
+					}
+				}catch(Exception ex){
+					getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
+				}
 			}
-		}
 				
 	}
 

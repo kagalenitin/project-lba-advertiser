@@ -77,160 +77,101 @@ public class AdvertisementServlet extends HttpServlet {
 	}
 
 	public void uploadImageFromServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		System.out.println("thr");
-		int adIDCount = objAdModel.getAdvertisementIDCount() + 1;
 		
 		
-        String reg = "[.*]";
-        String replacingtext = "";
-        String fileType="";
-        String fileSize="";
-         
-        
-        Pattern pattern = Pattern.compile(reg);
-        Matcher matcher;
-        StringBuffer buffer = new StringBuffer();
-        String finalImage = null;
-        String domainName = null;
-        
-		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-		
-		if (!isMultipart) {
-	    	System.out.println("File Not Uploaded");
-	    }else{
-	    
-	    	FileItemFactory factory = new DiskFileItemFactory();
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            List items = null;
-            try {
-            		
-                items = upload.parseRequest(request);
-                System.out.println("items: " + items+" \n");
-            } catch (FileUploadException e) {
-                e.printStackTrace();
-            }
-            
-            Iterator itr = items.iterator();
-            while (itr.hasNext()) {
-            	item = (FileItem) itr.next();
-            	if(item.isFormField()){
-            		String value = item.getString();
-                    arrAdDetails.add(value);
-                    
-            	}else{
-            		 String itemName = item.getName();
-            		 matcher = pattern.matcher(itemName); 
-            		 
-                    while (matcher.find()) {
-                        matcher.appendReplacement(buffer, replacingtext);
-                    }
-                  
-                    if(checkFileType()){
-                    	System.out.println("Valid file format");
-                    }else{
-                    	System.out.println("Invalid file format");
-                    	entireMsg = entireMsg.concat("Invalid file format");
-                    }
-                    
-                    int indexOf = itemName.indexOf(".");
-                    domainName = itemName.substring(indexOf);
-                    fileSize =  String.valueOf(item.getSize());
-                    System.out.println("Filesize: "+fileSize);
-                    contType = item.getContentType();
-                    System.out.println("ContTpe: "+contType);
-            	}
-            	
-            }
-            
-            for(int i=0; i<arrAdDetails.size(); i++){
-            	System.out.println("i: "+i +" "+arrAdDetails.get(i));
-            }
-           
-            if(checkTotalUsedSpace()){
-            	System.out.println("OK You have space available to upload.");
-            }else{
-            	System.out.println("Not enough space to upload.");
-            	entireMsg = entireMsg.concat("Not enough space to upload.");
-            }
-            
-         
-           
-    		//Save the image file in the images folder of the application.
-            finalImage = buffer.toString() + String.valueOf(adIDCount) + arrAdDetails.get(2) + domainName;
-            //Remember to change the location 
-        	String destinationDir = "/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/userUploadedImages/";
-            //String destinationDir = request.getContextPath().toString() +"/images/userUploadedImages/";
-            //System.out.println("Servlet : " + destinationDir);
+			int adIDCount = objAdModel.getAdvertisementIDCount() + 1;
+			
+			
+	        String reg = "[.*]";
+	        String replacingtext = "";
+	        String fileType="";
+	        String fileSize="";
+	         
+	        
+	        Pattern pattern = Pattern.compile(reg);
+	        Matcher matcher;
+	        StringBuffer buffer = new StringBuffer();
+	        String finalImage = null;
+	        String domainName = null;
+	        
+			boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+		try{	
+			if (!isMultipart) {
+		    	//System.out.println("File Not Uploaded");
+				getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
+		    }else{
+		    
+		    	FileItemFactory factory = new DiskFileItemFactory();
+	            ServletFileUpload upload = new ServletFileUpload(factory);
+	            List items = null;
+	            try {
+	            		
+	                items = upload.parseRequest(request);
+	                System.out.println("items: " + items+" \n");
+	            } catch (FileUploadException e) {
+	                e.printStackTrace();
+	            }
+	            
+	            Iterator itr = items.iterator();
+	            while (itr.hasNext()) {
+	            	item = (FileItem) itr.next();
+	            	if(item.isFormField()){
+	            		String value = item.getString();
+	                    arrAdDetails.add(value);
+	                    
+	            	}else{
+	            		 String itemName = item.getName();
+	            		 matcher = pattern.matcher(itemName); 
+	            		 
+	                    while (matcher.find()) {
+	                        matcher.appendReplacement(buffer, replacingtext);
+	                    }
+	                  
+	                    if(checkFileType()){
+	                    	System.out.println("Valid file format");
+	                    }else{
+	                    	System.out.println("Invalid file format");
+	                    	entireMsg = entireMsg.concat("Invalid file format");
+	                    }
+	                    
+	                    int indexOf = itemName.indexOf(".");
+	                    domainName = itemName.substring(indexOf);
+	                    fileSize =  String.valueOf(item.getSize());
+	                    System.out.println("Filesize: "+fileSize);
+	                    contType = item.getContentType();
+	                    System.out.println("ContTpe: "+contType);
+	            	}
+	            	
+	            }
+	            
+	            for(int i=0; i<arrAdDetails.size(); i++){
+	            	System.out.println("i: "+i +" "+arrAdDetails.get(i));
+	            }
+	           
+	            if(checkTotalUsedSpace()){
+	            	System.out.println("OK You have space available to upload.");
+	            }else{
+	            	System.out.println("Not enough space to upload.");
+	            	entireMsg = entireMsg.concat("Not enough space to upload.");
+	            }
+	            
+	         
+	           
+	    		//Save the image file in the images folder of the application.
+	            finalImage = buffer.toString() + String.valueOf(adIDCount) + arrAdDetails.get(2) + domainName;
+	            //Remember to change the location 
+	        	String destinationDir = "/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/userUploadedImages/";
+	            //String destinationDir = request.getContextPath().toString() +"/images/userUploadedImages/";
+	            //System.out.println("Servlet : " + destinationDir);
 
-        	itr = items.iterator();
-			while(itr.hasNext()) {
-				 item = (FileItem) itr.next();
-				/*
-				 * Handle Form Fields.
-				 */
-				if(item.isFormField()) {
-					//System.out.println("File Name = "+item.getFieldName()+", Value = "+item.getString());
-				} else {
-					//Handle Uploaded files.
-				//	System.out.println("Field Name = "+item.getFieldName()+
-					//	", File Name = "+item.getName()+
-						//", Content type = "+item.getContentType()+
-						//", File Size = "+item.getSize());
-					/*
-					 * Write file to the ultimate location.
-					 */
-					file = new File(destinationDir,finalImage);
-					try {
-						item.write(file);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				//out.close();
-			}
-    		
-			boolean retValue = checkDimension();
-			System.out.println("retValue;" +retValue);
-			if(find==true){
-				System.out.println("Video format, no dimension check");
-			}else if(retValue){
-				System.out.println("Dimension looks good");
-			}else{
-				entireMsg = entireMsg.concat("Dimensions r not good");
-			}
-            
-			if((validFileSizeFlag==true) && (validFileTypeFlag==true) && ((find==true) || (retValue==true))){
-				//Insert everything in the arrAdDetails.
-				System.out.println("All is well");
-				objAdBean.setAdName(arrAdDetails.get(0));
-	    		objAdBean.setAdDesc(arrAdDetails.get(1));
-	    		objAdBean.setProductID(arrAdDetails.get(2));
-	    		objAdBean.setContractID(arrAdDetails.get(5));
-	    		objAdBean.setAdStartDate(arrAdDetails.get(11));
-	    		objAdBean.setAdEndDate(arrAdDetails.get(12));
-	    		objAdBean.setChannelID(arrAdDetails.get(13));
-	    		objAdBean.setFileName(finalImage);
-	    		System.out.println(destinationDir+finalImage);
-	    		objAdBean.setFileLocation(destinationDir+finalImage);
-	    		objAdBean.setFileSize(fileSize);
-	    		
-	    		objAdModel.addAdvertisement(objAdBean);
-	    		request.setAttribute("adcreated", objAdModel);
-	    		getServletContext().getRequestDispatcher("/resultofad.jsp").forward(request, response);
-			}
-			else{
-				//Traverse the item and delete the file which is been created at the location.
-				System.out.println("Something went wrong");
-				System.out.println(destinationDir+finalImage);
-				itr = items.iterator();
+	        	itr = items.iterator();
 				while(itr.hasNext()) {
 					 item = (FileItem) itr.next();
 					/*
 					 * Handle Form Fields.
 					 */
 					if(item.isFormField()) {
-						System.out.println("File Name = "+item.getFieldName()+", Value = "+item.getString());
+						//System.out.println("File Name = "+item.getFieldName()+", Value = "+item.getString());
 					} else {
 						//Handle Uploaded files.
 					//	System.out.println("Field Name = "+item.getFieldName()+
@@ -240,27 +181,92 @@ public class AdvertisementServlet extends HttpServlet {
 						/*
 						 * Write file to the ultimate location.
 						 */
-						file = new File(destinationDir+finalImage);
+						file = new File(destinationDir,finalImage);
 						try {
-							if(file.delete())
-								System.out.println("File deleted");
-							else
-								System.out.println("File not deleted.");
+							item.write(file);
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-
 					}
-			
-					
-				}	
-				request.setAttribute("witherror", entireMsg);
-				getServletContext().getRequestDispatcher("/resultofad.jsp").forward(request, response);
-           
+					//out.close();
+				}
+	    		
+				boolean retValue = checkDimension();
+				System.out.println("retValue;" +retValue);
+				if(find==true){
+					System.out.println("Video format, no dimension check");
+				}else if(retValue){
+					System.out.println("Dimension looks good");
+				}else{
+					entireMsg = entireMsg.concat("Dimensions r not good");
+				}
+	            
+				if((validFileSizeFlag==true) && (validFileTypeFlag==true) && ((find==true) || (retValue==true))){
+					//Insert everything in the arrAdDetails.
+					System.out.println("All is well");
+					objAdBean.setAdName(arrAdDetails.get(0));
+		    		objAdBean.setAdDesc(arrAdDetails.get(1));
+		    		objAdBean.setProductID(arrAdDetails.get(2));
+		    		objAdBean.setContractID(arrAdDetails.get(5));
+		    		objAdBean.setAdStartDate(arrAdDetails.get(11));
+		    		objAdBean.setAdEndDate(arrAdDetails.get(12));
+		    		objAdBean.setChannelID(arrAdDetails.get(13));
+		    		objAdBean.setFileName(finalImage);
+		    		System.out.println(destinationDir+finalImage);
+		    		objAdBean.setFileLocation(destinationDir+finalImage);
+		    		objAdBean.setFileSize(fileSize);
+		    		
+		    		objAdModel.addAdvertisement(objAdBean);
+		    		request.setAttribute("adcreated", objAdModel);
+		    		getServletContext().getRequestDispatcher("/resultofad.jsp").forward(request, response);
+				}
+				else{
+					//Traverse the item and delete the file which is been created at the location.
+					System.out.println("Something went wrong");
+					System.out.println(destinationDir+finalImage);
+					itr = items.iterator();
+					while(itr.hasNext()) {
+						 item = (FileItem) itr.next();
+						/*
+						 * Handle Form Fields.
+						 */
+						if(item.isFormField()) {
+							System.out.println("File Name = "+item.getFieldName()+", Value = "+item.getString());
+						} else {
+							//Handle Uploaded files.
+						//	System.out.println("Field Name = "+item.getFieldName()+
+							//	", File Name = "+item.getName()+
+								//", Content type = "+item.getContentType()+
+								//", File Size = "+item.getSize());
+							/*
+							 * Write file to the ultimate location.
+							 */
+							file = new File(destinationDir+finalImage);
+							try {
+								if(file.delete())
+									System.out.println("File deleted");
+								else
+									System.out.println("File not deleted.");
+							} catch (Exception e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+
+						}
+				
+						
+					}	
+					request.setAttribute("witherror", entireMsg);
+					getServletContext().getRequestDispatcher("/resultofad.jsp").forward(request, response);
+	           
+				}
 			}
+
+		}catch(Exception ex){
+			getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
 		}
-	    
+			    
 	}
 	
 	public boolean checkTotalUsedSpace(){
@@ -331,7 +337,7 @@ public class AdvertisementServlet extends HttpServlet {
 	            	return false;
 	            }
 	            System.out.println(ii.getHeight()+"  width"+ ii.getWidth());
-	            if((ii.getHeight()>250) && (ii.getWidth()>150)){
+	            if((ii.getHeight()<250) && (ii.getWidth()<150)){
 	            	flag=true;
 	            }else{
 	            	flag=false;

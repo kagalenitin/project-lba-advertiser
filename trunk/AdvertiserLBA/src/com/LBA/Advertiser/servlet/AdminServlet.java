@@ -52,12 +52,16 @@ public class AdminServlet extends HttpServlet {
 		/*I need to figure out a way to handle javascript + not 
 		 *repeating the request.getParameter() everytime.
 		 *For registration of new advertiser.*/  
-		String postAction = request.getParameter("page"); 
-		
-		if(postAction.equals("admin_post_login")){
-			//Call login fn. in servlet
-			adminLoginInServlet(request, response);
-		}	 		
+		try{
+			String postAction = request.getParameter("page"); 
+			
+			if(postAction.equals("admin_post_login")){
+				//Call login fn. in servlet
+				adminLoginInServlet(request, response);
+			}	
+		}catch(Exception ex){
+			getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
+		}
 	}
 	
 	/* Trying to define all the detailed functions outside post, just for clean coding */

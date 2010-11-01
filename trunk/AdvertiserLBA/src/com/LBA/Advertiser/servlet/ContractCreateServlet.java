@@ -42,34 +42,39 @@ public class ContractCreateServlet extends HttpServlet
     		getServletContext().getRequestDispatcher("/viewContract.jsp").forward(request, response);}
     	
     	else*/ 
-    	if(postAction.equals("contract")){
-        	getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);;
+    	try{
+    		if(postAction.equals("contract")){
+            	getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);;
 
-    	}else if(postAction.equals("post_contract")){
-    		
-			contractBean.setSpace(request.getParameter("space"));
-			contractBean.setContractname(request.getParameter("contractname"));
-			contractBean.setContractcreatedby(request.getParameter("contractcreatedby"));
-			contractBean.setContractdate(request.getParameter("contractdate"));
-			contractBean.setStartdate(request.getParameter("startdate"));
-			contractBean.setDuration(request.getParameter("duration"));
-			contractBean.setPaymenttype(request.getParameter("paymenttype"));
-			
-			objModel.setContract(contractBean);
-			
-			if(objModel.getContract()){
-				request.setAttribute("registrationDone", objModel);
-				getServletContext().getRequestDispatcher("/viewcurrentcontract.jsp").forward(request, response);;
-			}else{
-				String msg="Contract not created.";
-				System.out.println(msg);
-				request.setAttribute("notdone", msg);
-				response.sendRedirect("NavigationServlet?page=contract&contractCreate=false");
-			}
-			
-    	}else if(postAction.equals("editid")){
-    		//Infact only show him the view page.
+        	}else if(postAction.equals("post_contract")){
+        		
+    			contractBean.setSpace(request.getParameter("space"));
+    			contractBean.setContractname(request.getParameter("contractname"));
+    			contractBean.setContractcreatedby(request.getParameter("contractcreatedby"));
+    			contractBean.setContractdate(request.getParameter("contractdate"));
+    			contractBean.setStartdate(request.getParameter("startdate"));
+    			contractBean.setDuration(request.getParameter("duration"));
+    			contractBean.setPaymenttype(request.getParameter("paymenttype"));
+    			
+    			objModel.setContract(contractBean);
+    			
+    			if(objModel.getContract()){
+    				request.setAttribute("registrationDone", objModel);
+    				getServletContext().getRequestDispatcher("/viewcurrentcontract.jsp").forward(request, response);;
+    			}else{
+    				String msg="Contract not created.";
+    				System.out.println(msg);
+    				request.setAttribute("notdone", msg);
+    				response.sendRedirect("NavigationServlet?page=contract&contractCreate=false");
+    			}
+    			
+        	}else if(postAction.equals("editid")){
+        		//Infact only show him the view page.
+        	}
+	
+    	}catch(Exception ex){
+    		getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
     	}
-    	
+    	    	
     }	 
 }
