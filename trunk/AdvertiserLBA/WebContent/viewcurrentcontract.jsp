@@ -6,6 +6,7 @@
 	
 	ContractModel cModel = (ContractModel) request.getAttribute("registrationDone");
 	ContractBean viewBean1 = cModel.viewcurrentContractDetails();
+	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -23,7 +24,7 @@
 		
 	</tr>
 	<tr>
-		<td colspan=2>View Contract details:</td>
+		<td colspan=2><h3 id="login_font">View Contract details</h3></td>
 	</tr>
 	<tr>
 		<td id="contract_column">Contract Id:</td>
@@ -50,7 +51,7 @@
 		<td><input type="text" name="enddate" id="enddate" value="<%= viewBean1.getEnddate() %>"/></td>
 	</tr>
 	</table>
-		<center><a href="contract.jsp" style="color: #000000"/>Back to Contract Page</a><br /><a href="NavigationServlet?page=createpdf" style="color: #000000"/>PDF Format</a></center>
+		<center><a href="ContractCreateServlet?page=createpdf" style="color: #000000"/>PDF Format</a></center>
 	
 
 

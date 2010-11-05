@@ -13,7 +13,6 @@
 	//initiate validator on load
 	 $jry = jQuery.noConflict();
 	 $jry(function() {
-		alert("qaz");
 		// validate  form on keyup and submit
 		$jry("#channelform").validate({
 			//set the rules for the field names
@@ -52,7 +51,9 @@
 <center>
 				<% if(request.getAttribute("createchannel")!=null){ %>
 						<h3 id="login_font">Channel created successfully.</h3>
-				<% } %>	
+				<% }else if(request.getParameter("crtfail")!=null) {%>
+						<h3 id="login_font">Channel was not created.</h3>
+				<%} %>	
    				<h3 id="login_font">Create Channel</h3>
    
      <table cellpadding="3">

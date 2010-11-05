@@ -88,9 +88,8 @@ public class NavigationServlet extends HttpServlet {
 	    	}else if(postAction.equals("createproduct")){
 	    		getServletContext().getRequestDispatcher("/createproduct.jsp").forward(request, response);;
 	    	}else if(postAction.equals("viewproducts")){
-	    		
 	    		request.setAttribute("viewall", objProduct);
-	    		objProduct.viewAllProducts();
+	    		//objProduct.viewAllProducts();
 	    		getServletContext().getRequestDispatcher("/viewallProduct.jsp").forward(request, response);;
 	    	}else if(postAction.equals("adminuser")){
 	    		
@@ -108,20 +107,9 @@ public class NavigationServlet extends HttpServlet {
 	    		getServletContext().getRequestDispatcher("/viewallchannel.jsp").forward(request, response);;
 	    	}
 	    	else if(postAction.equals("admin_product")){
-	    		System.out.println("nside Admin");
 	    		request.setAttribute("viewall", objAdminProduct);
 	    		//objAdminProduct.viewAllProducts();
 	    		getServletContext().getRequestDispatcher("/adminviewallproducts.jsp").forward(request, response);;
-	    	}else if(postAction.equals("createpdf")){
-	    		//PDF Generation of the contract created.
-	    		try {
-	    			request.setAttribute("print", objContract);
-					objContract.GeneratePDF();
-				} catch (DocumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	    		getServletContext().getRequestDispatcher("/pdf.jsp").forward(request, response);
 	    	}else if(postAction.equals("admerchant")){
 	    		request.setAttribute("loadad", objAdModel);
 	    		getServletContext().getRequestDispatcher("/admerchant.jsp").forward(request, response);

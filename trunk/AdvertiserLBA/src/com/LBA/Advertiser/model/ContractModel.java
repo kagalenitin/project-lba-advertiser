@@ -47,15 +47,15 @@ public class ContractModel {
 		 **/
 		DBConnect.connectDB();
 		DateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println("--------");
+		//System.out.println("--------");
 		//Get the date from the conBeanObject.
 		//java.util.Date startDate = new java.util.Date(conBeanObject.getStartdate());
 		java.sql.Date startDate = java.sql.Date.valueOf(conBeanObject.getStartdate());
-		System.out.println(conBeanObject.getDuration());
+		//System.out.println(conBeanObject.getDuration());
 		int endmonth=startDate.getMonth()+Integer.parseInt(conBeanObject.getDuration())+1;
 		int year=startDate.getYear()+1900;
 		String enddate="";
-		System.out.println(startDate.getDate());
+		//System.out.println(startDate.getDate());
 		if(endmonth>12)
 			
 		{
@@ -67,24 +67,24 @@ public class ContractModel {
 		 // in the format yyyy-MM-dd
 
  		if(endmonth<10){
- 			System.out.println("1");
+ 			//System.out.println("1");
  			enddate = year+"-0"+endmonth;
  			if(startDate.getDate()<10){
- 				System.out.println("2");
+ 				//System.out.println("2");
  				enddate = enddate + "-0"+startDate.getDate();
  			}else{
- 				System.out.println("3");
+ 			//	System.out.println("3");
  				enddate = enddate + "-"+startDate.getDate();
  			}
  		}else if(startDate.getDate()<10){
- 			System.out.println("4");
+ 			//System.out.println("4");
  			enddate = year+"-"+ String.valueOf(endmonth) +"-0"+ startDate.getDate();
  		}else{
- 			System.out.println("5");
+ 			//System.out.println("5");
  			enddate = year +"-"+ String.valueOf(endmonth) +"-"+ startDate.getDate();
  		}
 			
-		System.out.println("END DATE: "+ enddate);
+		//System.out.println("END DATE: "+ enddate);
 		
 		//java.sql.Date jsqlD = java.sql.Date.valueOf(enddate);
 		try {
@@ -100,9 +100,9 @@ public class ContractModel {
 			//java.util.Date contractDateObject = new java.util.Date(conBeanObject.getContractdate().toString());
 			//System.out.println(contractDateObject);
 			java.sql.Date sqlContractDate = java.sql.Date.valueOf(conBeanObject.getContractdate());
-			System.out.println(sqlContractDate);
+			//System.out.println(sqlContractDate);
 			stmtInsert = DBConnect.con.createStatement();
-			
+			System.out.println("Get user session:"+GlobalBean.getUsersession());
 			String qry = "INSERT into contract"+
 			" (contractname,username,contractcreatedby,contractdate,space,startdate,enddate,paymenttype,status)"+
 			" values ('"+conBeanObject.getContractname()+"','"+GlobalBean.getUsersession()+"','"+conBeanObject.getContractcreatedby()+"','"+sqlContractDate+"','"+conBeanObject.getSpace()+"','"+startDate+"','"+sqlEndDate+"','"+conBeanObject.getPaymenttype()+"','InProcess');";
@@ -129,6 +129,7 @@ public class ContractModel {
 		 /* To check whether the user registration was successful. 
 		 * This value will be retrieved in showResult.jsp form.
 		 */
+		System.out.println("GetContract: " +valueInserted);
 		return valueInserted;
 	}
 
@@ -205,15 +206,15 @@ public class ContractModel {
 		/*
 		 * This function will retrieve contract details
 		*/
-		
+		System.out.println("viewcurrentcontDetailsGLOBAL "+ GlobalBean.getUsersession());
 		try {
 			DBConnect.connectDB();
 			stmtView = DBConnect.con.createStatement();
 			//String qry = "SELECT * from contract where space='"+ UserRegistrationServlet.globalSession +"'";
 			//String qry = "SELECT *  from contract contractID =(select MAX(contractID) from contract where username='"+ GlobalBean.getUsersession()+"';";
 			String qry = "select c1.*, sq1.maxID FROM contract c1, (SELECT MAX(contractID) as maxID from contract where username = '"+ GlobalBean.getUsersession() +"') AS sq1 WHERE contractID = sq1.maxID;";
+			System.out.println("View Current Contract: "+qry);
 			rsSet = stmtView.executeQuery(qry);
-			System.out.println(rsSet);
 			rsSet.next();
 			
 			viewBean1.setContractID(rsSet.getString("maxID"));
@@ -244,10 +245,10 @@ public class ContractModel {
 		 ContractBean viewBean = cModel.viewcurrentContractDetails();
 		 
 		  Document document=new Document();
-		  
-	      PdfWriter.getInstance(document,new FileOutputStream("/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/"+ viewBean.getContractID()+viewBean.getContractname()+".pdf"));
+		  System.out.println("/Stuff/LBAProject/AdvertiserLBA/WebContent/images/"+ viewBean.getContractID()+viewBean.getContractname()+".pdf");
+	      PdfWriter.getInstance(document,new FileOutputStream("/Stuff/LBAProject/AdvertiserLBA/WebContent/images/"+ viewBean.getContractID()+viewBean.getContractname()+".pdf"));
 	      document.open();  
-	      Image image = Image.getInstance ("/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/adSpotWeb.gif");
+	      Image image = Image.getInstance ("/Stuff/LBAProject/AdvertiserLBA/WebContent/images/adSpotWeb.gif");
 	      Paragraph para=new Paragraph("\n\nContract Details:"+"\n");
 	      Paragraph para1=new Paragraph("Contract Id:"+ viewBean.getContractID()+"\n"+"Contract Name:"+viewBean.getContractname()+"\n"+"Contract Created by:"+viewBean.getContractcreatedby()+"\n" +"Contract Space:"+viewBean.getSpace()+"\n"+"Contract Start Date:"+viewBean.getStartdate()+"\n"+"Contract End Date:"+viewBean.getEnddate()+"\n"+"Contract Payment Type:"+viewBean.getPaymenttype()+"\n");
 	      Paragraph para3=new Paragraph("\nADSpot Agreement Details:"+"\n");

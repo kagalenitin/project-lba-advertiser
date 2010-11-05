@@ -71,6 +71,7 @@ public int getProductCount(){
 		
 		stmtView.close();
 		rsSet.close();
+		DBConnect.disconnectDB();
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -108,7 +109,7 @@ public ProductBean[] viewAllProducts(){
 			
 			stmtView.close();
 			rsRead.close();
-			
+			DBConnect.disconnectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

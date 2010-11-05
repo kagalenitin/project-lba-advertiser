@@ -28,6 +28,7 @@ public class ChannelModel {
 			" (channelname,channeldescription)"+
 			" values ('"+chBeanObject.getChannelname()+"','"+chBeanObject.getChanneldescription()+"');";
 			int res = stmtInsert.executeUpdate(qry);
+			
 			if(res==1)
 			{
 				valueInserted = true;

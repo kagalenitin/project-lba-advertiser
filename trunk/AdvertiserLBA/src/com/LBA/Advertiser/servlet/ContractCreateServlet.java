@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.LBA.Advertiser.bean.ContractBean;
 import com.LBA.Advertiser.model.ContractModel;
-
+import com.itextpdf.text.DocumentException;
+import org.apache.commons.lang.StringEscapeUtils;
 public class ContractCreateServlet extends HttpServlet
 {
-
+	ContractModel objContract = new ContractModel();
 	/**
 	 * 
 	 */
@@ -47,15 +48,13 @@ public class ContractCreateServlet extends HttpServlet
             	getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);;
 
         	}else if(postAction.equals("post_contract")){
-        		
-    			contractBean.setSpace(request.getParameter("space"));
-    			contractBean.setContractname(request.getParameter("contractname"));
-    			contractBean.setContractcreatedby(request.getParameter("contractcreatedby"));
+        		contractBean.setSpace(request.getParameter("space"));
+    			contractBean.setContractname(StringEscapeUtils.escapeSql(request.getParameter("contractname")));
+    			contractBean.setContractcreatedby(StringEscapeUtils.escapeSql(request.getParameter("contractcreatedby")));
     			contractBean.setContractdate(request.getParameter("contractdate"));
     			contractBean.setStartdate(request.getParameter("startdate"));
     			contractBean.setDuration(request.getParameter("duration"));
     			contractBean.setPaymenttype(request.getParameter("paymenttype"));
-    			
     			objModel.setContract(contractBean);
     			
     			if(objModel.getContract()){
@@ -68,9 +67,17 @@ public class ContractCreateServlet extends HttpServlet
     				response.sendRedirect("NavigationServlet?page=contract&contractCreate=false");
     			}
     			
-        	}else if(postAction.equals("editid")){
-        		//Infact only show him the view page.
-        	}
+        	}else if(postAction.equals("createpdf")){
+	    		//PDF Generation of the contract created.
+	    		try{
+	    			request.setAttribute("print", objContract);
+					objContract.GeneratePDF();
+				} catch (DocumentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	    		getServletContext().getRequestDispatcher("/pdf.jsp").forward(request, response);
+	    	}
 	
     	}catch(Exception ex){
     		getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);

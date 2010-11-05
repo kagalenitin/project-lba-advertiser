@@ -160,7 +160,7 @@
 							}else{
 								//alert($obj('#ad: selected').text());
 								var myAd = new Array();
-								var ads = '<%= hashAd %>';
+								var ads = "<%= hashAd %>";
 								var splitAd = ads.split("\t");
 
 								for(cnt=0; cnt < splitAd.length - 1; cnt++){

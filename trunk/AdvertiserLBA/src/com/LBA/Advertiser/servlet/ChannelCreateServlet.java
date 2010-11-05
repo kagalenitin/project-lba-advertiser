@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.LBA.Advertiser.bean.ChannelBean;
 import com.LBA.Advertiser.model.ChannelModel;
-
+import org.apache.commons.lang.StringEscapeUtils;
 public class ChannelCreateServlet extends HttpServlet
 {
 
@@ -38,18 +38,20 @@ public class ChannelCreateServlet extends HttpServlet
     		String postAction = request.getParameter("page"); 
     		if(postAction.equals("create_channel")){
            	//getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
-
-       	
-       		
-   			channelBean.setChannelid(request.getParameter("channelid"));
-   			channelBean.setChannelname(request.getParameter("channelname"));
-   			channelBean.setChanneldescription(request.getParameter("channeldescription"));
-   			
+   			channelBean.setChannelname(StringEscapeUtils.escapeSql(request.getParameter("channelname")));
+   			channelBean.setChanneldescription(StringEscapeUtils.escapeSql(request.getParameter("channeldescription")));
    			objModel.setChannel(channelBean);
-   			request.setAttribute("registrationDone", objModel);
-   			request.setAttribute("createchannel", "true");
-   			getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
-       	
+   			//request.setAttribute("registrationDone", objModel);
+   			//request.setAttribute("createchannel", "true");
+   			//getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
+   			if(objModel.getChannel()){
+   				//request.setAttribute("registrationDone", objModel);
+   				request.setAttribute("createchannel", objModel);
+   				getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);
+   			}else{
+   				getServletContext().getRequestDispatcher("/createchannel.jsp?crtfail=false").forward(request, response);
+   			}
+   			
     		}
     	}catch(Exception ex){
     		getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);

@@ -6,6 +6,7 @@
 <head>
 <link rel="stylesheet" href="css/generalpurpose.css" type="text/css"/>
 <link rel="stylesheet" href="css/indexLogin.css" type="text/css"/>
+<link rel="SHORTCUT ICON" href="images/adSpotWeb.gif"/>
 <link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />
 <script src="javascripts/jquery-1.4.2.min.js" type="text/javascript" language="javascript"></script>
 <script type="text/javascript">

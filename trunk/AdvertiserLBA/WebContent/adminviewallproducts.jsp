@@ -59,7 +59,7 @@
 <br /><br />
 	
 	<% if(objProduct.getProductCount()==0){ %>
-		<h1>Sorry ! You do not have any products.</h1>
+		<h1>Sorry ! No products have been created by Advertisers.</h1>
 	<%} else{ %>
 		
 		<table>
