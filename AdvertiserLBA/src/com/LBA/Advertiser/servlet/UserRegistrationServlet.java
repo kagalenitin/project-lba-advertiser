@@ -96,7 +96,7 @@ public class UserRegistrationServlet extends HttpServlet {
 				request.getSession().setAttribute("user_session",advertiserBean.getEmail());
 				session = request.getSession(true);
 				globalSession = (String) session.getValue("user_session");
-				glblBean.setUsersession(globalSession);
+				GlobalBean.setUsersession(globalSession);
 				request.setAttribute("loggedin",glblBean);
 				getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
 				
@@ -104,7 +104,7 @@ public class UserRegistrationServlet extends HttpServlet {
 				request.getSession().setAttribute("user_session",advertiserBean.getUserName());
 				session = request.getSession(true);
 				globalSession = (String) session.getValue("user_session");
-				glblBean.setUsersession(globalSession);
+				GlobalBean.setUsersession(globalSession);
 				request.setAttribute("loggedin",glblBean);
 				getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
 			}

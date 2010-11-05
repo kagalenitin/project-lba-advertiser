@@ -46,11 +46,10 @@ public class ProductModel {
 	}
 	
 	public int getProductCount(){
-		DBConnect.connectDB();
-		
 		int count=0;
 	
 		try {
+			DBConnect.connectDB();
 			stmtView = DBConnect.con.createStatement();
 			
 			String qryCount = "SELECT COUNT(*) as cnt FROM Product where username='"+ GlobalBean.getUsersession()+"';";
@@ -64,12 +63,13 @@ public class ProductModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		DBConnect.disconnectDB();
 		return count;
 	}
 	
 	public ProductBean[] viewAllProducts(){
 		
-		DBConnect.connectDB();
+		
 		int count = getProductCount();
 		ProductBean[] objBean = new ProductBean[count];
 		if(count == 0){
@@ -78,6 +78,7 @@ public class ProductModel {
 
 			try{	
 				int i=0;
+				DBConnect.connectDB();
 				//objBean = new ProductBean[count];
 				stmtView = DBConnect.con.createStatement();
 				String qry = "SELECT * FROM Product where username='"+ GlobalBean.getUsersession()+"';";
@@ -100,7 +101,7 @@ public class ProductModel {
 			}
 				
 		}
-		
+		DBConnect.disconnectDB();
 		return objBean;		
 		
 	}
@@ -126,6 +127,7 @@ public class ProductModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		DBConnect.disconnectDB();
 		
 	}
 	
@@ -152,28 +154,98 @@ public class ProductModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		DBConnect.disconnectDB();
 		return valueInserted;
 		
 	}
 	
 	public boolean deleteProduct(ProductBean beanObject){
+		/*
+		 * 
+		 *  Select the merchant location if its thr. 
+		 *	
+		 *  select COUNT(ad.merchantlocationID) from ad_merchant ad, ad_product ap where ad.adID = ap.adID and ap.productID=2;
+		 *  //Select the advertisementIDs to delete from the merchantlocation table.
+		 * 
+		 *  delete merchantlocation, ad_merchant from merchantlocation, ad_merchant where (merchantlocation.merchantlocationID = ad_merchant.merchantlocationID) and (ad_merchant.adID IN (select DISTINCT a.adID from ad_product ad, advertisement a, product p where p.productID = ad.productID and p.productID=2;)); 
+		 *  
+		 *  Select the ads to be deleted
+		 *  select DISTINCT a.adID from ad_product ad, advertisement a, product p where p.productID = ad.productID and p.productID=2;
+		 *  delete advertisement, ad_product from advertisement, ad_product where (advertisement.adID=ad_product.adID) and (ad_product.productID=1);
+		 *  
+		 *  Select the product to be deleted.
+		 *	select 	DISTINCT a.adID from ad_product ad, advertisement a, product p where p.productID = ad.productID and p.productID=1;
+		 *  Have to modify this method, take care of the cascading.
+		 */
+
+		Statement stmtMerchant = null;
+		Statement stmtAd = null;
+		ResultSet rsMerchant = null;
 		
 		try{
 			DBConnect.connectDB();
-			
+			//beanObject.setCount(7);
 			stmtInsert = DBConnect.con.createStatement();
-			String qry = "DELETE FROM Product where productID="+beanObject.getCount()+";";
-			int res = stmtInsert.executeUpdate(qry);
-			if(res==1){
-				valueDeleted = true;
-			}else{
-				valueDeleted = false;
+			stmtMerchant = DBConnect.con.createStatement();
+			stmtAd = DBConnect.con.createStatement();
+			Statement stmtTemp = DBConnect.con.createStatement();
+			boolean empty=true;
+			
+			String qry1 = "select DISTINCT m.merchantlocationID as mID from merchantlocation m, ad_merchant ad, ad_product ap where ap.adId=ad.adID and ap.productID ="+beanObject.getCount() +";";
+			System.out.println(qry1);
+			rsMerchant = stmtMerchant.executeQuery(qry1);
+			while(rsMerchant.next()){
+				empty=false;
 			}
+			if(empty){
+				System.out.println(empty+ " means it is empty.");
+				//The recordset was empty.
+			}else{
+				//Delete the records.
+				rsMerchant.absolute(1);
+				String dqlQry1= "delete merchantlocation, ad_merchant from merchantlocation, ad_merchant where (merchantlocation.merchantlocationID = ad_merchant.merchantlocationID) and (ad_merchant.adID IN (select DISTINCT a.adID from ad_product ad, advertisement a, product p where p.productID = ad.productID and p.productID="+ beanObject.getCount() +"));";
+				//String delQry = "DELETE FROM merchantlocation WHERE merchantlocationID= "+rsMerchant.getInt("mID")+";";
+				System.out.println(dqlQry1);
+				stmtTemp.executeUpdate(dqlQry1);
+			}
+			
+			boolean empty1 = true;
+			//Value deleted successfully. Now delete the ads.
+			String qry2 = "select DISTINCT ad.adID from ad_product ad, product p where p.productID="+ beanObject.getCount() +";";
+			System.out.println("AD QRY: "+ qry2);
+			rsRead = stmtAd.executeQuery(qry2);
+			while(rsRead.next()){
+				empty1=false;
+			}
+			if(empty1){
+				System.out.println(empty1+ " means it is empty.");
+			}else{
+				//Delete the records;
+				rsRead.absolute(1);
+				String delQry1 = "delete advertisement, ad_product from advertisement, ad_product where (advertisement.adID=ad_product.adID) and (ad_product.productID="+ beanObject.getCount() +");";
+				System.out.println("Del ADs: "+ delQry1);
+				stmtTemp.executeUpdate(delQry1);
+			}
+			
+			String qry = "DELETE FROM Product where productID="+beanObject.getCount()+";";
+			System.out.println("Product del: "+qry);
+            int res = stmtInsert.executeUpdate(qry);
+            if (res==1){
+            	valueDeleted = true;
+            }else{
+            	valueDeleted = false;
+            }
+            stmtMerchant.close();
+			stmtTemp.close();
+			rsMerchant.close();
+			stmtAd.close();
+			rsRead.close();
+			
 		} catch(SQLException e){
 			e.printStackTrace();
 		}	
-		
+		DBConnect.disconnectDB();
 		return valueInserted;
+
 	}
 }

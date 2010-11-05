@@ -88,9 +88,7 @@ span{
 <table align="center" cellpadding="3">
 	<tr>
 		<td align="center">
-		<% if(request.getAttribute("registrationDone") !=null){ %>
-				<p> Contract Created Successfully.</p>
-		<% }else if(request.getParameter("contractCreate")!=null){ %>
+		<% if(request.getParameter("contractCreate")!=null){ %>
 				<p> Contract not created.</p>
 		<%} %>
 		<table align="center" cellpadding="3">

@@ -40,6 +40,7 @@ public class AdvertisementModel {
 			
 			stmtView.close();
 			rsSet.close();
+			DBConnect.disconnectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -66,6 +67,7 @@ public class AdvertisementModel {
 			
 			stmtView.close();
 			rsSet.close();
+			DBConnect.disconnectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,7 +96,7 @@ public class AdvertisementModel {
 				}
 				stmtView.close();
 				rsRead.close();
-			
+				DBConnect.disconnectDB();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -120,7 +122,7 @@ public class AdvertisementModel {
 			
 			stmtView.close();
 			rsRead.close();
-			
+			DBConnect.disconnectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -148,7 +150,7 @@ public class AdvertisementModel {
 			
 			stmtInsert.close();
 			rsRead.close();
-			
+			DBConnect.disconnectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -161,11 +163,12 @@ public class AdvertisementModel {
 		/*
 		 * Get the count of the Contract for current user 
 		 */
-		DBConnect.connectDB();
+		
 		
 		int count=0;
 	
 		try {
+			DBConnect.connectDB();
 			stmtView = DBConnect.con.createStatement();
 			
 			String qryCount = "SELECT COUNT(*) as cnt FROM Contract where username='"+ GlobalBean.getUsersession()+"';";
@@ -175,6 +178,7 @@ public class AdvertisementModel {
 			
 			stmtView.close();
 			rsSet.close();
+			DBConnect.disconnectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -185,6 +189,7 @@ public class AdvertisementModel {
 	public Hashtable<Integer, String> loadContractName(){
 		Hashtable<Integer, String> hashContract = new Hashtable<Integer, String>();
 		try {
+			DBConnect.connectDB();
 			stmtView = DBConnect.con.createStatement();
 			String qry = "SELECT * from Contract where username='"+ GlobalBean.getUsersession()+"';";
 			rsSet = stmtView.executeQuery(qry);
@@ -199,7 +204,7 @@ public class AdvertisementModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		DBConnect.disconnectDB();
 		return hashContract;
 			
 	}
@@ -218,7 +223,6 @@ public class AdvertisementModel {
 			stmtInsert = DBConnect.con.createStatement();
 			
 			//This logic is to convert the java date to sql date.
-			 
 			
 			java.sql.Date sqlStartDate = java.sql.Date.valueOf(sqlAdBean.getAdStartDate());
 			System.out.println(sqlStartDate);
@@ -228,7 +232,7 @@ public class AdvertisementModel {
 			System.out.println(qty);
 			int rs = stmtInsert.executeUpdate(qty);
 			if (rs==1){
-				System.out.println("Successful");
+				//System.out.println("Successful");
 				stmtView = DBConnect.con.createStatement();
 				String qry = "SELECT MAX(adID) as adID from Advertisement";
 				rsRead = stmtView.executeQuery(qry);
@@ -261,7 +265,7 @@ public class AdvertisementModel {
 			
 			rsRead.close();
 			stmtInsert.close();
-			
+			DBConnect.disconnectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -291,7 +295,7 @@ public class AdvertisementModel {
 			
 			stmtInsert.close();
 			rsRead.close();
-			
+			DBConnect.disconnectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -368,7 +372,7 @@ public class AdvertisementModel {
 	
 	public AdvertisementBean[] viewAllAds(){
 			
-			DBConnect.connectDB();
+			
 			int count = getProductCountForAds();
 			AdvertisementBean[] objBean = new AdvertisementBean [count];
 			//ContractBean[] obj = new ContractBean[count];
@@ -379,6 +383,7 @@ public class AdvertisementModel {
 				try{	
 					int i=0;
 					//objBean = new ProductBean[count];
+					DBConnect.connectDB();
 					stmtView = DBConnect.con.createStatement();
 					//String qry = "SELECT adname,addesc,adstartdate,adenddate,adsize,p.productid,productname,productdescription,price from advertisement a,ad_product c,product p where a.adID=c.adID and c.productID= p.productID";
 					String qry = "SELECT adname,addesc,adstartdate,adenddate,adsize,p.productid,productname,productdescription,price from advertisement a,ad_product c,product p where a.adID=c.adID and c.productID= p.productID and p.username='"+ GlobalBean.getUsersession()+"'";
@@ -402,7 +407,7 @@ public class AdvertisementModel {
 					//System.out.println(rsRead.getString("contractname"));
 					stmtView.close();
 					rsRead.close();
-					
+					DBConnect.disconnectDB();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -431,6 +436,7 @@ public class AdvertisementModel {
 			
 			stmtView.close();
 			rsSet.close();
+			DBConnect.disconnectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -456,6 +462,7 @@ public class AdvertisementModel {
 			//System.out.println(count);
 			stmtView.close();
 			rsSet.close();
+			DBConnect.disconnectDB();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -495,6 +502,7 @@ public class AdvertisementModel {
 				
 			stmtView.close();
 			rsSet.close();
+			DBConnect.disconnectDB();
 			}
 				
 			catch (SQLException e) {
@@ -504,9 +512,9 @@ public class AdvertisementModel {
 			
 		}
 		
-		for(int i=0; i<j; i++){
+		/*for(int i=0; i<j; i++){
 			System.out.println(viewAdBean[i].getAdId()+" \n"+viewAdBean[i].getAdName()+"\n"+viewAdBean[i].getAdEndDate());
-		}
+		}*/
 		return viewAdBean;
 	}
 	

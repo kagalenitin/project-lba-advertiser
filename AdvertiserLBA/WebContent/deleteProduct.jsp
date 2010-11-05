@@ -10,7 +10,9 @@
 <html>
 <head>
 	<link rel="stylesheet" href="css/generalpurpose.css" type="text/css" />
-	<link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />  	 
+	<link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />
+	<link rel="stylesheet" type="text/css" href="css/jquery.fastconfirm.css"/>
+	  	 
 	<script type="text/javascript" src="javascripts/jquery-1.4.2.js"></script>
 <script type="text/javascript">
 
@@ -18,12 +20,36 @@
 		//alert(val);
 		//document.deletePage.page.value = val;
 	//}
+	$fb = jQuery.noConflict();
 	function setValue(vl){
+		//alert('First');
 		//Set the page variable (hidden) to move to the other page.
-		$('input#page').val(vl);
+		$fb('input#page').val(vl);
 	}
 		
 </script>
+<script src="javascripts/jquery.fastconfirm.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var $hj = jQuery.noConflict();
+		$hj(function() {
+			$hj('button#deleteproduct').click(function() {
+				$hj('input#page').val('deldata');
+				$hj(this).fastConfirm({
+					position: "right",
+					questionText: "All the Ads related to the product will be deleted. Are you sure?",
+					onProceed: function(trigger) {
+						//alert("If you want a try, you've got it!");
+						//window.location.href="ProductServlet?page=deldata";
+						$hj('form#delproductdata').submit();
+					},
+					onCancel: function(trigger) {
+						//alert("Erm. In fact, you were already trying it, don't you think?");
+						return false;
+					}
+				});
+			});
+		});
+	</script>
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Delete Contract</title>
@@ -31,7 +57,7 @@
 <body>
 <%@ include file="navigationbar.jsp" %>
 <center>
-<form name="deletePage" method="post" action="ProductServlet">
+<form id="delproductdata">
 	<table cellpadding="3">
 			<tr>
 				<td colspan=2><h3>This step will delete your product!</h3></td>
@@ -53,22 +79,21 @@
 				<td><input type="text" name="productprice" value="<%= objBean.getPrice() %>" disabled="disabled" /></td>
 			</tr>
 			<tr>
-				<td align="right"><button type="submit" name="delete" id="deleteproduct" class="ui-state-default ui-corner-all">Delete Product</button>
+				<td align="right"><button type="submit" name="deleteproduct" id="deleteproduct" class="ui-state-default ui-corner-all" onclick="return false;">Delete Product</button>
 				<script type="text/javascript">
-					$('button#deleteproduct').click(function(){
-						setValue('deldata');
-					});
+				
 				</script>
 					
 				</td>
 				
 				<td align="left"><button type="submit" name="backtoall" id="backtoall" class="ui-state-default ui-corner-all">Back to All Products</button><button type="submit" name="backtoedit" id="backtoedit" class="ui-state-default ui-corner-all">Back to Edit</button>
 				<script type="text/javascript">
-					$('button#backtoall').click(function(){
+				var $fj = jQuery.noConflict();
+					$fj('button#backtoall').click(function(){
 						setValue('backtoall');
 					});
 
-					$('button#backtoedit').click(function(){
+					$fj('button#backtoedit').click(function(){
 						setValue('backtoedit');
 					});
 				</script>

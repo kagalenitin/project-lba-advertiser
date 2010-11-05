@@ -16,6 +16,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" href="css/generalpurpose.css" type="text/css" />
 	<link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/jquery.lightbox-0.5.css" type="text/css" media="screen" />
 	<!-- Fancy zoom for the sample images. http://www.cabel.name/2008/02/fancyzoom-10.html -->
 
 	<script src="FancyZoom 1.1/js-global/FancyZoom.js" type="text/javascript"></script>
@@ -147,6 +148,16 @@
 			});
 		});
 	</script> 
+	
+	<script type="text/javascript" src="javascripts/jquery.lightbox-0.5.js"></script>
+	 <script type="text/javascript">
+	 	$vr = jQuery.noConflict();
+	    $vr(function() {
+	        $vr('#gallery a').lightBox();
+	    });
+    </script>
+	
+	
 <title>Create New Advertisement</title>
 <style type="text/css">
 	.error {
@@ -154,9 +165,29 @@
 		font: 8pt verdana;
 		padding-left: 0px
 	}
+/* jQuery lightBox plugin - Gallery style */
+	#gallery {
+		//background-color: #444;
+		padding: 10px;
+		width: 300px;
+	}
+	#gallery ul { list-style: none; }
+	#gallery ul li { display: inline; }
+	#gallery ul img {
+		border: 5px solid #3e3e3e;
+		border-width: 5px 5px 20px;
+	}
+	#gallery ul a:hover img {
+		border: 5px solid #fff;
+		border-width: 5px 5px 20px;
+		color: #fff;
+	}
+	#gallery ul a:hover { color: #fff; }
+
 </style>
 </head>
-<body id="createAdvertisement" onload="setupZoom()">
+<!-- <body id="createAdvertisement" onload="setupZoom()"> -->
+<body id="createAdvertisement">
 <%@ include file="./navigationbar.jsp" %>
 <br /> <br />	
 <form method="post" action="AdvertisementServlet" enctype="multipart/form-data" name="createadvertisement" id="createadvertisement">
@@ -169,12 +200,19 @@
 			</tr>
 				
 			<tr>
-				<td id="createad_column"><label>Sample Ad files</label></td>
+				<td id="createad_column"><label>Ad Catalogue</label></td>
 				<td>
 				<table>
 					<tr>
-						<td><a href="images/adSpotWeb.gif" title="AdSpot Logo"><img src="images/adSpotWeb.gif" height="50" width="50" /></a></td>
-						<td><a href="images/jcpenny.jpg" title="JCPenny Logo"><img src="images/jcpenny.jpg" height="50" width="50" /></a></td>
+						<!-- <td><a href="images/adSpotWeb.gif" title="AdSpot Logo"><img src="images/adSpotWeb.gif" height="50" width="50" /></a></td>
+						<td><a href="images/jcpenny.jpg" title="JCPenny Logo"><img src="images/jcpenny.jpg" height="50" width="50" /></a></td> -->
+						<td colspan="2">
+							<div id="gallery">
+								<a href="images/adSpotWeb.gif" rel="lightbox[roadtrip]" title="AdSpot. Example 1, size 170 * 72"><img src="images/adSpotWeb.gif" width="72" height="72" /></a>
+								<a href="images/nikeads.jpeg" rel="lightbox[roadtrip]" title="Nikeads. Example 2, size 150 * 240"><img src="images/nikeads.jpeg" width="72" height="72" /></a>
+							</div>
+						</td>
+						
 					</tr>
 				</table>
 				</td>
@@ -235,7 +273,7 @@
 								
 								//Declare the array and copy the contents of hashProduct by splitting them
 									var myProducts = new Array();
-									var prods = '<%= hashProduct %>';
+									var prods = "<%= hashProduct %>";
 									var splitProducts = prods.split("\t");
 									
 									for(cnt =0; cnt < splitProducts.length -1; cnt++){
@@ -332,7 +370,8 @@
 								document.getElementById('adenddate').value="";
 							}else{
 								var myContract = new Array();
-								var contract = '<%= arrContract %>';
+								var contract = "<%=arrContract%>";
+								//alert(contract);
 								var splitContract = contract.split("\t");
 
 								for(cnt=0; cnt < splitContract.length - 1; cnt ++){

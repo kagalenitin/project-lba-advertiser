@@ -12,11 +12,12 @@
 <head>
 <meta http-equiv="Content-Type"
 	content="application/pdf; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Contract Created. View PDF</title>
 </head>
 <body>
+<%@ include file="./navigationbar.jsp" %>
 
-<center>The PDF Format has been successfully saved. To view, <a
-	href="/Stuff/LBAProject/AdvertiserLBA/WebContent/images/<%= viewBean.getContractID()%><%=viewBean.getContractname()%>.pdf">click here.</a></center>
+<center>The PDF Format has been successfully saved. To view, 
+<a href="file://Stuff/LBAProject/AdvertiserLBA/WebContent/images/<%= viewBean.getContractID()+viewBean.getContractname()%>.pdf"><font face="Verdana" color="#000000">click here.</font></a></center>
 </body>
 </html>

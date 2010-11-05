@@ -11,7 +11,7 @@ import com.LBA.Advertiser.bean.ProductBean;
 import com.LBA.Advertiser.model.AdvertisementModel;
 import com.LBA.Advertiser.model.ProductModel;
 import com.LBA.Advertiser.model.RegistrationModel;
-
+import org.apache.commons.lang.StringEscapeUtils;
 /**
  * Servlet implementation class ProductServlet
  */
@@ -116,14 +116,16 @@ public class ProductServlet extends HttpServlet {
 	}
 	
 	public void deleteProductFromServlet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		System.out.println("in servlet");
 		productBeanObj.setCount(Integer.parseInt(request.getParameter("productid")));
-		
-		if(objProductModel.deleteProduct(productBeanObj)){	
+		System.out.println(request.getParameter("productid"));
+		boolean val = objProductModel.deleteProduct(productBeanObj);
+		if(val){
 			request.setAttribute("viewall", objProductModel);
 			request.setAttribute("deleteproduct", "true");
 			getServletContext().getRequestDispatcher("/viewallProduct.jsp").forward(request, response);
 		}else{
-			getServletContext().getRequestDispatcher("/editProduct.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/home.jsp").forward(request, response);
 		}
 		
 	}

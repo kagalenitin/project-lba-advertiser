@@ -66,7 +66,7 @@
 	<table id="menuTable">
 		<thead>
 			<tr align="center">
-				<td colspan="5"><h3 id="login_font">View Contract Details</h3></td>
+				<td colspan="6"><h3 id="login_font">View Contract Details</h3></td>
 			</tr>
 			<tr>
 			<td id="viewall_column_heading" width="130"><b>Contract ID</b></td>
@@ -74,7 +74,7 @@
 			<td id="viewall_column_heading" width="80"><b>Space</b></td>
 			<td id="viewall_column_heading" width="200"><b>Start Date</b></td>
 			<td id="viewall_column_heading" width="200"><b>End Date</b></td>
-			
+			<td id="viewall_column_heading" width="80"><b>Action</b></td>
 			</tr>
 		</thead>
 		<tbody>
@@ -85,6 +85,7 @@
 				<td id="viewall_column" width="80"><label id="contractspace"><%= viewBean[i].getSpace() %></label></td>
 				<td id="viewall_column" width="80"><label id="contractstart"><%= viewBean[i].getStartdate() %></label></td>
 				<td id="viewall_column" width="80"><label id="contractend"><%= viewBean[i].getEnddate() %></label></td>
+				<td id="viewall_column" width="80"><label id="contractid"><a href="pdfprint.jsp?contractid=<%= viewBean[i].getContractID()%>&contractname=<%= viewBean[i].getContractname()%>"><font style="color: #000000; font-weight: bold">Print Contract</font></a></label></td>
 			<% } %>
 			</tr> 
 		</tbody>	
