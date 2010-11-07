@@ -3,6 +3,7 @@ package com.LBA.Advertiser.model;
 
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -240,32 +241,48 @@ public class ContractModel {
 	//End of addition by Veenit on 09/13/2010
 	
 
-	 public void GeneratePDF() throws DocumentException, MalformedURLException, IOException{
+	 public void GeneratePDF(){
 		 ContractModel cModel = new ContractModel();
 		 ContractBean viewBean = cModel.viewcurrentContractDetails();
 		 
 		  Document document=new Document();
-		  System.out.println("/Stuff/LBAProject/AdvertiserLBA/WebContent/images/"+ viewBean.getContractID()+viewBean.getContractname()+".pdf");
-	      PdfWriter.getInstance(document,new FileOutputStream("/Stuff/LBAProject/AdvertiserLBA/WebContent/images/"+ viewBean.getContractID()+viewBean.getContractname()+".pdf"));
-	      document.open();  
-	      Image image = Image.getInstance ("/Stuff/LBAProject/AdvertiserLBA/WebContent/images/adSpotWeb.gif");
-	      Paragraph para=new Paragraph("\n\nContract Details:"+"\n");
-	      Paragraph para1=new Paragraph("Contract Id:"+ viewBean.getContractID()+"\n"+"Contract Name:"+viewBean.getContractname()+"\n"+"Contract Created by:"+viewBean.getContractcreatedby()+"\n" +"Contract Space:"+viewBean.getSpace()+"\n"+"Contract Start Date:"+viewBean.getStartdate()+"\n"+"Contract End Date:"+viewBean.getEnddate()+"\n"+"Contract Payment Type:"+viewBean.getPaymenttype()+"\n");
-	      Paragraph para3=new Paragraph("\nADSpot Agreement Details:"+"\n");
-	      Paragraph para4= new Paragraph("\nAdSpot is wholly owned by the PNV Limited. Advertiser agrees that AdSpot has the right to reject advertising:"+"\n"+ "1. If editors determine that the advertising is inconsistent with their understanding of the community’s objectives, values or image or the aesthetics standards of AdSpot."+"\n"+ " 2. If advertiser fails to meet deadlines for space reservation, ad revisions & approvals or new advertising."+"\n"+" 3. For any other reason or for no reason."+"\n"
-          +"Advertising space is sold on a “first-come first-served” basis. Advertiser releases AdSpot from any and all loss, liability or expense occasioned by Advertiser by reason of "+"\n"+"a) any failure to publish advertising pursuant to this contract"+"\n"+" b) failure to return ad media (original artwork, discs, film)."+"\n"+" In such event the advertising is not affected, the Advertising Charge (or the prorated portion thereof) will be refunded to the Advertiser\n");
-	      Paragraph para5=new Paragraph("\nContract Signed By: _____________________"+"\n");
-	      Paragraph para6=new Paragraph("\nSignature: __________________"+"\n");
-	      Paragraph para7=new Paragraph("\nContract Signed on:______________________ "+"\n");
-	      document.add(image);
-	      document.add(para);
-	      document.add(para1);
-	      document.add(para3);
-	      document.add(para4);
-	      document.add(para5);
-	      document.add(para6);
-	      document.add(para7);
-	      document.close(); 
+		  System.out.println("/AdvertiserLBA/WebContent/images/"+ viewBean.getContractID()+viewBean.getContractname()+".pdf");
+	      try {
+			PdfWriter.getInstance(document,new FileOutputStream(
+					"/images/"+ viewBean.getContractID()+viewBean.getContractname()+".pdf"));
+			  document.open();  
+		      Image image = Image.getInstance ("/images/adSpotWeb.gif");
+		      Paragraph para=new Paragraph("\n\nContract Details:"+"\n");
+		      Paragraph para1=new Paragraph("Contract Id:"+ viewBean.getContractID()+"\n"+"Contract Name:"+viewBean.getContractname()+"\n"+"Contract Created by:"+viewBean.getContractcreatedby()+"\n" +"Contract Space:"+viewBean.getSpace()+"\n"+"Contract Start Date:"+viewBean.getStartdate()+"\n"+"Contract End Date:"+viewBean.getEnddate()+"\n"+"Contract Payment Type:"+viewBean.getPaymenttype()+"\n");
+		      Paragraph para3=new Paragraph("\nADSpot Agreement Details:"+"\n");
+		      Paragraph para4= new Paragraph("\nAdSpot is wholly owned by the PNV Limited. Advertiser agrees that AdSpot has the right to reject advertising:"+"\n"+ "1. If editors determine that the advertising is inconsistent with their understanding of the community’s objectives, values or image or the aesthetics standards of AdSpot."+"\n"+ " 2. If advertiser fails to meet deadlines for space reservation, ad revisions & approvals or new advertising."+"\n"+" 3. For any other reason or for no reason."+"\n"
+	          +"Advertising space is sold on a “first-come first-served” basis. Advertiser releases AdSpot from any and all loss, liability or expense occasioned by Advertiser by reason of "+"\n"+"a) any failure to publish advertising pursuant to this contract"+"\n"+" b) failure to return ad media (original artwork, discs, film)."+"\n"+" In such event the advertising is not affected, the Advertising Charge (or the prorated portion thereof) will be refunded to the Advertiser\n");
+		      Paragraph para5=new Paragraph("\nContract Signed By: _____________________"+"\n");
+		      Paragraph para6=new Paragraph("\nSignature: __________________"+"\n");
+		      Paragraph para7=new Paragraph("\nContract Signed on:______________________ "+"\n");
+		      document.add(image);
+		      document.add(para);
+		      document.add(para1);
+		      document.add(para3);
+		      document.add(para4);
+		      document.add(para5);
+		      document.add(para6);
+		      document.add(para7);
+		      document.close(); 
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
 	      
 	 }
 }	

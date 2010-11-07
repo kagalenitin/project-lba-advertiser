@@ -22,11 +22,10 @@ public class ChannelModel {
 		DBConnect.connectDB();
 		try{
 			stmtInsert = DBConnect.con.createStatement();
-			System.out.println(chBeanObject.getChannelname());
-			System.out.println(chBeanObject.getChanneldescription());
 			String qry = "INSERT into channel"+
 			" (channelname,channeldescription)"+
 			" values ('"+chBeanObject.getChannelname()+"','"+chBeanObject.getChanneldescription()+"');";
+			System.out.println(qry);
 			int res = stmtInsert.executeUpdate(qry);
 			
 			if(res==1)
