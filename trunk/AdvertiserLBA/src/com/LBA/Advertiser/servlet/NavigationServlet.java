@@ -109,7 +109,7 @@ public class NavigationServlet extends HttpServlet {
 	    	else if(postAction.equals("admin_product")){
 	    		request.setAttribute("viewall", objAdminProduct);
 	    		//objAdminProduct.viewAllProducts();
-	    		getServletContext().getRequestDispatcher("/adminviewallproducts.jsp").forward(request, response);;
+	    		getServletContext().getRequestDispatcher("/adminviewallproducts.jsp").forward(request, response);
 	    	}else if(postAction.equals("admerchant")){
 	    		request.setAttribute("loadad", objAdModel);
 	    		getServletContext().getRequestDispatcher("/admerchant.jsp").forward(request, response);

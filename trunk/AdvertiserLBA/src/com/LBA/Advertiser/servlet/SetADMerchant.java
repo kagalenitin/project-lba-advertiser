@@ -48,7 +48,6 @@ public class SetADMerchant extends HttpServlet {
 				objAdMBean.setLatitude(request.getParameter("latitude"));
 				objAdMBean.setLongitude(request.getParameter("longitude"));
 				try{
-					System.out.println("Here");
 					objAdModel.addMerchantLocationToAd(objAdMBean);
 					if(objAdModel.getAdMerchantResult()){
 						request.setAttribute("success", objAdModel);

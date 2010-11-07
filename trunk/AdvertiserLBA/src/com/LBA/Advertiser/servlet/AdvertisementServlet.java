@@ -137,19 +137,19 @@ public class AdvertisementServlet extends HttpServlet {
                             int indexOf = itemName.indexOf(".");
                             domainName = itemName.substring(indexOf);
                             fileSize =  String.valueOf(item.getSize());
-                            System.out.println("Filesize: "+fileSize);
+                           // System.out.println("Filesize: "+fileSize);
                             contType = item.getContentType();
-                            System.out.println("ContTpe: "+contType);
+                           // System.out.println("ContTpe: "+contType);
                         }
                         
                     }
                     
-                    for(int i=0; i<arrAdDetails.size(); i++){
+                  /*  for(int i=0; i<arrAdDetails.size(); i++){
                         System.out.println("i: "+i +" "+arrAdDetails.get(i));
-                    }
+                    }*/
                    
                     if(checkTotalUsedSpace()){
-                        System.out.println("OK You have space available to upload.");
+                        //System.out.println("OK You have space available to upload.");
                     }else{
                         System.out.println("Not enough space to upload.");
                         entireMsg = entireMsg.concat("Not enough space to upload.");
@@ -160,7 +160,8 @@ public class AdvertisementServlet extends HttpServlet {
                         //Save the image file in the images folder of the application.
                     finalImage = buffer.toString() + String.valueOf(adIDCount) + arrAdDetails.get(2) + domainName;
                     //Remember to change the location 
-                        String destinationDir = "/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/userUploadedImages/";
+                    //String destinationDir = "/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/userUploadedImages/";
+                    String destinationDir = "/Stuff/LBAProject/AdvertiserLBA/WebContent/images/";
                     //String destinationDir = request.getContextPath().toString() +"/images/userUploadedImages/";
                     //System.out.println("Servlet : " + destinationDir);
 
@@ -205,27 +206,28 @@ public class AdvertisementServlet extends HttpServlet {
                         if((validFileSizeFlag==true) && (validFileTypeFlag==true) && ((find==true) || (retValue==true))){
                                 //Insert everything in the arrAdDetails.
                                
-                        objAdBean.setAdName(arrAdDetails.get(0));
-                        objAdBean.setAdDesc(arrAdDetails.get(1));
-                        objAdBean.setProductID(arrAdDetails.get(2));
-                        objAdBean.setContractID(arrAdDetails.get(5));
-                        objAdBean.setAdStartDate(arrAdDetails.get(11));
-                        objAdBean.setAdEndDate(arrAdDetails.get(12));
-                        objAdBean.setChannelID(arrAdDetails.get(13));
-                        objAdBean.setFileName(finalImage);
-                        System.out.println(destinationDir+finalImage);
-                        objAdBean.setFileLocation(destinationDir+finalImage);
-                        objAdBean.setFileSize(fileSize);
-                        System.out.println(arrAdDetails.size()+" is the size.");
-                        arrAdDetails.clear();
-                        
-                        objAdModel.addAdvertisement(objAdBean);
-                        request.setAttribute("adcreated", objAdModel);
-                        getServletContext().getRequestDispatcher("/resultofad.jsp").forward(request, response);
+		                        objAdBean.setAdName(arrAdDetails.get(0));
+		                        objAdBean.setAdDesc(arrAdDetails.get(1));
+		                        objAdBean.setProductID(arrAdDetails.get(2));
+		                        objAdBean.setContractID(arrAdDetails.get(5));
+		                        objAdBean.setAdStartDate(arrAdDetails.get(11));
+		                        objAdBean.setAdEndDate(arrAdDetails.get(12));
+		                        objAdBean.setChannelID(arrAdDetails.get(13));
+		                        objAdBean.setFileName(finalImage);
+		                        System.out.println(destinationDir+finalImage);
+		                        String filePath = "/AdvertiserLBA/images/ads/" + finalImage;
+		                        objAdBean.setFileLocation(filePath);
+		                        objAdBean.setFileSize(fileSize);
+		                        System.out.println(arrAdDetails.size()+" is the size.");
+		                        arrAdDetails.clear();
+		                        
+		                        objAdModel.addAdvertisement(objAdBean);
+		                        request.setAttribute("adcreated", objAdModel);
+		                        getServletContext().getRequestDispatcher("/resultofad.jsp").forward(request, response);
                         }
                         else{
                                 //Traverse the item and delete the file which is been created at the location.
-                                System.out.println("Something went wrong");
+                                //System.out.println("Something went wrong");
                                 System.out.println(destinationDir+finalImage);
                                 itr = items.iterator();
                                 while(itr.hasNext()) {
@@ -275,14 +277,14 @@ public class AdvertisementServlet extends HttpServlet {
                 //Check the totalUsedSize from the contract allotted size. 
                 System.out.println("Arr add L: "+arrAdDetails.get(5));
         long totalUsedFileSize = objAdModel.checkContractAdSize(Integer.parseInt(arrAdDetails.get(5)));
-        System.out.println("TotalUsed File Size in Contract: "+ totalUsedFileSize);
+        //System.out.println("TotalUsed File Size in Contract: "+ totalUsedFileSize);
         
         String tempFileSize="";
         if(arrAdDetails.get(8).contains("MB")){
                 tempFileSize = arrAdDetails.get(8).replace("MB", "");
         }
         contractFileSize = Integer.parseInt(tempFileSize) * 1024;
-        System.out.println("contractfileSize==="+contractFileSize);
+        //System.out.println("contractfileSize==="+contractFileSize);
         if(totalUsedFileSize < contractFileSize){
                 validFileSizeFlag = true; 
         }
@@ -299,14 +301,14 @@ public class AdvertisementServlet extends HttpServlet {
         System.out.println("ContTpe"+item.getContentType());
                 for(int i=0; i<arrFileType.length; i++){
                         if(item.getContentType().equals(arrFileType[i])){
-                                System.out.println("Matches the file");
+                                //System.out.println("Matches the file");
                                 validFileTypeFlag=true;
                                 break;
                         }else{
                         validFileTypeFlag=false;
                 }
                 }
-        System.out.println("ValidFlagType:"+validFileTypeFlag);
+        //System.out.println("ValidFlagType:"+validFileTypeFlag);
                 return validFileTypeFlag;
         }
         
@@ -318,7 +320,7 @@ public class AdvertisementServlet extends HttpServlet {
                 String arrFile[] = {"video/quicktime", "video/mp4", "audio/x-pn-realaudio", "audio/mpeg"};
                 for(int i=0; i<arrFile.length; i++){
                         if(contType.equals(arrFile[i])){
-                                System.out.println("The video format is not supported for dimension checking");
+                                //System.out.println("The video format is not supported for dimension checking");
                                 find=true; 
                                 break;
                         }
@@ -335,12 +337,13 @@ public class AdvertisementServlet extends HttpServlet {
 			                    ii.setDetermineImageNumber(true);
 			                    ii.setCollectComments(true);
 			                    if (!ii.check()) {
-			                        System.err.println("Not a supported image file format.");
+			                        //System.err.println("Not a supported image file format.");
 			                        return false;
 			                    }
-			                    System.out.println(ii.getHeight()+"  width"+ ii.getWidth());
-			                    if((ii.getHeight()<250) && (ii.getWidth()<150))
-			                    {
+			                    //System.out.println(ii.getHeight()+"  width"+ ii.getWidth());
+			                   // if(((ii.getWidth()>=350) && (ii.getWidth()<=400)) &&
+			                    //	((ii.getHeight()>=400) && (ii.getHeight()<=500))){
+			                    if((ii.getWidth()>50) && (ii.getHeight()>50)){
 			                        flag=true;
 			                    }else{
 			                        flag=false;
