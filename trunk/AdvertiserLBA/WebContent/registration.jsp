@@ -32,7 +32,7 @@
 				},
 				password: {
 					required: true,
-					minlength: 6
+					minlength: 8
 				},
 				firstname: {
 					required: true,
@@ -59,7 +59,7 @@
 			messages: {
 				companyname: "Please enter your company name",
 				username: "Username should be 8 characters",
-				password: "Password should be between 6-15 characters",
+				password: "Password should be between 8-15 characters",
 				firstname: "Please enter your name",
 				lastname: "Please enter your message",
 				address: "Address cannot be empty.",

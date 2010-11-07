@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="com.LBA.Advertiser.model.AdvertisementModel, java.util.*" %>
+<%@page import="com.LBA.Advertiser.bean.GlobalBean" %>
 
 <%
 	AdvertisementModel objAdModel = (AdvertisementModel) request.getAttribute("loadproduct");	
@@ -75,11 +76,13 @@
 				if(($cad('#contractstartdate').val()=="") || ($cad('#contractenddate').val()=="")){
 						alert('Select contract name before you can pick a date.');
 						$cad("input#adenddate").datepicker("disabled", true);
-				}
-				else{
+				}else if($cad('#adstartdate').val()==""){
+						alert('Select ad start date before you can pick an end date.');
+						$cad("input#adenddate").datepicker("disabled", true);
+				}else{
 					
 					var dateMin;var dateMax;
-				 	dateMin = $cad("#contractstartdate").datepicker("getDate");
+				 	dateMin = $cad("#adstartdate").datepicker("getDate");
 				 	dateMax= $cad("#contractenddate").datepicker("getDate");
 					//alert(dateMin);
 					 return{ 
@@ -210,6 +213,7 @@
 							<div id="gallery">
 								<a href="images/adSpotWeb.gif" rel="lightbox[roadtrip]" title="AdSpot. Example 1, size 170 * 72"><img src="images/adSpotWeb.gif" width="72" height="72" /></a>
 								<a href="images/nikeads.jpeg" rel="lightbox[roadtrip]" title="Nikeads. Example 2, size 150 * 240"><img src="images/nikeads.jpeg" width="72" height="72" /></a>
+								<a href="images/samsung1.jpg" rel="lightbox[roadtrip]" title="Samsung Mobiles. Example 3, size 200 * 250"><img src="images/samsung.jpg" width="72" height="72" /></a>
 							</div>
 						</td>
 						

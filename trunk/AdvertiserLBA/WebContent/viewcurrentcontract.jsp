@@ -2,11 +2,11 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import="com.LBA.Advertiser.model.ContractModel" %>
 <%@ page import="com.LBA.Advertiser.bean.ContractBean" %>
+<%@page import="com.LBA.Advertiser.bean.GlobalBean" %>
 <%
 	
 	ContractModel cModel = (ContractModel) request.getAttribute("registrationDone");
 	ContractBean viewBean1 = cModel.viewcurrentContractDetails();
-	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,7 +18,7 @@
 </head>
 <body>
 <%@ include file="./navigationbar.jsp" %>	
-<form method="post" name="editUserForm" action="ContractCreateServlet" >
+<form method="post" name="editUserForm" action="ContractCreateServlet" id="editUserForm">
 <table align="center" cellpadding="3">
 	<tr>
 		
@@ -39,6 +39,10 @@
 		<td><input type="text" name="space" id="space" value="<%= viewBean1.getSpace() %>"/></td>
 	</tr>
 	<tr>
+		<td id="contract_column">Contract Created By:</td>
+		<td><input type="text" name="createdby" id="createdby" value="<%= viewBean1.getContractcreatedby() %>"/></td>
+	</tr>
+	<tr>
 		<td id="contract_column">Description:</td>
 		<td><textarea name="description" id="description" rows="5" cols="20">Contract is valid only for the term specified</textarea></td>
 	</tr>
@@ -50,10 +54,12 @@
 		<td id="contract_column">EndDate:</td>
 		<td><input type="text" name="enddate" id="enddate" value="<%= viewBean1.getEnddate() %>"/></td>
 	</tr>
+	<tr>
+		<td><button id="createpdf" type="submit" class="ui-state-default ui-corner-all" class="submit">Create PDF!</button></td>
+	</tr>
 	</table>
-		<center><a href="ContractCreateServlet?page=createpdf" style="color: #000000"/>PDF Format</a></center>
-	
-
+		<!-- <center><a href="ContractCreateServlet?page=createpdf" style="color: #000000"/>Save PDF Format</a></center> -->
+	<input type="hidden" name="page" value="postcreatepdf" />	
 
 </form>
 </body>

@@ -13,6 +13,6 @@
 %>
 <img src="/images/adSpotWeb.gif"></img>
 <center><b>Click on the link below</b></center>
-<center> <a href="file://Stuff/LBAProject/AdvertiserLBA/WebContent/images/<%=filename%>.pdf" style="color: #000000">Print Contract</a></center>
+<center> <a href="/AdvertiserLBA/images/<%=filename%>.pdf" style="color: #000000">Print Contract</a></center>
 </body>
 </html>
