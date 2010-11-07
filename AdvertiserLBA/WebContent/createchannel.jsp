@@ -19,7 +19,7 @@
 			rules: {
 				channelname: {
 					required: true,
-					minlength: 8
+					minlength: 3
 				},
 				channeldescription: {
 					required: true,

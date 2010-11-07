@@ -6,7 +6,7 @@
 	
 		<link rel="stylesheet" href="css/jquery.treeview.css" type="text/css" />
 		<script type="text/javascript" src="javascripts/jquery.js"></script>
-		<script type="text/javascript" src="javascripts/jquery.treeview.js">
+	
 			
 		</script>
 		

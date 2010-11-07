@@ -18,6 +18,6 @@
 <%@ include file="./navigationbar.jsp" %>
 
 <center>The PDF Format has been successfully saved. To view, 
-<a href="file://Stuff/LBAProject/AdvertiserLBA/WebContent/images/<%= viewBean.getContractID()+viewBean.getContractname()%>.pdf"><font face="Verdana" color="#000000">click here.</font></a></center>
+<a href="/AdvertiserLBA/images/<%= viewBean.getContractID()+viewBean.getContractname()%>.pdf"><font face="Verdana" color="#000000">click here.</font></a></center>
 </body>
 </html>

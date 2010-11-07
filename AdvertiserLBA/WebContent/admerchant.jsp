@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ page import="com.LBA.Advertiser.model.AdvertisementModel, java.util.*" %>
+<%@page import="com.LBA.Advertiser.bean.GlobalBean" %>
 
 <%
 	AdvertisementModel objAdModel = (AdvertisementModel) request.getAttribute("loadad");
