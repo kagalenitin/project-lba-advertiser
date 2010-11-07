@@ -22,7 +22,7 @@ public class ProductModel {
 			stmtInsert = DBConnect.con.createStatement();
 			String qry ="INSERT INTO Product (productname, productdescription, price, username) values " +
 			"('"+beanObj.getProductName()+"', '"+beanObj.getProductdescription()+"', "+ beanObj.getPrice() +
-			", '"+GlobalBean.getUsersession()+"')";
+			", '"+GlobalBean.getUsersession()+"');";
 			System.out.println(qry);
 			int res = stmtInsert.executeUpdate(qry);
 			
@@ -144,6 +144,7 @@ public class ProductModel {
 			String qry = "UPDATE Product SET productname='"+
 						 beanObject.getProductName() + "', productdescription='"+ beanObject.getProductdescription()+"'"+
 						 ", price="+beanObject.getPrice()+" WHERE productID="+beanObject.getCount()+";";
+			
 			int res = stmtInsert.executeUpdate(qry);
 			if(res==1){
 				valueInserted = true;

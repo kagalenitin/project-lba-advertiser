@@ -12,7 +12,7 @@ import com.LBA.Advertiser.bean.AdMerchantBean;
 import com.LBA.Advertiser.bean.AdvertisementBean;
 import com.LBA.Advertiser.bean.GlobalBean;
 import com.LBA.Advertiser.servlet.UserRegistrationServlet;
-
+import org.apache.commons.lang.StringEscapeUtils;
 
 public class AdvertisementModel {
 	static boolean valueInserted;
@@ -228,7 +228,7 @@ public class AdvertisementModel {
 			System.out.println(sqlStartDate);
 			java.sql.Date sqlEndDate = java.sql.Date.valueOf(sqlAdBean.getAdEndDate());
 			System.out.println(sqlEndDate);
-			String qty = "INSERT INTO Advertisement (adname, addesc, contractID, adstartdate, adenddate) values ('"+ sqlAdBean.getAdName()+"','"+sqlAdBean.getAdDesc() +"', "+sqlAdBean.getContractID() +", '"+sqlStartDate +"', '"+sqlEndDate +"');";
+			String qty = "INSERT INTO Advertisement (adname, addesc, contractID, adstartdate, adenddate) values ('"+ StringEscapeUtils.escapeSql(sqlAdBean.getAdName())+"','"+ StringEscapeUtils.escapeSql(sqlAdBean.getAdDesc()) +"', "+sqlAdBean.getContractID() +", '"+sqlStartDate +"', '"+sqlEndDate +"');";
 			System.out.println(qty);
 			int rs = stmtInsert.executeUpdate(qty);
 			if (rs==1){
@@ -242,10 +242,12 @@ public class AdvertisementModel {
 				//rsRead.close();
 				//stmtView.close();
 				Statement stmt = DBConnect.con.createStatement();
-				int res = stmt.executeUpdate("INSERT INTO AD_Product (adID, productID, adfilelocation, adSize) values("+ adID + ", "+ sqlAdBean.getProductID()+ ", '"+ sqlAdBean.getFileLocation() + "', '"+ sqlAdBean.getFileSize() + "')");
+				int res = stmt.executeUpdate("INSERT INTO AD_Product (adID, productID, adfilelocation, adSize) values("+ adID + ", "+ sqlAdBean.getProductID()+ ", '"+ sqlAdBean.getFileLocation() + "', '"+ sqlAdBean.getFileSize() + "');");
+				System.out.println("INSERT INTO AD_Product (adID, productID, adfilelocation, adSize) values("+ adID + ", "+ sqlAdBean.getProductID()+ ", '"+ sqlAdBean.getFileLocation() + "', '"+ sqlAdBean.getFileSize() + "');");
 				if(res==1){
 					Statement smlstmnt = DBConnect.con.createStatement();
 					int rss = smlstmnt.executeUpdate("INSERT INTO Channel_Ad values ("+ sqlAdBean.getChannelID()+", "+ adID +");");
+					System.out.println("INSERT INTO Channel_Ad values ("+ sqlAdBean.getChannelID()+", "+ adID +");");
 					if(rss==1){
 						valueInserted= true;
 					}else{
@@ -338,7 +340,6 @@ public class AdvertisementModel {
 			System.out.println(qry);
 			int res = stmtInsert.executeUpdate(qry);
 			if(res==1){
-				System.out.println("In here");
 				stmtView = DBConnect.con.createStatement();
 				String qry1 = "SELECT MAX(merchantlocationID) as mercID from MerchantLocation";
 				rsRead = stmtView.executeQuery(qry1);
@@ -347,6 +348,7 @@ public class AdvertisementModel {
 				System.out.println(mercID);
 				Statement stmt = DBConnect.con.createStatement();
 				String newqry = "INSERT INTO Ad_Merchant (merchantlocationID, adID) values ("+ mercID +", "+ adBean.getAdID()+");";
+				System.out.println(newqry);
 				int rs = stmt.executeUpdate(newqry);
 				if(rs==1){
 					valueInserted = true;
