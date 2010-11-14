@@ -1,0 +1,37 @@
+
+<table>
+	<tr>
+		<td>
+			<img src="images/adSpotWeb.gif" />
+		</td>
+		
+	</tr>
+	<tr>
+		<td>
+		<table>
+				<tr>
+				<td class="menuOnContract"></td>
+		        <td class="menuOnContract">
+		        	<p class="navigation-div" style="margin-top: 5px; padding:0px 0px;"><a href="NavigationServlet?page=userhome" style="text-decoration:none; padding-top:10px;">Home</a></p>
+		        </td>
+		        <td class="menuOnContract">
+		        	<p class="navigation-div" style="margin-top: 5px; padding:0px 0px;"><a href="NavigationServlet?page=userhome" style="text-decoration:none;">Contract Manager</a></p>	
+		        </td>
+		        <td class="menuOnContract">
+		        	<p class="navigation-div" style="margin-top: 5px; padding:0px 0px;"><a href="NavigationServlet?page=userhome" style="text-decoration:none;">Ad Manager</a></p>
+		        </td>
+				<td class="menuOnContract">
+		       		<p class="navigation-div" style="margin-top: 5px; padding:0px 0px;"><a href="NavigationServlet?page=userhome" style="text-decoration:none;">Product Manager</a></p>
+		        </td>
+		        <td class="menuOnContract">
+		        	<p class="navigation-div" style="margin-top: 5px; padding:0px 0px;"><a href="NavigationServlet?page=logout" style="text-decoration:none;">Sign out</a></p>
+		        </td>
+		        <td class="menuOnContract"></td>
+			</tr>
+		</table>
+		</td>	
+		        
+	</tr>
+	<tr>
+		<td><div style="background-color: #333333;"><h5 style="font-family: verdana;color: #CCCCCC">You are logged in as, <%= GlobalBean.getFirstname() +" "+ GlobalBean.getLastname()+". " %>Your company is, <%= GlobalBean.getCompanyname() %></h5></div></td>
+	</tr>

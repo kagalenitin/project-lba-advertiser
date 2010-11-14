@@ -1,0 +1,122 @@
+#content {
+  margin : 40px 150px 50px 90px;
+  font-family: "Verdana";
+  font-size: small;
+} 
+/* Login Page tables table and tr */
+#login_table{
+	 cellspacing: 150px;
+	 cellpadding: 0px;
+	 border: 0px;
+}
+
+#login_column{
+	 color: #FFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+	 cellspacing: 150px;
+	 cellpadding: 0px;
+	 text-align: right:
+}
+
+/* font on index page */
+
+#login_font{
+	font-family: "Verdana";
+	color: #000000;
+}
+
+/* View all contract table  */
+#view_contract{
+	cellspacing: 80px;
+	cellpadding: 80px;
+	border: 5px;
+
+}
+
+#viewall_column{
+	 color: #000000;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #CCCCCC;
+}
+
+#viewall_column_heading{
+	 color: #FFFFFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+}
+/* font on new user registration page */
+
+#registration_column{
+	 color: #FFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+	 cellpading: 120px;
+	 text-align: right;
+}
+
+/* font on contract.jsp page */
+
+#contract_column{
+	 color: #FFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+	 cellspacing: 150px;
+	 text-align: right;
+}
+
+/* View all product form */
+#viewall_product{
+	 color: #000000;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #CCCCCC;
+}
+
+#viewall_product_heading{
+	 color: #FFFFFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+}
+
+/*  Edit a product form */
+#edit_product{
+	 color: #FFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+	 cellspacing: 150px;
+	 text-align: right;
+}
+
+
+/* Create ad form */
+#createad_column{
+	 color: #FFF;
+	 font-family: "Verdana";
+	 font-size: small;
+	 background-color: #003366;
+	 cellpading: 120px;
+	 text-align: right;
+}
+
+/* Menu bar for different page */
+.menuOnContract{  
+		width:150px;
+	    height:30px;
+	    float:left;
+	    color:#FFF;
+	    text-align:center;
+	    overflow:hidden;
+	    font-family: "Verdana";
+	    font-size: small;
+	    display: inline;
+	    background:#003366;
+	    
+    }

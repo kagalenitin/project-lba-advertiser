@@ -1,0 +1,105 @@
+body.navigation-body{
+    font-family:"Verdana";
+    background:#F3F3F3; 
+    margin: 50px 140px 10px 180px;
+	position:relative;
+	left:0px;
+}
+
+a{
+    color:#FFF;
+    text-decoration:none;
+}
+
+p.navigation-div{
+	margin-top: 5px;
+    padding:0px 0px;
+}
+
+.subtext{
+		padding-top:10px;
+}
+/* This is to keep the body position fixed, even after the menu is dropping down.*/
+ul.fixedbodyposition{
+	position:absolute;
+	top:75px;
+	z-index:auto;
+	margin:0;
+    padding:0;
+}
+
+/*Menu Color Classes*/
+	.menuProfile{
+		width:150px;
+	    height:30px;
+	    float:left;
+	    color:#FFF;
+	    text-align:center;
+	    overflow:hidden;
+	    font-family: "Verdana";
+	    font-size: small;
+	    display: inline;
+	    background:#003366;
+    }
+	.menuContract{  
+		width:150px;
+	    height:30px;
+	    float:left;
+	    color:#FFF;
+	    text-align:center;
+	    overflow:hidden;
+	    font-family: "Verdana";
+	    font-size: small;
+	    display: inline;
+	    background:#003366;
+	}
+	.menuAd{  
+		width:150px;
+	    height:30px;
+	    float:left;
+	    color:#FFF;
+	    text-align:center;
+	    overflow:hidden;
+	    font-family: "Verdana";
+	    font-size: small;
+	    display: inline;
+	    background:#003366;
+	 }
+	.menuProduct{  
+		width:150px;
+	    height:30px;
+	    float:left;
+	    color:#FFF;
+	    text-align:center;
+	    overflow:hidden;
+	    font-family: "Verdana";
+	    font-size: small;
+	    display: inline;
+	    background:#003366;
+	}
+	.menuLogout{  
+		width:150px;
+	    height:30px;
+	    float:left;
+	    color:#FFF;
+	    text-align:center;
+	    overflow:hidden;
+	    font-family: "Verdana";
+	    font-size: small;
+	    display: inline;
+	    background:#003366;
+    }
+	.submain{  
+		width:150px;
+	    height:30px;
+	    float:left;
+	    color:#FFF;
+	    text-align:center;
+	    overflow:hidden;
+	    font-family: "Verdana";
+	    font-size: small;
+	    display: inline;
+	    background:#003366;
+	}
+	
+	
