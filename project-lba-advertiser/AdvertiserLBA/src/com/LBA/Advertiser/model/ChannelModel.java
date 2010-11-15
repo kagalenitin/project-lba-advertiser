@@ -3,6 +3,7 @@ package com.LBA.Advertiser.model;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Hashtable;
 
 import com.LBA.Advertiser.bean.ChannelBean;
 
@@ -143,4 +144,53 @@ public class ChannelModel {
 		return viewBean1;
 	}
 	// End of addition by Veenit on 09/13/2010
+	
+	public Hashtable<Integer, String> loadCategoryName(){
+		Hashtable<Integer, String> hashCategory = new Hashtable<Integer, String>();
+		ResultSet rsRead = null;
+		try {
+			DBConnect.connectDB();
+			
+			stmtView = DBConnect.con.createStatement();
+			String qry = "Select * from category ORDER BY categoryname;";
+			rsRead = stmtView.executeQuery(qry);
+			while(rsRead.next()){
+				hashCategory.put(rsRead.getInt("categoryID"), rsRead.getString("categoryname")+"\t"+rsRead.getString("descr")+"\t");
+			}
+			
+			stmtView.close();
+			rsRead.close();
+			DBConnect.disconnectDB();
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		return hashCategory;
+	}
+	
+	public int getCategoryCount(){
+		DBConnect.connectDB();
+		
+		int count=0;
+	
+		try {
+			stmtView = DBConnect.con.createStatement();
+			
+			String qryCount = "SELECT COUNT(*) as cnt FROM Category;";
+			rsSet = stmtView.executeQuery(qryCount);
+			rsSet.next();
+			count = rsSet.getInt("cnt");
+			
+			stmtView.close();
+			rsSet.close();
+			DBConnect.disconnectDB();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
 }

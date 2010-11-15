@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/JVM 1.6.0 (MacOS X Default)">
-		<attributes>
-			<attribute name="owner.project.facets" value="jst.java"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v6.0"/>
-	<classpathentry kind="lib" path="/Users/payalpatel/Documents/workspace/AdvertiserLBA/WebContent/WEB-INF/lib/activation.jar"/>
-	<classpathentry kind="lib" path="/Users/payalpatel/Documents/workspace/AdvertiserLBA/WebContent/WEB-INF/lib/commons-fileupload-1.2.2.jar"/>
-	<classpathentry kind="lib" path="/Users/payalpatel/Documents/workspace/AdvertiserLBA/WebContent/WEB-INF/lib/commons-io-1.4.jar"/>
-	<classpathentry kind="lib" path="/Users/payalpatel/Documents/workspace/AdvertiserLBA/WebContent/WEB-INF/lib/commons-lang-2.4.jar"/>
-	<classpathentry kind="lib" path="/Users/payalpatel/Documents/workspace/AdvertiserLBA/WebContent/WEB-INF/lib/imageinfo-1.9.jar"/>
-	<classpathentry kind="lib" path="/Users/payalpatel/Documents/workspace/AdvertiserLBA/WebContent/WEB-INF/lib/iText-5.0.4.jar"/>
-	<classpathentry kind="lib" path="/Users/payalpatel/Documents/workspace/AdvertiserLBA/WebContent/WEB-INF/lib/mail.jar"/>
-	<classpathentry kind="lib" path="/Users/payalpatel/Documents/workspace/AdvertiserLBA/WebContent/WEB-INF/lib/mysql-connector-java-5.1.13-bin.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/activation.jar/activation.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/commons-io-1.4/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/commons-fileupload-1.2.2/lib/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/imageinfo-1.9.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/iText-5.0.4.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/googlemaps.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/mysql-connector-java-5.1.13/mysql-connector-java-5.1.13-bin.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/javamail-1.3/mail.jar"/>
+	<classpathentry kind="lib" path="/Applications/eclipse/plugins/commons-lang-2.4.jar/commons-lang-2.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

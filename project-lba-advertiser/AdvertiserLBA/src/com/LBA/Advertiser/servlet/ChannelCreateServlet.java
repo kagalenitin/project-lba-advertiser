@@ -38,30 +38,33 @@ public class ChannelCreateServlet extends HttpServlet {
 
 		try {
 			String postAction = request.getParameter("page");
-			if (postAction.equals("create_channel")) {
-				// getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request,
-				// response);;
-				channelBean.setChannelname(StringEscapeUtils.escapeSql(request
-						.getParameter("channelname")));
-				channelBean.setChanneldescription(StringEscapeUtils
-						.escapeSql(request.getParameter("channeldescription")));
-				objModel.setChannel(channelBean);
-				// request.setAttribute("registrationDone", objModel);
-				// request.setAttribute("createchannel", "true");
-				// getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request,
-				// response);;
-				if (objModel.getChannel()) {
-					// request.setAttribute("registrationDone", objModel);
-					request.setAttribute("createchannel", objModel);
-					getServletContext().getRequestDispatcher(
-							"/createchannel.jsp").forward(request, response);
-				} else {
-					getServletContext().getRequestDispatcher(
-							"/createchannel.jsp?crtfail=false").forward(
-							request, response);
-				}
+    		
+			if(postAction.equals("create_channel")){
+	           	//getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
+	   			channelBean.setChannelname(StringEscapeUtils.escapeSql(request.getParameter("channelname")));
+	   			channelBean.setChanneldescription(StringEscapeUtils.escapeSql(request.getParameter("channeldescription")));
+	   			channelBean.setCategoryID(request.getParameter("catname"));
+	   			objModel.setChannel(channelBean);	
+	   			System.out.println("Before call");
+	   			boolean result = objModel.getChannel();
+	   			System.out.println(result+" is res");
+	   			if(result){
+	   				System.out.println("values inserted");
+	   				request.setAttribute("createchannel", objModel);
+	   				try{
+	   					request.setAttribute("success", "true");
+	   					getServletContext().getRequestDispatcher("/channelcreated.jsp").forward(request, response);
+	   				}
+	   				catch(Exception ex){
+	   					ex.printStackTrace();
+	   				}
+	   				
+	   			}else{
+	   				getServletContext().getRequestDispatcher("/channelcreated.jsp?crtfail=false").forward(request, response);
+	   			}
+   			}
 
-			}
+			
 		} catch (Exception ex) {
 			getServletContext().getRequestDispatcher("/errorhandle.jsp")
 					.forward(request, response);
