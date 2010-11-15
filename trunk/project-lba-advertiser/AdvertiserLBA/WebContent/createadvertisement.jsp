@@ -18,16 +18,21 @@
 	<link rel="stylesheet" href="css/generalpurpose.css" type="text/css" />
 	<link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="css/jquery.lightbox-0.5.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="css/jquery.alerts.css" type="text/css" media="screen" />
 	<!-- Fancy zoom for the sample images. http://www.cabel.name/2008/02/fancyzoom-10.html -->
-
-	<script src="FancyZoom 1.1/js-global/FancyZoom.js" type="text/javascript"></script>
+	
+	
+	<!-- <script src="FancyZoom 1.1/js-global/FancyZoom.js" type="text/javascript"></script>
 	<script src="FancyZoom 1.1/js-global/FancyZoomHTML.js" type="text/javascript"></script>
- 
+  -->
 	<!-- Now here we will be putting script files for DatePicker -->
  	<script type="text/javascript" src="development-bundle/jquery-1.4.2.js"> </script> 
 	<script type="text/javascript" src="development-bundle/ui/jquery.ui.core.js"></script>
 	<script type="text/javascript" src="development-bundle/ui/jquery.ui.widget.js"></script>
 	<script type="text/javascript" src="development-bundle/ui/jquery.ui.datepicker.js"></script>
+	
+	<script type="text/javascript" src="javascripts/jquery.alerts.js"></script>
+	
 	<script type="text/javascript">
 		var $cad = jQuery.noConflict();
 		$cad(function(){
@@ -49,7 +54,7 @@
 			function customRange(input){
 				//alert($('#contractname: selected').val());
 				if(($cad('#contractstartdate').val()=="") || ($cad('#contractenddate').val()=="")){
-						alert('Select contract name before you can pick a date.');
+						jAlert('Select contract name before you can pick a date.', "Date Alert !");
 						$cad("input#adstartdate").datepicker("disabled", true);
 				}
 				else{
@@ -74,10 +79,11 @@
 			function customEndRange(input){
 				//alert($('#contractname: selected').val());
 				if(($cad('#contractstartdate').val()=="") || ($cad('#contractenddate').val()=="")){
-						alert('Select contract name before you can pick a date.');
+						jAlert("Select contract name before you can pick a date.", "Date Alert !");
+								
 						$cad("input#adenddate").datepicker("disabled", true);
 				}else if($cad('#adstartdate').val()==""){
-						alert('Select ad start date before you can pick an end date.');
+						jAlert('Select ad start date before you can pick an end date.', 'Date Alert !');
 						$cad("input#adenddate").datepicker("disabled", true);
 				}else{
 					

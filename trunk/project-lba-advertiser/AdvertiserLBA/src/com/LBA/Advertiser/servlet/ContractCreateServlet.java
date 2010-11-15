@@ -100,8 +100,8 @@ public class ContractCreateServlet extends HttpServlet {
 						.getParameter("contractdate"));
 				contractBean.setStartdate(request.getParameter("startdate"));
 				contractBean.setDuration(request.getParameter("duration"));
-				contractBean
-						.setPaymenttype(request.getParameter("paymenttype"));
+				contractBean.setEnddate(request.getParameter("enddate"));
+				contractBean.setPaymenttype(request.getParameter("paymenttype"));
 				contractBean.setContractID(request.getParameter("contractID"));
 
 				Document document = new Document();
