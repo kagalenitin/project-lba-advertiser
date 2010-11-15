@@ -8,18 +8,18 @@ import javax.servlet.ServletException;
 
 public class DBConnect {
 	public static Connection con = null;
-	public static void connectDB(){
+
+	public static void connectDB() {
 		try {
-				String username = "root";
-				String password = "";
-				String url = "jdbc:mysql://localhost/Locatead";
-				Class.forName("com.mysql.jdbc.Driver").newInstance();
-				con = DriverManager.getConnection(url, username, password);
+			String username = "root";
+			String password = "";
+			String url = "jdbc:mysql://localhost/Locatead";
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			con = DriverManager.getConnection(url, username, password);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
-			 try {
-				throw new 
-				  ServletException("JDBC Driver not found.", e);
+			try {
+				throw new ServletException("JDBC Driver not found.", e);
 			} catch (ServletException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -37,18 +37,16 @@ public class DBConnect {
 		}
 	}
 
-	
-	public static void disconnectDB(){
-		 if (con !=null){
+	public static void disconnectDB() {
+		if (con != null) {
 			try {
 				con.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				//e.printStackTrace();
+				// e.printStackTrace();
 				System.out.println("DB not able to close");
 			}
 		}
 	}
-	
 
 }
