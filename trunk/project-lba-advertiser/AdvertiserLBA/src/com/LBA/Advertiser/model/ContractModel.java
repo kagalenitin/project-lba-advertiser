@@ -86,8 +86,7 @@ public class ContractModel {
 			// java.util.Date endDateObject = sdformat.parse(enddate);
 			// java.sql.Date sqlEndDate =
 			// java.sql.Date.valueOf(sdformat.format(endDateObject));
-			java.sql.Date sqlEndDate = java.sql.Date.valueOf(conBeanObject
-					.getEnddate());
+			java.sql.Date sqlEndDate = java.sql.Date.valueOf(enddate);
 			// java.sql.Date sqlStartDate = java.sql.Date.valueOf(startDate);
 
 			// Contract date convert into sql date format.
