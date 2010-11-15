@@ -105,24 +105,7 @@ public class ContractCreateServlet extends HttpServlet {
 				contractBean.setContractID(request.getParameter("contractID"));
 
 				Document document = new Document();
-				// String path = request.getContextPath();
-				// //String basePath =
-				// request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-				// //System.out.println(basePath);
-				// String prjDir ="";
-				// System.out.println(path+" is the path");
-				// //prjDir = request.getRealPath("/images/pdf");
-				// File flDir = new File(path+"/images/pdf");
-				// System.out.println(flDir);
-				// if(!flDir.exists()){
-				// if(flDir.mkdir()){
-				// System.out.println("Dir created!");
-				// }
-				//
-				// }
-				// System.out.println(flDir+"/" +
-				// contractBean.getContractID()+contractBean.getContractname()+".pdf");
-				//
+
 				String strDirectoy = request.getSession().getServletContext()
 						.getRealPath("/files/");
 				boolean success = (new File(strDirectoy)).mkdir();
@@ -188,7 +171,7 @@ public class ContractCreateServlet extends HttpServlet {
 					Paragraph para7 = new Paragraph(
 							"\nContract Signed on:______________________ "
 									+ "\n");
-					// document.add(image);
+					document.add(image);
 					document.add(para);
 					document.add(para1);
 					document.add(para3);
