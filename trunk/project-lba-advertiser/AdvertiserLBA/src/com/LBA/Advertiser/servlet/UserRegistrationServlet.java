@@ -61,22 +61,43 @@ public class UserRegistrationServlet extends HttpServlet {
 		try {
 			response.setContentType("text/html");
 			String postAction = request.getParameter("page");
-			if (postAction.equals("post_login")) {
-				// Call login fn. in servlet
-				userLoginInServlet(request, response);
-			} else if (postAction.equals("post_register")) {
-				// Call registration fn. in servlet.
-				userRegistrationInServlet(request, response);
-			} else if (postAction.equals("post_editdetails")) {
-				// Edit user details.
-				editRegistrationInServlet(request, response);
-			} else if (postAction.equals("post_forgot")) {
-				// Post forgot password event.
-				forgotPasswordInServlet(request, response);
+			if (postAction == null) {
+				postAction = (String) request.getSession().getAttribute("page");
+				if (postAction.equals("post_login")) {
+					getServletContext().getRequestDispatcher("/home.jsp")
+							.forward(request, response);
+				} else if (postAction.equals("post_register")) {
+					getServletContext().getRequestDispatcher("/registration.jsp").forward(
+							request, response);
+				} else if (postAction.equals("post_editdetails")) {
+					getServletContext().getRequestDispatcher("/editUserDetails.jsp")
+					.forward(request, response);
+				} else if (postAction.equals("post_forgot")) {
+				}
+			} else {
+				if (postAction.equals("post_login")) {
+					// Call login fn. in servlet
+					request.getSession().setAttribute("page", "post_login");
+					userLoginInServlet(request, response);
+				} else if (postAction.equals("post_register")) {
+					// Call registration fn. in servlet.
+					request.getSession().setAttribute("page", "post_register");
+					userRegistrationInServlet(request, response);
+				} else if (postAction.equals("post_editdetails")) {
+					// Edit user details.
+					request.getSession().setAttribute("page",
+							"post_editdetails");
+					editRegistrationInServlet(request, response);
+				} else if (postAction.equals("post_forgot")) {
+					// Post forgot password event.
+					request.getSession().setAttribute("page", "post_forgot");
+					forgotPasswordInServlet(request, response);
+				}
 			}
 		} catch (Exception ex) {
+			ex.printStackTrace();
 			getServletContext().getRequestDispatcher("/errorhandle.jsp")
-					.forward(request, response);
+			 .forward(request, response);
 		}
 
 	}
