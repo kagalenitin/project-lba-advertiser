@@ -60,5 +60,6 @@
 </center>
 <input type="hidden" name="page" id="page"/>
 </form>
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

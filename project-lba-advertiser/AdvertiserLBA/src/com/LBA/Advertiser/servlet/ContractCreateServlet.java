@@ -57,38 +57,35 @@ public class ContractCreateServlet extends HttpServlet {
 		 */
 		try {
 			if (postAction.equals("contract")) {
-				getServletContext().getRequestDispatcher("/contract.jsp")
-						.forward(request, response);
-				;
-
+				getServletContext().getRequestDispatcher("/contract.jsp").forward(request, response);
+				
 			} else if (postAction.equals("post_contract")) {
-				contractBean.setSpace(request.getParameter("space"));
-				contractBean.setContractname(StringEscapeUtils
-						.escapeSql(request.getParameter("contractname")));
-				contractBean.setContractcreatedby(StringEscapeUtils
-						.escapeSql(request.getParameter("contractcreatedby")));
-				contractBean.setContractdate(request
-						.getParameter("contractdate"));
-				contractBean.setStartdate(request.getParameter("startdate"));
-				contractBean.setDuration(request.getParameter("duration"));
-				contractBean
-						.setPaymenttype(request.getParameter("paymenttype"));
-				objModel.setContract(contractBean);
+				try{
+					contractBean.setSpace(request.getParameter("space"));
+					contractBean.setContractname(StringEscapeUtils.escapeSql(request.getParameter("contractname")));
+					contractBean.setContractcreatedby(StringEscapeUtils.escapeSql(request.getParameter("contractcreatedby")));
+					contractBean.setContractdate(request.getParameter("contractdate"));
+					contractBean.setStartdate(request.getParameter("startdate"));
+					contractBean.setDuration(request.getParameter("duration"));
+					contractBean.setPaymenttype(request.getParameter("paymenttype"));
+					objModel.setContract(contractBean);
 
-				if (objModel.getContract()) {
-					request.setAttribute("registrationDone", objModel);
-					getServletContext().getRequestDispatcher(
-							"/viewcurrentcontract.jsp").forward(request,
-							response);
-					;
-				} else {
-					String msg = "Contract not created.";
-					System.out.println(msg);
-					request.setAttribute("notdone", msg);
-					response.sendRedirect("NavigationServlet?page=contract&contractCreate=false");
+					if (objModel.getContract()) {
+						request.setAttribute("registrationDone", objModel);
+						getServletContext().getRequestDispatcher("/viewcurrentcontract.jsp").forward(request,response);
+					} else {
+						String msg = "Contract not created.";
+						System.out.println(msg);
+						request.setAttribute("notdone", msg);
+						response.sendRedirect("NavigationServlet?page=contract&contractCreate=false");
+					}
+
+	
+				}catch(Exception ex){
+					ex.printStackTrace();
 				}
-
 			} else if (postAction.equals("postcreatepdf")) {
+			
 				System.out.println(request.getParameter("contractID"));
 				// objContract.GeneratePDF();
 				ContractBean contractBean = new ContractBean();
@@ -110,8 +107,7 @@ public class ContractCreateServlet extends HttpServlet {
 						.getRealPath("/files/");
 				boolean success = (new File(strDirectoy)).mkdir();
 				if (success) {
-					System.out
-							.println("Directory: " + strDirectoy + " created");
+					System.out.println("Directory: " + strDirectoy + " created");
 				}
 				File dir = new File(strDirectoy);
 				String filename = contractBean.getContractID()
@@ -193,14 +189,12 @@ public class ContractCreateServlet extends HttpServlet {
 
 				String msg = "PDF Created";
 				request.setAttribute("print", objContract);
-				getServletContext().getRequestDispatcher("/pdf.jsp").forward(
-						request, response);
+				getServletContext().getRequestDispatcher("/pdf.jsp").forward(request, response);
 			}
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			getServletContext().getRequestDispatcher("/errorhandle.jsp")
-					.forward(request, response);
+			getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
 		}
 
 	}

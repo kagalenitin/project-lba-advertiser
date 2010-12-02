@@ -47,9 +47,7 @@ public class ChannelCreateServlet extends HttpServlet {
 	   			objModel.setChannel(channelBean);	
 	   			System.out.println("Before call");
 	   			boolean result = objModel.getChannel();
-	   			System.out.println(result+" is res");
 	   			if(result){
-	   				System.out.println("values inserted");
 	   				request.setAttribute("createchannel", objModel);
 	   				try{
 	   					request.setAttribute("success", "true");
@@ -66,8 +64,7 @@ public class ChannelCreateServlet extends HttpServlet {
 
 			
 		} catch (Exception ex) {
-			getServletContext().getRequestDispatcher("/errorhandle.jsp")
-					.forward(request, response);
+			getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
 		}
 
 	}

@@ -202,5 +202,6 @@ span{
         <input type="hidden" name="page" value="post_contract" />
         
 </form>
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

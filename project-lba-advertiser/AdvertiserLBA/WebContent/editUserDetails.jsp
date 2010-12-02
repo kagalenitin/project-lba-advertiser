@@ -134,6 +134,6 @@
 
 <input type="hidden" name="page" value="post_editdetails" />
 </form>
-
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

@@ -67,5 +67,6 @@
 	<input type="hidden" name="page" value="postcreatepdf" />	
 
 </form>
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

@@ -41,9 +41,10 @@
 
 </head>
 <body bgcolor="#F3F3F3">
+<center>
 <form id="loginform" method="post" action="UserRegistrationServlet">
 <br /><br /><br /><br /><br /><br />
-<center>
+
 			<table width="80%"  bgcolor="#003366">
 				<tr>
 					<td align="left"><img src="images/adSpotWeb.gif" height="72" width="175" /></td>
@@ -84,9 +85,11 @@
 				
 			</table>
 			
-</center>	
+	
 <input type="hidden" name="page" value="post_login" />
 </form>
-
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<%@ include file="./footer.jsp" %>
+</center>
 </body>
 </html>
