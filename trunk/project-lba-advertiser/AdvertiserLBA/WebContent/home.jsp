@@ -21,7 +21,8 @@
 </head>
 <body>
 <%@ include file="./navigationbar.jsp" %>
-	
-	
+
+
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

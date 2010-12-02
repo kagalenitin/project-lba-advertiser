@@ -144,5 +144,6 @@
 	</center>
 	<input type="hidden" name="page" value="create_channel" />
 	</form>
+	<%@ include file="./footer.jsp" %>
 </body>
 </html>
