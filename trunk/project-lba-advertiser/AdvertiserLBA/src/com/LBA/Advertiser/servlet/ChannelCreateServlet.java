@@ -41,11 +41,11 @@ public class ChannelCreateServlet extends HttpServlet {
     		
 			if(postAction.equals("create_channel")){
 	           	//getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
-	   			channelBean.setChannelname(StringEscapeUtils.escapeSql(request.getParameter("channelname")));
+				channelBean.setChannelname(StringEscapeUtils.escapeSql(request.getParameter("channelname")));
 	   			channelBean.setChanneldescription(StringEscapeUtils.escapeSql(request.getParameter("channeldescription")));
 	   			channelBean.setCategoryID(request.getParameter("catname"));
 	   			objModel.setChannel(channelBean);	
-	   			System.out.println("Before call");
+	   			
 	   			boolean result = objModel.getChannel();
 	   			if(result){
 	   				request.setAttribute("createchannel", objModel);

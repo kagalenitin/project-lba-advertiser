@@ -11,6 +11,8 @@
 </head>
 <body>
 <%@ include file="/adminnavigationbar.jsp" %>
-	
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

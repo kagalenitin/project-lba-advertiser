@@ -203,40 +203,7 @@
 	<center>
 		<h3 id="login_font">Create Ad Details</h3>	
 		<table cellpadding="3">
-			<tr>
-				<td id="createad_column"><label>Load Ad</label></td>
-				<td><input type="file" name="adfile" id="adfile" /></td>
-			</tr>
-				
-			<tr>
-				<td id="createad_column"><label>Ad Catalogue</label></td>
-				<td>
-				<table>
-					<tr>
-						<!-- <td><a href="images/adSpotWeb.gif" title="AdSpot Logo"><img src="images/adSpotWeb.gif" height="50" width="50" /></a></td>
-						<td><a href="images/jcpenny.jpg" title="JCPenny Logo"><img src="images/jcpenny.jpg" height="50" width="50" /></a></td> -->
-						<td colspan="2">
-							<div id="gallery">
-								<a href="images/adSpotWeb.gif" rel="lightbox[roadtrip]" title="AdSpot. Example 1, size 170 * 72"><img src="images/adSpotWeb.gif" width="72" height="72" /></a>
-								<a href="images/nikeads.jpeg" rel="lightbox[roadtrip]" title="Nikeads. Example 2, size 150 * 240"><img src="images/nikeads.jpeg" width="72" height="72" /></a>
-								<a href="images/samsung1.jpg" rel="lightbox[roadtrip]" title="Samsung Mobiles. Example 3, size 200 * 250"><img src="images/samsung.jpg" width="72" height="72" /></a>
-							</div>
-						</td>
-						
-					</tr>
-				</table>
-				</td>
-			</tr>
-			
-			<tr>
-				<td id="createad_column"><label>Ad Name</label></td>
-				<td><input type="text" name="adname" id="adname" /></td>
-			</tr>
-			<tr>
-				<td id="createad_column"><label>Ad Description</label></td>
-				<td><textarea name="addesc" id="addesc" rows="10" cols="30"></textarea></td>
-			</tr>
-			<tr>
+		<tr>
 				<td id="createad_column"><label>Product Name</label></td>
 				<td>
 				<% Hashtable<Integer, String> hashProduct = objAdModel.onLoadAddProduct(); %>
@@ -332,8 +299,41 @@
 				<td id="createad_column"><label>Product Price (in $)</label></td>
 				<td><input type="text" name="productprice" readonly="readonly" id="productprice" value="0.00" style="background-color: #CCCCCC; color: #003366; font-weight: bold" /></td>
 			</tr>
+		
+			<tr>
+				<td id="createad_column"><label>Load Ad</label></td>
+				<td><input type="file" name="adfile" id="adfile" /></td>
+			</tr>
+				
+			<tr>
+				<td id="createad_column"><label>Ad Catalogue</label></td>
+				<td>
+				<table>
+					<tr>
+						<!-- <td><a href="images/adSpotWeb.gif" title="AdSpot Logo"><img src="images/adSpotWeb.gif" height="50" width="50" /></a></td>
+						<td><a href="images/jcpenny.jpg" title="JCPenny Logo"><img src="images/jcpenny.jpg" height="50" width="50" /></a></td> -->
+						<td colspan="2">
+							<div id="gallery">
+								<a href="images/adSpotWeb.gif" rel="lightbox[roadtrip]" title="AdSpot. Example 1, size 170 * 72"><img src="images/adSpotWeb.gif" width="72" height="72" /></a>
+								<a href="images/nikeads.jpeg" rel="lightbox[roadtrip]" title="Nikeads. Example 2, size 150 * 240"><img src="images/nikeads.jpeg" width="72" height="72" /></a>
+								<a href="images/samsung1.jpg" rel="lightbox[roadtrip]" title="Samsung Mobiles. Example 3, size 200 * 250"><img src="images/samsung.jpg" width="72" height="72" /></a>
+							</div>
+						</td>
+						
+					</tr>
+				</table>
+				</td>
+			</tr>
 			
 			<tr>
+				<td id="createad_column"><label>Ad Name</label></td>
+				<td><input type="text" name="adname" id="adname" /></td>
+			</tr>
+			<tr>
+				<td id="createad_column"><label>Ad Description</label></td>
+				<td><textarea name="addesc" id="addesc" rows="10" cols="30"></textarea></td>
+			</tr>
+						<tr>
 				<td id="createad_column"><label>Contract Name</label></td>
 				<td>
 				<% Hashtable<Integer, String> arrContract = objAdModel.loadContractName(); %>

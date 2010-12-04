@@ -361,9 +361,8 @@ public class AdvertisementServlet extends HttpServlet {
 					return false;
 				}
 				// System.out.println(ii.getHeight()+"  width"+ ii.getWidth());
-				// if(((ii.getWidth()>=350) && (ii.getWidth()<=400)) &&
-				// ((ii.getHeight()>=400) && (ii.getHeight()<=500))){
-				if ((ii.getWidth() > 50) && (ii.getHeight() > 50)) {
+				 if(((ii.getWidth()>=350) && (ii.getWidth()<=400)) &&
+				 ((ii.getHeight()>=400) && (ii.getHeight()<=500))){
 					flag = true;
 				} else {
 					flag = false;

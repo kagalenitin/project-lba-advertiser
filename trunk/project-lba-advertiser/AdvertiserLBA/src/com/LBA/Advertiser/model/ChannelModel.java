@@ -16,8 +16,7 @@ public class ChannelModel {
 
 	public void setChannel(ChannelBean chBeanObject) {
 		/*
-		 * This method will insert the new contract details in the Contract
-		 * tableConnects to DB.
+		 * This method will insert the new channel details based on category.
 		 */
 		DBConnect.connectDB();
 		try {
@@ -28,9 +27,21 @@ public class ChannelModel {
 					+ chBeanObject.getChanneldescription() + "');";
 			System.out.println(qry);
 			int res = stmtInsert.executeUpdate(qry);
-
+			
 			if (res == 1) {
-				valueInserted = true;
+				//Select the ChannelID from Channel table;
+				int channelID = getChannelID();
+				stmtView = DBConnect.con.createStatement();
+				String qry1 = "INSERT INTO Cat_Channel (categoryID, channelID) values("
+					+ chBeanObject.getCategoryID() +","+channelID+");";
+				int rs = stmtView.executeUpdate(qry1);
+				if(rs==1){
+					System.out.println(qry1);
+					valueInserted = true;
+				}else{
+					valueInserted = false;
+				}
+				
 			} else {
 				valueInserted = false;
 			}
@@ -43,6 +54,26 @@ public class ChannelModel {
 
 	}
 
+	public int getChannelID(){
+		DBConnect.connectDB();
+		int chID =0;
+		try {
+			Statement stmt = DBConnect.con.createStatement();
+			String qr = "SELECT MAX(channelID) as chID from Channel;";
+			ResultSet rs = stmt.executeQuery(qr);
+			rs.next();
+			chID = rs.getInt("chID");
+			
+			stmt.close();
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return chID;
+	}
 	public boolean getChannel() {
 		/*
 		 * To check whether the user registration was successful. This value
@@ -152,7 +183,7 @@ public class ChannelModel {
 			DBConnect.connectDB();
 			
 			stmtView = DBConnect.con.createStatement();
-			String qry = "Select * from category ORDER BY categoryname;";
+			String qry = "Select * from category ORDER BY categoryID;";
 			rsRead = stmtView.executeQuery(qry);
 			while(rsRead.next()){
 				hashCategory.put(rsRead.getInt("categoryID"), rsRead.getString("categoryname")+"\t"+rsRead.getString("descr")+"\t");
