@@ -97,8 +97,7 @@ public class AdvertisementServlet extends HttpServlet {
 		try {
 			if (!isMultipart) {
 				// System.out.println("File Not Uploaded");
-				getServletContext().getRequestDispatcher("/errorhandle.jsp")
-						.forward(request, response);
+				getServletContext().getRequestDispatcher("/errorhandle.jsp").forward(request, response);
 			} else {
 
 				FileItemFactory factory = new DiskFileItemFactory();
@@ -157,17 +156,16 @@ public class AdvertisementServlet extends HttpServlet {
 				}
 
 				// Save the image file in the images folder of the application.
+				//System.out.println(buffer.toString() + String.valueOf(adIDCount) + arrAdDetails.get(2) + domainName);
 				finalImage = buffer.toString() + String.valueOf(adIDCount)
-						+ arrAdDetails.get(2) + domainName;
+						+ arrAdDetails.get(0) + domainName;
 				// Remember to change the location
 				// String destinationDir =
 				// "/Users/nitinkagale/Documents/workspace/AdvertiserLBA/WebContent/images/userUploadedImages/";
-				String strDirectoy = request.getSession().getServletContext()
-						.getRealPath("/images/");
+				String strDirectoy = request.getSession().getServletContext().getRealPath("/images/");
 				boolean success = (new File(strDirectoy)).mkdir();
 				if (success) {
-					System.out
-							.println("Directory:  created");
+					System.out.println("Directory:  created");
 				}
 				File dir = new File(strDirectoy);
 
@@ -217,10 +215,12 @@ public class AdvertisementServlet extends HttpServlet {
 				if ((validFileSizeFlag == true) && (validFileTypeFlag == true)
 						&& ((find == true) || (retValue == true))) {
 					// Insert everything in the arrAdDetails.
-
-					objAdBean.setAdName(arrAdDetails.get(0));
-					objAdBean.setAdDesc(arrAdDetails.get(1));
-					objAdBean.setProductID(arrAdDetails.get(2));
+					/*for(int i=0; i<arrAdDetails.size(); i++){
+						 System.out.println("i: "+i +" "+arrAdDetails.get(i)); 
+					}*/
+					objAdBean.setAdName(arrAdDetails.get(3));
+					objAdBean.setAdDesc(arrAdDetails.get(4));
+					objAdBean.setProductID(arrAdDetails.get(0));
 					objAdBean.setContractID(arrAdDetails.get(5));
 					objAdBean.setAdStartDate(arrAdDetails.get(11));
 					objAdBean.setAdEndDate(arrAdDetails.get(12));
@@ -231,11 +231,10 @@ public class AdvertisementServlet extends HttpServlet {
 					objAdBean.setFileSize(fileSize);
 					System.out.println(arrAdDetails.size() + " is the size.");
 					arrAdDetails.clear();
-
+					//--here
 					objAdModel.addAdvertisement(objAdBean);
 					request.setAttribute("adcreated", objAdModel);
-					getServletContext().getRequestDispatcher("/resultofad.jsp")
-							.forward(request, response);
+					getServletContext().getRequestDispatcher("/resultofad.jsp").forward(request, response);
 				} else {
 					// Traverse the item and delete the file which is been
 					// created at the location.

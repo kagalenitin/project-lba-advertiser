@@ -262,8 +262,7 @@ public class AdvertisementModel {
 				// rsRead.close();
 				// stmtView.close();
 				Statement stmt = DBConnect.con.createStatement();
-				int res = stmt
-						.executeUpdate("INSERT INTO AD_Product (adID, productID, adfilelocation, adSize) values("
+				int res = stmt.executeUpdate("INSERT INTO AD_Product (adID, productID, adfilelocation, adSize) values("
 								+ adID
 								+ ", "
 								+ sqlAdBean.getProductID()
@@ -271,8 +270,7 @@ public class AdvertisementModel {
 								+ sqlAdBean.getFileLocation()
 								+ "', '"
 								+ sqlAdBean.getFileSize() + "');");
-				System.out
-						.println("INSERT INTO AD_Product (adID, productID, adfilelocation, adSize) values("
+				System.out.println("INSERT INTO AD_Product (adID, productID, adfilelocation, adSize) values("
 								+ adID
 								+ ", "
 								+ sqlAdBean.getProductID()
@@ -450,6 +448,7 @@ public class AdvertisementModel {
 				// "SELECT adname,addesc,adstartdate,adenddate,adsize,p.productid,productname,productdescription,price from advertisement a,ad_product c,product p where a.adID=c.adID and c.productID= p.productID";
 				String qry = "SELECT adname,addesc,adstartdate,adenddate,adsize,p.productid,productname,productdescription,price from advertisement a,ad_product c,product p where a.adID=c.adID and c.productID= p.productID and p.username='"
 						+ GlobalBean.getUsersession() + "'";
+				
 				rsRead = stmtView.executeQuery(qry);
 				// System.out.println(rsRead);
 				while (rsRead.next()) {
@@ -518,10 +517,10 @@ public class AdvertisementModel {
 
 		try {
 			stmtView = DBConnect.con.createStatement();
-
 			// String qryCount = "SELECT COUNT(*) as cnt FROM advertisement";
 			String qryCount = "select count(ad.adID) as cnt from advertisement ad, ad_product ap, product p where ad.adID = ap.adID and ap.productID=p.productID and p.username='"
 					+ GlobalBean.getUsersession() + "'";
+			
 			rsSet = stmtView.executeQuery(qryCount);
 			rsSet.next();
 			count = rsSet.getInt("cnt");
