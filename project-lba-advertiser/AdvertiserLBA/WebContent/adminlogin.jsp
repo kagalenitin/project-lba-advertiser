@@ -86,6 +86,7 @@
 </center>	
 <input type="hidden" name="page" value="admin_post_login" />
 </form>
-
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<%@ include file="./footer.jsp" %>
 </body>
 </html>
