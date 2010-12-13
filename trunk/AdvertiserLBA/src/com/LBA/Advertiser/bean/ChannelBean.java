@@ -5,7 +5,7 @@ public class ChannelBean{
 	
 	public String channelname;
 	public String channeldescription;
-	public String image;
+	public String categoryID;
 	public String channelid;
 	
 	public String getChannelid() {
@@ -26,11 +26,11 @@ public class ChannelBean{
 	public void setChanneldescription(String channeldescription) {
 		this.channeldescription = channeldescription;
 	}
-	public String getImage() {
-		return image;
+	public String getCategoryID() {
+		return categoryID;
 	}
-	public void setImage(String image) {
-		this.image = image;
+	public void setCategoryID(String categoryID) {
+		this.categoryID = categoryID;
 	}
 	
 }

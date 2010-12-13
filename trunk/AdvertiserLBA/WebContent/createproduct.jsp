@@ -85,5 +85,6 @@
 </center>
 <input type="hidden" name="page" value="post_product" />
 </form>
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

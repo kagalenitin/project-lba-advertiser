@@ -32,7 +32,7 @@
 	
 	    	    //When mouse rolls over for CONTRACT
 	    	    $anim("li.menuContract").mouseover(function(){
-	    	        $anim(this).stop().animate({height:'150px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	        $anim(this).stop().animate({height:'110px'},{queue:false, duration:600, easing: 'easeOutBounce'})
 	    	    });
 	
 	    	    //When mouse is removed for CONTRACT
@@ -42,7 +42,7 @@
 	
 	    	    //When mouse rolls over for Ad
 	    	    $anim("li.menuAd").mouseover(function(){
-	    	        $anim(this).stop().animate({height:'200px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	        $anim(this).stop().animate({height:'170px'},{queue:false, duration:600, easing: 'easeOutBounce'})
 	    	    });
 	
 	    	    //When mouse is removed for Ad
@@ -52,7 +52,7 @@
 	    	    
 	    	    //When mouse rolls over for Product
 	    	    $anim("li.menuProduct").mouseover(function(){
-	    	        $anim(this).stop().animate({height:'120px'},{queue:false, duration:600, easing: 'easeOutBounce'})
+	    	        $anim(this).stop().animate({height:'110px'},{queue:false, duration:600, easing: 'easeOutBounce'})
 	    	    });
 	
 	    	    //When mouse is removed for Product
@@ -81,14 +81,13 @@
 	            <p class="navigation-div">Contract Manager</p>
 	            <p class="subtext"><a href="NavigationServlet?page=contract">Create Contract</a></p>
 	            <p class="subtext"><a href="NavigationServlet?page=viewcontract">Contract Catalogue</a></p>
-	            <p class="subtext"><a href="NavigationServlet?page=viewcontract">Print Contract</a></p>
 	        </li>
 	        <li class="menuAd" id="menuAd">
 	            <p class="navigation-div">Ad Manager</p>
 	            <p class="subtext"><a href="NavigationServlet?page=createad">Create Advertisement</a></p>
 	            <p class="subtext"><a href="NavigationServlet?page=viewcatalog">Advertisement Catalogue</a></p>
 	            <p class="subtext"><a href="NavigationServlet?page=admerchant">Set Merchant Location</a></p>
-	            <p class="subtext">View Advertisements</p>
+	            
 	        </li>
 	        <li class="menuProduct" id="menuProduct">
 	            <p class="navigation-div">Product Manager</p>

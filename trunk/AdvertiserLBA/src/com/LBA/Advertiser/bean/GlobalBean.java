@@ -5,7 +5,7 @@ public class GlobalBean {
 	public static String firstname;
 	public static String lastname;
 	public static String companyname;
-	
+
 	/**
 	 * @return the firstname
 	 */
@@ -14,7 +14,8 @@ public class GlobalBean {
 	}
 
 	/**
-	 * @param firstname the firstname to set
+	 * @param firstname
+	 *            the firstname to set
 	 */
 	public static void setFirstname(String firstname) {
 		GlobalBean.firstname = firstname;
@@ -28,7 +29,8 @@ public class GlobalBean {
 	}
 
 	/**
-	 * @param lastname the lastname to set
+	 * @param lastname
+	 *            the lastname to set
 	 */
 	public static void setLastname(String lastname) {
 		GlobalBean.lastname = lastname;
@@ -42,7 +44,8 @@ public class GlobalBean {
 	}
 
 	/**
-	 * @param companyname the companyname to set
+	 * @param companyname
+	 *            the companyname to set
 	 */
 	public static void setCompanyname(String companyname) {
 		GlobalBean.companyname = companyname;
@@ -56,10 +59,11 @@ public class GlobalBean {
 	}
 
 	/**
-	 * @param usersession the usersession to set
+	 * @param usersession
+	 *            the usersession to set
 	 */
 	public static void setUsersession(String usersession) {
 		GlobalBean.usersession = usersession;
 	}
-	
+
 }

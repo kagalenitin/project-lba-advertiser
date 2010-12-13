@@ -28,31 +28,36 @@
 	</tr>
 	<tr>
 		<td id="contract_column">Contract Id:</td>
-		<td><input type="text" name="contractID" id="contractID" value="<%= viewBean1.getContractID() %>" /></td>
+		<td><input type="text" name="contractID" id="contractID" value="<%= viewBean1.getContractID() %>" readonly="readonly"/></td>
 	</tr>
 	<tr>
 		<td id="contract_column">Contract Name:</td>
-		<td><input type="text" name="contractname" id="contractname" value="<%= viewBean1.getContractname() %>"/></td>
+		<td><input type="text" name="contractname" id="contractname" value="<%= viewBean1.getContractname() %>" readonly="readonly"/></td>
 	</tr>
 	<tr>
 		<td id="contract_column">Space:</td>
-		<td><input type="text" name="space" id="space" value="<%= viewBean1.getSpace() %>"/></td>
+		<td><input type="text" name="space" id="space" value="<%= viewBean1.getSpace() %>" readonly="readonly"/></td>
 	</tr>
 	<tr>
 		<td id="contract_column">Contract Created By:</td>
-		<td><input type="text" name="createdby" id="createdby" value="<%= viewBean1.getContractcreatedby() %>"/></td>
+		<td><input type="text" name="createdby" id="createdby" value="<%= viewBean1.getContractcreatedby() %>" readonly="readonly"/></td>
 	</tr>
 	<tr>
 		<td id="contract_column">Description:</td>
-		<td><textarea name="description" id="description" rows="5" cols="20">Contract is valid only for the term specified</textarea></td>
+		<td><textarea name="description" id="description" rows="5" cols="20" readonly="readonly">Contract is valid only for the term specified</textarea></td>
 	</tr>
 	<tr>
 		<td id="contract_column">StartDate:</td>
-		<td><input type="text" name="startdate" id="startdate" value="<%= viewBean1.getStartdate() %>"/></td>
+		<td><input type="text" name="startdate" id="startdate" value="<%= viewBean1.getStartdate() %>" readonly="readonly"/></td>
 	</tr>
 	<tr>
 		<td id="contract_column">EndDate:</td>
-		<td><input type="text" name="enddate" id="enddate" value="<%= viewBean1.getEnddate() %>"/></td>
+		<td><input type="text" name="enddate" id="enddate" value="<%= viewBean1.getEnddate() %>" readonly="readonly"/></td>
+	</tr>
+	<tr>
+		<td id="contract_column">Payment Type </td>
+		<td><input type="text" name="paymenttype" id="paymenttype" value="<%= viewBean1.getPaymenttype() %>" readonly="readonly"/></td>
+					
 	</tr>
 	<tr>
 		<td><button id="createpdf" type="submit" class="ui-state-default ui-corner-all" class="submit">Create PDF!</button></td>
@@ -62,5 +67,6 @@
 	<input type="hidden" name="page" value="postcreatepdf" />	
 
 </form>
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

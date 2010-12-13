@@ -7,10 +7,14 @@
 <head>
       <link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />  
 	<link rel="stylesheet" href="css/generalpurpose.css" type="text/css" media="screen" /> 
+	<link rel="stylesheet" href="css/jquery.alerts.css" type="text/css" media="screen" /> 
+	
+	
 	<script type="text/javascript" src="development-bundle/jquery-1.4.2.js"> </script> 
  	<script type="text/javascript" src="development-bundle/ui/jquery.ui.core.js"></script>
 	<script type="text/javascript" src="development-bundle/ui/jquery.ui.widget.js"></script>
 	<script type="text/javascript" src="development-bundle/ui/jquery.ui.datepicker.js"></script>
+	<script type="text/javascript" src="javascripts/jquery.alerts.js"></script>
 	<script type="text/javascript">
 		//$(document).ready(function() {
 			var $j = jQuery.noConflict();
@@ -19,10 +23,26 @@
 					dateFormat: "yy-mm-dd",
 					minDate: '0'
 				});
+
+				
 			
 				$j("#startdate").datepicker({
-					dateFormat: "yy-mm-dd"
+					dateFormat: "yy-mm-dd",
+					beforeShow: customRange
 				});
+
+				function customRange(input){
+					if($j('#contractdate').val()==""){
+						jAlert("Please select the contract start date", "Date Alert !");
+						$j("input#startdate").datepicker("disabled", true);
+					}else{
+						var dateMin = $j("#contractdate").datepicker("getDate");
+						return{
+						 minDate: dateMin
+						};
+					}
+					
+				}
 				
 			});
 
@@ -40,6 +60,9 @@
 				$vld.validator.addMethod("duration", function(value, element) {
 		              return this.optional(element) || (value.indexOf("selectduration") == -1);
 		         	}, "Please select duration of contract");
+	         	$vld.validator.addMethod("paymenttype", function(value, element) {
+		              return this.optional(element) || (value.indexOf("selectpaymenttype") == -1);
+	         	}, "Please select a payment type");
 			$vld('#contractForm').validate({
 				//set the rules for the field names
 					rules: {
@@ -56,6 +79,9 @@
 						},
 						duration:{
 							duration: true
+						},
+						paymenttype:{
+							paymenttype: true
 						}
 						
 					},
@@ -153,7 +179,7 @@ span{
 				<td id="contract_column">Payment Type </td>
 				<td>
 					<select name="paymenttype" id="paymenttype">
-						<option value="selectpayment">Select Payment type</option>
+						<option value="selectpaymenttype">Select Payment type</option>
 						<option value="By Click">By Click</option>
 						<option value="By Search">By Search</option>
 					</select>
@@ -176,5 +202,6 @@ span{
         <input type="hidden" name="page" value="post_contract" />
         
 </form>
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

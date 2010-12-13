@@ -89,5 +89,6 @@
 	</center>
 		<input type="hidden" name="page" value="post_forgot" />
 </form>
+<%@ include file="./footer.jsp" %>
 </body>
 </html>
