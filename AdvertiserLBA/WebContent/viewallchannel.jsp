@@ -104,6 +104,7 @@
         
 	</script>
 </center>
+<%@ include file="./footer.jsp" %>
 </form>
 </body>
 </html>

@@ -34,9 +34,7 @@
 	</tr>
 	</table>
 		<center><a href="createchannel.jsp"/>Back to Channel Page</a></center>
-	
-
-
-</form>
+	</form>
+	<%@ include file="./footer.jsp" %>
 </body>
 </html>

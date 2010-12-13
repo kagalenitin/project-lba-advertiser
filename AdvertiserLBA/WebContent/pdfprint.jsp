@@ -9,10 +9,11 @@
 <body>
 <%@ include file="/navigationbar.jsp" %>
 <% 
-   String filename = request.getParameter("contractid")+ request.getParameter("contractname");
+   String filename = request.getParameter("contractid")+""+request.getParameter("contractname");
 %>
 <img src="/images/adSpotWeb.gif"></img>
 <center><b>Click on the link below</b></center>
-<center> <a href="/AdvertiserLBA/images/<%=filename%>.pdf" style="color: #000000">Print Contract</a></center>
+<center> <a href="/AdvertiserLBA/files/<%=filename%>.pdf" style="color: #000000">Print Contract</a></center>
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

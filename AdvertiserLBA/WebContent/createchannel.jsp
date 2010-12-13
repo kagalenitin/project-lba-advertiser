@@ -1,5 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="com.LBA.Advertiser.model.ChannelModel, java.util.*" %>
+<%@page import="com.LBA.Advertiser.bean.GlobalBean" %>
+
+<%
+	ChannelModel objCategory = (ChannelModel) request.getAttribute("channelCategory");
+	String[] catName= null; int catCount=0; int jsCount=0;
+	 
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -49,14 +57,77 @@
 <br /><br /><br />
 <form name="channelform" id="channelform" method="post" action="ChannelCreateServlet">
 <center>
-				<% if(request.getAttribute("createchannel")!=null){ %>
-						<h3 id="login_font">Channel created successfully.</h3>
-				<% }else if(request.getParameter("crtfail")!=null) {%>
-						<h3 id="login_font">Channel was not created.</h3>
-				<%} %>	
+			
    				<h3 id="login_font">Create Channel</h3>
    
      <table cellpadding="3">
+     			<tr>
+					<td id="edit_product">Category Name </td>
+					<td>
+						<% Hashtable<Integer, String> hashCategory = objCategory.loadCategoryName(); %>
+	  					<% catCount = objCategory.getCategoryCount(); %>
+				  		<% if(catCount==0){ %>
+				  			<input type="text" name="catname" id="catname" value="No Category" readonly="readonly" />
+				  		<%}else { %>
+	  						<select id="catname" name="catname">
+					  			<option value="selectcategory">Select Category</option>
+					  				<% Enumeration<Integer> enumKey = hashCategory.keys();
+										Integer[] key = new Integer[catCount];
+										int count=0;
+										while(enumKey.hasMoreElements()){
+											key[count] = enumKey.nextElement();
+											count++;jsCount++;
+										}
+									%>
+					<% 
+						catName = new String[count];
+						for(int i=0; i<count; i++){ 
+
+							//This part will separate the product name from the rest of the details.
+							StringTokenizer st = new StringTokenizer(hashCategory.get(key[i]), "\t");
+							catName[i] = st.nextToken();
+						%>
+							<option value="<%= key[i] %>"><%= catName[i] %></option>
+	  					<%} %>
+	  		<%}%> 
+	  			</select>
+	<!--   				<script type="text/javascript">
+	  						var $obj = jQuery.noConflict();
+	  						$obj(function(){
+	  							$obj('#catname').change(function(){
+	  								if($obj('#catname :selected').text() == "Select Category"){
+	  									//alert($obj('#catname :selected').text());
+										$obj('#descr').val("");
+	  								}else{
+	  									var myCat = new Array();
+	  									var cat = ;
+	  									var splitCat = cat.split("\t");
+										
+	  									for(cnt=0; cnt < splitCat.length - 1; cnt++){
+	  										myCat[cnt] = splitCat[cnt];
+	  									}
+
+	  									myCat[0]= myCat[0].replace("{", "");
+	  									for(cntView = 0; cntView < myCat.length; cntView+=2){
+
+	  										if(myCat[cntView].match($obj('#catname :selected').val())){
+		  										var desc = myCat[cntView+1];
+	  											
+	  										}else{
+		  										//Value not found
+		  										$obj('#descr').val("");
+	  										}
+	  										$obj('#descr').val(desc);
+	  									}
+	  								}
+	  							});
+	  						});
+
+	  				</script>		
+	  	 -->		
+					</td>
+				</tr>
+				
 				<tr>
 					<td id="edit_product">Channel Name </td>
 					<td><input type="text" name="channelname" id="channelname"/></td>
@@ -73,5 +144,6 @@
 	</center>
 	<input type="hidden" name="page" value="create_channel" />
 	</form>
+	<%@ include file="./footer.jsp" %>
 </body>
 </html>

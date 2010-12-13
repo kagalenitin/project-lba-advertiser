@@ -104,6 +104,6 @@
 		<input type="hidden" name="page" id="page"/>
 	</form>
 </center>
-
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

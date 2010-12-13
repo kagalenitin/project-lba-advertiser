@@ -111,6 +111,6 @@
 	
 	 $('table#menuTable').tablePagination(options);
 </script>
-
+<%@ include file="./footer.jsp" %>
 </body>
 </html>

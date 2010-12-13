@@ -99,7 +99,8 @@ public class NavigationServlet extends HttpServlet {
 	    	}else if(postAction.equals("editcontract")){
 	    		getServletContext().getRequestDispatcher("/viewContract.jsp").forward(request, response);;
 	    	}else if(postAction.equals("createchannel")){
-	    		getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);;
+	    		request.setAttribute("channelCategory", objChannel);
+	    		getServletContext().getRequestDispatcher("/createchannel.jsp").forward(request, response);
 	    	}
 	    	else if(postAction.equals("viewchannel")){
 	    		request.setAttribute("viewchannel", objChannel);
