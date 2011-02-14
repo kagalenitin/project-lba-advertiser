@@ -47,9 +47,13 @@
 			});
 
 	</script>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script> 
+	<!-- <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script> 
 	<script type="text/javascript" src="http://dev.jquery.com/view/trunk/plugins/validate/jquery.validate.js"></script>
+		-->
 		
+	<script src="javascripts/jquery.js" type="text/javascript"></script>
+	<script src="javascripts/jquery.validate.js" type="text/javascript"></script>
+	
 	<script type="text/javascript">
 	 	var $vld = jQuery.noConflict();
 		$vld(function() {
