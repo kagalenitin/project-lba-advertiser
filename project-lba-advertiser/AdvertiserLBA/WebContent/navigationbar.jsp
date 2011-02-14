@@ -12,8 +12,9 @@
 <head>
 	<link rel="stylesheet" href="css/animated-menu.css" type="text/css" media="screen" />
 	<link rel="SHORTCUT ICON" href="images/adSpotWeb.gif"/>
-	<script src="development-bundle/jquery-1.4.2.js" type="text/javascript"></script> 
-    <!-- <script src="javascripts/animated-menu.js" type="text/javascript"></script> -->
+	<!--<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script> 
+    <script src="javascripts/animated-menu.js" type="text/javascript"></script> -->
+    <script src="javascripts/jquery.js" type="text/javascript"></script>
     <script src="javascripts/jquery.easing.1.3.js" type="text/javascript"></script>
     <script type="text/javascript">
 	   // $(document).ready(function(){

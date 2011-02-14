@@ -8,34 +8,6 @@
 <link rel="stylesheet" href="css/indexLogin.css" type="text/css"/>
 <link rel="SHORTCUT ICON" href="images/adSpotWeb.gif"/>
 <link rel="stylesheet" href="development-bundle/themes/base/jquery.ui.all.css" type="text/css" media="screen" />
-<script src="javascripts/jquery-1.4.2.min.js" type="text/javascript" language="javascript"></script>
-<script type="text/javascript">
-	//$(function() {
-		//Changed the name of the #lgin from #login
-		// $('#lgin').click(function(){
-			// $(".login-form").hide();
-			 //$(".errormsg").hide();	 
-			 //$.post("UserRegistrationServlet?page=post_login",{ uname:$('#username').val(),pword:$('#password').val()} ,
-	
-				// function(data){
-	
-				  //     alert(data);
-				       // alert($('.result').html(data).val());
-					//   if(data == 'hello2'){
-						//	$(".login-form").fadeIn("slow");
-							//$(".login-form").text("Login Failed");	
-						  //  $(".errormsg").fadeIn("slow");
-						//	$(".login-form").fadeIn("slow").delay(1000).fadeOut(1000);
-						//	return false;
-					//	} else {
-					//		alert("passed!");
-					//		return true;
-				//		}
-				// }//end func
-			// );		
-		// });
-	//});
-</script>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Advertiser Login Page, LBA</title>
 
