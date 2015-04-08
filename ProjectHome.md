@@ -1,0 +1,1 @@
+A Masters project based on Client -Server model. The Client is an Android Based Mobile User that will access the data on the Web Based Server (provider) using JSP and Servlets and MVC architecture.
